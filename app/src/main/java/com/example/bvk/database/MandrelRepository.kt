@@ -1,0 +1,28 @@
+package com.example.bvk.database
+
+import androidx.annotation.WorkerThread
+import com.example.bvk.model.Mandrel
+import kotlinx.coroutines.flow.Flow
+
+class MandrelRepository (private val mandrelDao: MandrelDao)  {
+
+    val allPets: Flow<List<Mandrel>> = mandrelDao.getAlphabetizedWords()
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun insert(mandrel : Mandrel) {
+        mandrelDao.insert(mandrel)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun delete(id: Int) {
+        mandrelDao.deleteById(id)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun update(mandrel : Mandrel) {
+        mandrelDao.update(mandrel)
+    }
+}
