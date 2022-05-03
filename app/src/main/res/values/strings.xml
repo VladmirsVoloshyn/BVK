@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">BVK</string>
+    <string name="add_new_item">add new item</string>
+    <string name="search_new_sample">search new sample</string>
+    <string name="all_items">all items</string>
+    <string name="mandrel_image">mandrel image</string>
+    <string name="mandrel_name">mandrel name</string>
+    <string name="mandrel">mandrel</string>
+    <string name="press_if_edit_item">press if edit item</string>
+    <string name="press_if_delete_item">press if delete item</string>
 </resources>

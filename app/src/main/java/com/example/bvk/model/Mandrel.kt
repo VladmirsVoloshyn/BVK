@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "table_mandrel")
 data class Mandrel(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") val id: Int,
-    @ColumnInfo(name = "vertexDiameter")  val vertexDiameter: Double,
-    @ColumnInfo(name = "baseDiameter")val baseDiameter: Double,
-    @ColumnInfo(name = "height")val height: Double,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") val id: Int = 0,
+    @ColumnInfo(name = "vertexDiameter")  val vertexDiameter: Double = 0.0,
+    @ColumnInfo(name = "baseDiameter")val baseDiameter: Double = 0.0,
+    @ColumnInfo(name = "height")val height: Int = 0,
 ) {
 }
