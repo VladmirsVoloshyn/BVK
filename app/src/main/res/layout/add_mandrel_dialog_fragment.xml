@@ -17,7 +17,7 @@
         android:gravity="center_horizontal" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutName"
+        android:id="@+id/textInputLayoutVertex"
         android:layout_marginTop="16dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -30,25 +30,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="set mandrel vertex diameter"
-            android:inputType="text" />
+            android:inputType="text|numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutAge"
+        android:id="@+id/textInputLayoutBase"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutName">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutVertex">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/mandrel_base_diameter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="set mandrel base diamrter"
-            android:inputType="number" />
+            android:hint="set mandrel base diameter"
+            android:inputType="numberSigned|number|numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -58,14 +58,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutAge">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutBase">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/mandrel_height"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="set mandrel height"
-            android:inputType="text" />
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

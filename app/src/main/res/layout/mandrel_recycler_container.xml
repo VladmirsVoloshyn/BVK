@@ -6,7 +6,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/pet_avatar"
+        android:id="@+id/mandrel_avatar"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/ic_baseline_sample_recycler_image"
@@ -16,40 +16,40 @@
         android:contentDescription="@string/mandrel_image" />
 
     <TextView
-        android:id="@+id/pet_name"
+        android:id="@+id/mandrel_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="@string/mandrel_name"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/pet_avatar"
+        app:layout_constraintStart_toEndOf="@id/mandrel_avatar"
         />
 
     <TextView
-        android:id="@+id/pet_age"
+        android:id="@+id/mandrel_base_diameter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="@string/mandrel"
-        app:layout_constraintTop_toBottomOf="@id/pet_name"
-        app:layout_constraintStart_toEndOf="@id/pet_avatar"/>
+        app:layout_constraintTop_toBottomOf="@id/mandrel_name"
+        app:layout_constraintStart_toEndOf="@id/mandrel_avatar"/>
 
     <TextView
-        android:id="@+id/pet_gender"
+        android:id="@+id/mandrel_vertex_diameter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="@string/mandrel"
-        app:layout_constraintTop_toBottomOf="@id/pet_age"
-        app:layout_constraintStart_toEndOf="@id/pet_avatar"/>
+        app:layout_constraintTop_toBottomOf="@id/mandrel_base_diameter"
+        app:layout_constraintStart_toEndOf="@id/mandrel_avatar"/>
     <TextView
-        android:id="@+id/pet_type"
+        android:id="@+id/mandrel_height"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="@string/mandrel"
-        app:layout_constraintTop_toBottomOf="@id/pet_gender"
-        app:layout_constraintStart_toEndOf="@id/pet_avatar"/>
+        app:layout_constraintTop_toBottomOf="@id/mandrel_vertex_diameter"
+        app:layout_constraintStart_toEndOf="@id/mandrel_avatar"/>
 
     <ImageButton
         android:id="@+id/delete_button"

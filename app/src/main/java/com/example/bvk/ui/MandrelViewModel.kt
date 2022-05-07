@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() {
 
-    val mandrel: LiveData<List<Mandrel>> = repository.allMandrels.asLiveData()
+    val mandrelsList: LiveData<List<Mandrel>> = repository.allMandrels.asLiveData()
 
     //room impl
     fun insert(mandrel: Mandrel) = viewModelScope.launch {
@@ -18,7 +18,7 @@ class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() 
     }
 
     fun delete(id: Int) = viewModelScope.launch {
-        mandrel.value?.get(id)?.let { repository.delete(it.id) }
+        mandrelsList.value?.get(id)?.let { repository.delete(it.id) }
     }
 
     fun update(mandrel: Mandrel) = viewModelScope.launch {
