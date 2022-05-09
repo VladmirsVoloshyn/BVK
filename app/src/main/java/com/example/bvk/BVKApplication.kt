@@ -1,6 +1,7 @@
 package com.example.bvk
 
 import android.app.Application
+import androidx.room.Room
 import com.example.bvk.database.MandrelRepository
 import com.example.bvk.database.MandrelRoomDataBase
 import kotlinx.coroutines.CoroutineScope
@@ -13,6 +14,7 @@ class BVKApplication : Application() {
     private val dataBase by lazy {
         MandrelRoomDataBase.getDataBase(this, applicationScope)
     }
+
     val repository by lazy {
         MandrelRepository(dataBase.mandrelDao())
     }

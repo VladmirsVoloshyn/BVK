@@ -5,8 +5,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bvk.R
 import com.example.bvk.model.Mandrel
@@ -14,7 +16,8 @@ import com.example.bvk.model.Mandrel
 class MandrelAdapter(
     private var mandrelsList: List<Mandrel>,
     context: Context,
-    private val listener: OnPetListButtonClickListener? = null
+    private val listener: OnPetListButtonClickListener? = null,
+    var isSampleCreate : Boolean = false
 ) : RecyclerView.Adapter<MandrelAdapter.MandrelListViewHolder>() {
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MandrelListViewHolder {
@@ -33,6 +36,9 @@ class MandrelAdapter(
         holder.mandrelVertexDiameter?.text = "vertex diameter = " + mandrelsList[position].vertexDiameter
         holder.mandrelBaseDiameter?.text = "base diameter = " + mandrelsList[position].baseDiameter
         holder.mandrelHeight?.text = "height = " + mandrelsList[position].height
+        holder.adhesiveSleeveWeight?.text = "adhesive sleeve weight = " + mandrelsList[position].adhesiveSleeveWeight
+        holder.membraneWeight?.text = "membrane weight = " + mandrelsList[position].membraneWight
+        holder.tapperTextView?.text = "tapper = " + mandrelsList[position].tapper
     }
     override fun getItemCount(): Int = mandrelsList.count()
     inner class MandrelListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -42,6 +48,11 @@ class MandrelAdapter(
         var mandrelHeight: TextView? = null
         var deleteButton: ImageButton? = null
         var editButton: ImageButton? = null
+        var sampleDataContainer : ConstraintLayout? = null
+        var tapperTextView : TextView? = null
+        var membraneWeight : TextView? = null
+        var adhesiveSleeveWeight : TextView? = null
+
         init {
             mandrelName = view.findViewById(R.id.mandrel_name)
             mandrelVertexDiameter = view.findViewById(R.id.cap_vertex_diameter)
@@ -49,6 +60,16 @@ class MandrelAdapter(
             mandrelHeight = view.findViewById(R.id.mandrel_height)
             deleteButton = view.findViewById(R.id.delete_button)
             editButton = view.findViewById(R.id.edit_button)
+            sampleDataContainer = view.findViewById(R.id.mandrelSampleDataLayout)
+            tapperTextView = view.findViewById(R.id.tapperTextView)
+            membraneWeight = view.findViewById(R.id.membraneWightTextView)
+            adhesiveSleeveWeight = view.findViewById(R.id.adhesiveSleeveWeightTextView)
+
+            if (isSampleCreate) {
+                sampleDataContainer!!.visibility = ConstraintLayout.VISIBLE
+                deleteButton!!.visibility = Button.INVISIBLE
+                editButton!!.visibility = Button.INVISIBLE
+            }
 
             deleteButton?.setOnClickListener {
                 listener?.onDeleteClick(adapterPosition)

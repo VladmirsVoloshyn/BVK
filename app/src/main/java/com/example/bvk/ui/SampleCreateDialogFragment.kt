@@ -33,26 +33,25 @@ class SampleCreateDialogFragment(
         binding.buttonCreate.setOnClickListener {
 
             if (!binding.capVertexDiameter.shouldShowError(
-                    "Please, set vertex diameter",
+                    "Please, set cap vertex diameter",
                     binding.textInputLayoutCapVertex
                 ) && !binding.mandrelCapHeight.shouldShowError(
-                    "Please, set a base diameter",
+                    "Please, set a cap height",
                     binding.textInputLayoutCapHeight
                 )
             ) {
 
                 onSampleCreatedListener?.onSampleCreate(
                     SampleCapParameters(
-                        binding.capVertexDiameter.text.toString().toDouble(),
+                        binding.capVertexDiameter.text.toString().toInt(),
                         binding.mandrelCapHeight.text.toString().toInt()
                     )
                 )
                 dialog?.dismiss()
             }
-
-            binding.buttonSkip.setOnClickListener {
-                dialog?.dismiss()
-            }
+        }
+        binding.buttonSkip.setOnClickListener {
+            dialog?.dismiss()
         }
     }
 

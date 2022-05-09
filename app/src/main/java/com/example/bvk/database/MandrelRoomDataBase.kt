@@ -9,7 +9,7 @@ import com.example.bvk.model.Mandrel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Mandrel::class], version = 1, exportSchema = false)
+@Database(entities = [Mandrel::class], version = 2, exportSchema = true)
 abstract class MandrelRoomDataBase : RoomDatabase() {
 
         abstract fun mandrelDao(): MandrelDao

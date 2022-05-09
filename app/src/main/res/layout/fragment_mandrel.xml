@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F6F6F6">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mandrels_list"
@@ -15,6 +16,7 @@
         android:layout_marginBottom="77dp"
         android:contentDescription="@string/all_items"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -42,9 +44,9 @@
         android:id="@+id/search_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="14dp"
+        android:clickable="true"
         android:contentDescription="@string/search_new_sample"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,27 +57,27 @@
         android:id="@+id/textViewLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Mandrels List"
-        android:textSize="30sp"
-        android:layout_marginEnd="13dp"
         android:layout_marginStart="14dp"
         android:layout_marginTop="3dp"
+        android:layout_marginEnd="13dp"
+        android:text="Mandrels List"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/mandrels_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewSample"
-        android:layout_width="0dp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/clearSampleButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="34dp"
-        android:text="sampledata"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="14dp"
+        android:clickable="true"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/add_fab"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mandrels_list"
-        app:layout_constraintVertical_bias="0.333" />
+
+        app:srcCompat="@drawable/ic_baseline_sample_recycler_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
