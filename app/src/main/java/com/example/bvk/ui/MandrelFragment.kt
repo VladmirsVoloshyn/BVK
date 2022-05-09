@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bvk.BVKApplication
 import com.example.bvk.databinding.FragmentMandrelBinding
 import com.example.bvk.model.Mandrel
+import com.example.bvk.model.sample.SampleCapParameters
 
-class MandrelFragment : Fragment(), AddFragment.OnAddOrEditMandrelListener,
-    MandrelAdapter.OnPetListButtonClickListener {
+class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelListener,
+    MandrelAdapter.OnPetListButtonClickListener, SampleCreateDialogFragment.OnSampleCreatedListener {
 
     private var _binding: FragmentMandrelBinding? = null
     private val binding get() = _binding!!
@@ -46,8 +47,13 @@ class MandrelFragment : Fragment(), AddFragment.OnAddOrEditMandrelListener,
         }
 
         binding.addFab.setOnClickListener {
-            val addFragment = AddFragment(CALL_KEY_NEW, Mandrel(), this)
+            val addFragment = AddMandrelDialogFragment(CALL_KEY_NEW, Mandrel(), this)
             addFragment.show(activity?.supportFragmentManager!!, ADD_FRAGMENT_TAG)
+        }
+
+        binding.searchFab.setOnClickListener {
+            val sampleCreateDialogFragment = SampleCreateDialogFragment(this)
+            sampleCreateDialogFragment.show(activity?.supportFragmentManager!!, SAMPLE_CREATE_FRAGMENT_TAG)
         }
     }
 
@@ -64,13 +70,20 @@ class MandrelFragment : Fragment(), AddFragment.OnAddOrEditMandrelListener,
     }
 
     override fun onEditClick(mandrel: Mandrel) {
-        val addFragment = AddFragment(CALL_KEY_EDIT, mandrel, this)
+        val addFragment = AddMandrelDialogFragment(CALL_KEY_EDIT, mandrel, this)
         addFragment.show(activity?.supportFragmentManager!!, ADD_FRAGMENT_TAG)
+    }
+
+    override fun onSampleCreate(sampleCapParam: SampleCapParameters) {
+        binding.textViewSample.text = sampleCapParam.capVertexDiameter.toString() + " " + sampleCapParam.capHeight
     }
 
     companion object {
         const val CALL_KEY_NEW = "new"
         const val CALL_KEY_EDIT = "edit"
         const val ADD_FRAGMENT_TAG = "add"
+        const val SAMPLE_CREATE_FRAGMENT_TAG = "sample"
     }
+
+
 }

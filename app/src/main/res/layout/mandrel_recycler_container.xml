@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="#ECECEC">
 
     <ImageView
         android:id="@+id/mandrel_avatar"
@@ -35,7 +36,7 @@
         app:layout_constraintStart_toEndOf="@id/mandrel_avatar"/>
 
     <TextView
-        android:id="@+id/mandrel_vertex_diameter"
+        android:id="@+id/cap_vertex_diameter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -48,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="@string/mandrel"
-        app:layout_constraintTop_toBottomOf="@id/mandrel_vertex_diameter"
+        app:layout_constraintTop_toBottomOf="@id/cap_vertex_diameter"
         app:layout_constraintStart_toEndOf="@id/mandrel_avatar"/>
 
     <ImageButton

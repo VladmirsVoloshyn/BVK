@@ -12,7 +12,7 @@ import com.example.bvk.databinding.AddMandrelDialogFragmentBinding
 import com.example.bvk.model.Mandrel
 import com.example.bvk.shouldShowError
 
-class AddFragment(
+class AddMandrelDialogFragment(
     private val callKey: String,
     val mandrel: Mandrel,
     var iListener: OnAddOrEditMandrelListener
@@ -41,9 +41,10 @@ class AddFragment(
         listener = iListener
     }
     override fun onDestroyView() {
-        super.onDestroyView()
         mBinding = null
         listener = null
+        super.onDestroyView()
+
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

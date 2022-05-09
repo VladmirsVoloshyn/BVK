@@ -44,7 +44,7 @@ class MandrelAdapter(
         var editButton: ImageButton? = null
         init {
             mandrelName = view.findViewById(R.id.mandrel_name)
-            mandrelVertexDiameter = view.findViewById(R.id.mandrel_vertex_diameter)
+            mandrelVertexDiameter = view.findViewById(R.id.cap_vertex_diameter)
             mandrelBaseDiameter = view.findViewById(R.id.mandrel_base_diameter)
             mandrelHeight = view.findViewById(R.id.mandrel_height)
             deleteButton = view.findViewById(R.id.delete_button)
