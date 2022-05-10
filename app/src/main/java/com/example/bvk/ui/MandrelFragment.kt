@@ -17,14 +17,13 @@ import com.example.bvk.model.sample.SampleCapParameters
 class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelListener,
     MandrelAdapter.OnPetListButtonClickListener,
     SampleCreateDialogFragment.OnSampleCreatedListener {
-
+    
     private var _binding: FragmentMandrelBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: MandrelViewModel by viewModels {
         MandrelViewModelFactory((activity?.application as BVKApplication).repository)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,22 +36,13 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-       //viewModel.insert(Mandrel(vertexDiameter = 29.65, baseDiameter = 32.9, height = 75))
-       //viewModel.insert(Mandrel(vertexDiameter = 29.55, baseDiameter = 33.16, height = 75))
-       //viewModel.insert(Mandrel(vertexDiameter = 29.88, baseDiameter = 33.81, height = 75))
-       //viewModel.insert(Mandrel(vertexDiameter = 29.55, baseDiameter = 32.79, height = 75))
-       //viewModel.insert(Mandrel(vertexDiameter = 31.55, baseDiameter = 32.79, height = 75))
-       //viewModel.insert(Mandrel(vertexDiameter = 65.55, baseDiameter = 32.79, height = 75))
-       //viewModel.insert(Mandrel(vertexDiameter = 22.0, baseDiameter = 32.79, height = 75))
-
         inflateList()
 
+        binding.textViewLabel.text = "Mandrels list"
         binding.addFab.setOnClickListener {
             val addFragment = AddMandrelDialogFragment(CALL_KEY_NEW, Mandrel(), this)
             addFragment.show(activity?.supportFragmentManager!!, ADD_FRAGMENT_TAG)
         }
-
         binding.searchFab.setOnClickListener {
             val sampleCreateDialogFragment = SampleCreateDialogFragment(this)
             sampleCreateDialogFragment.show(
@@ -60,7 +50,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 SAMPLE_CREATE_FRAGMENT_TAG
             )
         }
-
         binding.clearSampleButton.setOnClickListener {
             viewModel.isSampleCreated = false
             inflateList()
@@ -97,7 +86,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
             binding.mandrelsList.adapter = mandrelAdapter
             binding.mandrelsList.layoutManager =
                 LinearLayoutManager(requireActivity().applicationContext)
-
         }
     }
 
@@ -114,6 +102,11 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         const val CALL_KEY_EDIT = "edit"
         const val ADD_FRAGMENT_TAG = "add"
         const val SAMPLE_CREATE_FRAGMENT_TAG = "sample"
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 
 

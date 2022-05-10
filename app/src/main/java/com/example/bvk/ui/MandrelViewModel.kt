@@ -3,7 +3,7 @@ package com.example.bvk.ui
 import androidx.lifecycle.*
 import com.example.bvk.database.MandrelRepository
 import com.example.bvk.model.Mandrel
-import com.example.bvk.model.MandrelProcessor
+import com.example.bvk.model.sample.SampleCreator
 import kotlinx.coroutines.launch
 
 class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() {
@@ -15,20 +15,8 @@ class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() 
     var isSampleCreated = false
 
     fun createSample(vertexDiameter: Int, heightSoughtFor: Int) {
-        val mandrelsList = ArrayList<Mandrel>()
-        for (mandrel in mandrelsRoomList.value as ArrayList<Mandrel>) {
-            if (mandrel.vertexDiameter.toInt() == vertexDiameter) {
-                mandrelsList.add(
-                    MandrelProcessor.setDataForMandrel(
-                        mandrel,
-                        heightSoughtFor
-                    )
-                )
-            }
-        }
-        mandrelsSampleList.value = mandrelsList
+        mandrelsSampleList.value = SampleCreator.crate(mandrelsRoomList.value as ArrayList<Mandrel>, vertexDiameter, heightSoughtFor)
         isSampleCreated = true
-        getData()
     }
 
     fun getData(): LiveData<List<Mandrel>> {
@@ -37,7 +25,6 @@ class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() 
         }
         return mandrelsRoomList
     }
-
 
     //room impl
     fun insert(mandrel: Mandrel) = viewModelScope.launch {

@@ -69,6 +69,10 @@ class MandrelAdapter(
                 sampleDataContainer!!.visibility = ConstraintLayout.VISIBLE
                 deleteButton!!.visibility = Button.INVISIBLE
                 editButton!!.visibility = Button.INVISIBLE
+            }else {
+                sampleDataContainer!!.visibility = ConstraintLayout.GONE
+                deleteButton!!.visibility = Button.VISIBLE
+                editButton!!.visibility = Button.VISIBLE
             }
 
             deleteButton?.setOnClickListener {

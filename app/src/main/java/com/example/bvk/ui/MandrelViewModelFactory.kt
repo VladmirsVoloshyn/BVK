@@ -7,7 +7,6 @@ import java.lang.IllegalArgumentException
 
 class MandrelViewModelFactory(private val repository: MandrelRepository) :
     ViewModelProvider.Factory {
-
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MandrelViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
@@ -15,5 +14,4 @@ class MandrelViewModelFactory(private val repository: MandrelRepository) :
         }
         throw IllegalArgumentException("Unknown class")
     }
-
 }
