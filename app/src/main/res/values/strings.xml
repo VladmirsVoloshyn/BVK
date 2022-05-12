@@ -17,8 +17,8 @@
     //mandrels list adapter
     <string name="name_prefix">name :</string>
     <string name="name_separator">x</string>
-    <string name="vertex_prefix">vertex =</string>
-    <string name="base_prefix">base =</string>
+    <string name="vertex_prefix">vertex diameter =</string>
+    <string name="base_prefix">base diameter =</string>
     <string name="height_prefix">height =</string>
     <string name="tapper_prefix">tapper =</string>
     <string name="membrane_weight_prefix">membrane weight =</string>
