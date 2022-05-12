@@ -60,7 +60,7 @@
         android:layout_marginStart="14dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="13dp"
-        android:text="Mandrels List"
+        android:text="@string/mandrel_list_label"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/mandrels_list"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,9 +75,10 @@
         android:layout_marginBottom="14dp"
         android:clickable="true"
         android:visibility="invisible"
+        android:contentDescription="@string/click_to_clear_sample"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/add_fab"
-
-        app:srcCompat="@drawable/ic_baseline_sample_recycler_image" />
+        app:srcCompat="@drawable/ic_baseline_sample_recycler_image"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

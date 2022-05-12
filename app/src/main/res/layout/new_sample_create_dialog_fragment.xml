@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="create new sample"
+        android:text="@string/sample_dialog_create_new_sample_label"
         android:gravity="center_horizontal" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -29,7 +29,7 @@
             android:id="@+id/cap_vertex_diameter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="set cap vertex diameter"
+            android:hint="@string/sample_dialog_set_cap_vertex_diameter_hint"
             android:inputType="text|numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -47,7 +47,7 @@
             android:id="@+id/mandrel_cap_height"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="set cap height"
+            android:hint="@string/sample_dialog_set_cap_height_hint"
             android:inputType="numberSigned|number|numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,7 +55,7 @@
         android:id="@+id/button_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="create"
+        android:text="@string/create_button_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCapHeight" />
 
@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="skip"
+        android:text="@string/skip_button_label"
         app:layout_constraintEnd_toStartOf="@+id/button_create"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCapHeight" />
 </androidx.constraintlayout.widget.ConstraintLayout>

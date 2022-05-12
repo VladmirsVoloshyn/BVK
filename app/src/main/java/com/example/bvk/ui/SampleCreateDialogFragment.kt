@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.example.bvk.R
 import com.example.bvk.databinding.NewSampleCreateDialogFragmentBinding
 import com.example.bvk.model.sample.SampleCapParameters
 import com.example.bvk.shouldShowError
@@ -33,10 +34,10 @@ class SampleCreateDialogFragment(
         binding.buttonCreate.setOnClickListener {
 
             if (!binding.capVertexDiameter.shouldShowError(
-                    "Please, set cap vertex diameter",
+                    activity?.resources?.getString(R.string.sample_dialog_vertex_error_message),
                     binding.textInputLayoutCapVertex
                 ) && !binding.mandrelCapHeight.shouldShowError(
-                    "Please, set a cap height",
+                    activity?.resources?.getString(R.string.sample_dialog_height_error_message),
                     binding.textInputLayoutCapHeight
                 )
             ) {

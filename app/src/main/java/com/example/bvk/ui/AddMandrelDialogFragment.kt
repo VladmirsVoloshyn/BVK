@@ -2,12 +2,11 @@ package com.example.bvk.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
+import com.example.bvk.R
 import com.example.bvk.databinding.AddMandrelDialogFragmentBinding
 import com.example.bvk.model.Mandrel
 import com.example.bvk.shouldShowError
@@ -27,37 +26,40 @@ class AddMandrelDialogFragment(
     ): View {
         mBinding = AddMandrelDialogFragmentBinding.inflate(layoutInflater, container, false)
         if (callKey == CALL_KEY_NEW) {
-            binding.buttonAdd.text = ADD_BUTTON_TEXT
+            binding.buttonAdd.text = activity?.resources?.getText(R.string.add_button_label)
         } else {
-            binding.buttonAdd.text = UPDATE_BUTTON_TEXT
+            binding.buttonAdd.text = activity?.resources?.getText(R.string.update_button_label)
             binding.mandrelVertexDiameter.setText(mandrel.vertexDiameter.toString())
             binding.mandrelBaseDiameter.setText(mandrel.baseDiameter.toString())
             binding.mandrelHeight.setText(mandrel.height.toString())
         }
         return binding.root
     }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = iListener
     }
+
     override fun onDestroyView() {
         mBinding = null
         listener = null
         super.onDestroyView()
 
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonAdd.setOnClickListener {
 
             if (!binding.mandrelVertexDiameter.shouldShowError(
-                    "Please, set vertex diameter",
+                    activity?.resources?.getString(R.string.add_dialog_vertex_error_message),
                     binding.textInputLayoutVertex
                 ) && !binding.mandrelBaseDiameter.shouldShowError(
-                    "Please, set a base diameter",
+                    activity?.resources?.getString(R.string.add_dialog_base_error_message),
                     binding.textInputLayoutBase
                 ) && !binding.mandrelHeight.shouldShowError(
-                    "Please, set height",
+                    activity?.resources?.getString(R.string.add_dialog_height_error_message),
                     binding.textInputLayoutHeight
                 )
             ) {
@@ -89,13 +91,13 @@ class AddMandrelDialogFragment(
         }
 
     }
+
     interface OnAddOrEditMandrelListener {
         fun onMandrelAdd(mandrel: Mandrel)
         fun onMandrelEdit(mandrel: Mandrel)
     }
+
     companion object {
         const val CALL_KEY_NEW = "new"
-        const val ADD_BUTTON_TEXT = "Add"
-        const val UPDATE_BUTTON_TEXT = "Update"
     }
 }

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bvk.BVKApplication
+import com.example.bvk.R
 import com.example.bvk.databinding.FragmentMandrelBinding
 import com.example.bvk.model.Mandrel
 import com.example.bvk.model.sample.SampleCapParameters
@@ -17,7 +18,7 @@ import com.example.bvk.model.sample.SampleCapParameters
 class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelListener,
     MandrelAdapter.OnPetListButtonClickListener,
     SampleCreateDialogFragment.OnSampleCreatedListener {
-    
+
     private var _binding: FragmentMandrelBinding? = null
     private val binding get() = _binding!!
 
@@ -38,7 +39,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         super.onViewCreated(view, savedInstanceState)
         inflateList()
 
-        binding.textViewLabel.text = "Mandrels list"
+        binding.textViewLabel.text = activity?.resources?.getString(R.string.mandrel_list_label)
         binding.addFab.setOnClickListener {
             val addFragment = AddMandrelDialogFragment(CALL_KEY_NEW, Mandrel(), this)
             addFragment.show(activity?.supportFragmentManager!!, ADD_FRAGMENT_TAG)
@@ -53,7 +54,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.clearSampleButton.setOnClickListener {
             viewModel.isSampleCreated = false
             inflateList()
-            binding.textViewLabel.text = "Mandrels List"
+            binding.textViewLabel.text = activity?.resources?.getString(R.string.mandrel_list_label)
             binding.clearSampleButton.visibility = Button.INVISIBLE
         }
     }
@@ -92,7 +93,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     @SuppressLint("SetTextI18n")
     override fun onSampleCreate(sampleCapParam: SampleCapParameters) {
         viewModel.createSample(sampleCapParam.capVertexDiameter, sampleCapParam.capHeight)
-        binding.textViewLabel.text = "Sample for parameters $sampleCapParam"
+        binding.textViewLabel.text = activity?.resources?.getString(R.string.sample_param_label) + sampleCapParam.toString()
         inflateList()
         binding.clearSampleButton.visibility = Button.VISIBLE
     }
