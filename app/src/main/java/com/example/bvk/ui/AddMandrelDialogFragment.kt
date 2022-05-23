@@ -62,10 +62,15 @@ class AddMandrelDialogFragment(
                     activity?.resources?.getString(R.string.add_dialog_height_error_message),
                     binding.textInputLayoutHeight
                 )
+                && !binding.mandrelName.shouldShowError(
+                    activity?.resources?.getString(R.string.add_dialog_name_error_message),
+                    binding.textInputLayoutHeight
+                )
             ) {
                 if (callKey == CALL_KEY_NEW) {
                     listener?.onMandrelAdd(
                         Mandrel(
+                            mandrelName = binding.mandrelName.text.toString(),
                             vertexDiameter = binding.mandrelVertexDiameter.text.toString()
                                 .toDouble(),
                             baseDiameter = binding.mandrelBaseDiameter.text.toString().toDouble(),
@@ -75,6 +80,7 @@ class AddMandrelDialogFragment(
                 } else {
                     listener?.onMandrelEdit(
                         Mandrel(
+                            mandrelName = binding.mandrelName.text.toString(),
                             id = mandrel.id,
                             vertexDiameter = binding.mandrelVertexDiameter.text.toString()
                                 .toDouble(),

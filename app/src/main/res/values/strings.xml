@@ -1,4 +1,6 @@
 <resources>
+
+    //layouts
     <string name="app_name">BVK</string>
     <string name="add_new_item">add new item</string>
     <string name="search_new_sample">create new sample</string>
@@ -35,14 +37,18 @@
     <string name="add_dialog_set_mandrel_vertex_diameter_hint">set mandrel vertex diameter</string>
     <string name="add_dialog_set_mandrel_base_diameter_hint">set mandrel base diameter</string>
     <string name="add_dialog_set_mandrel_height_hint">set mandrel height</string>
+    <string name="add_dialog_set_mandrel_name_hint">set mandrel name</string>
+    <string name="add_dialog_name_error_message">Please,set name</string>
 
     //sample dialog
     <string name="sample_dialog_vertex_error_message">"Please, set cap vertex diameter"</string>
     <string name="sample_dialog_height_error_message">"Please, set cap height"</string>
+    <string name="sample_dialog_inversion_error_message">"Please, set inversion"</string>
+    <string name="sample_dialog_amount_error_message">"Please, set amount"</string>
     <string name="sample_dialog_create_new_sample_label">create new sample</string>
     <string name="sample_dialog_set_cap_vertex_diameter_hint">set cap vertex diameter</string>
     <string name="sample_dialog_set_cap_height_hint">set cap height</string>
     <string name="click_to_clear_sample">click to clear sample</string>
-
+    <string name="total_membrane_length">total membrane length</string>
 
 </resources>

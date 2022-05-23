@@ -3,6 +3,7 @@ package com.example.bvk.ui
 import androidx.lifecycle.*
 import com.example.bvk.database.MandrelRepository
 import com.example.bvk.model.Mandrel
+import com.example.bvk.model.sample.SampleCapParameters
 import com.example.bvk.model.sample.SampleCreator
 import kotlinx.coroutines.launch
 
@@ -10,12 +11,17 @@ class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() 
 
     private val mandrelsRoomList: LiveData<List<Mandrel>> = repository.allMandrels.asLiveData()
 
-    private val mandrelsSampleList: MutableLiveData<List<Mandrel>> = MutableLiveData()
+    private var mandrelsSampleList: MutableLiveData<List<Mandrel>> = MutableLiveData()
 
     var isSampleCreated = false
+    var sampleCapParameters = SampleCapParameters(0, 0, 0, 0)
 
-    fun createSample(vertexDiameter: Int, heightSoughtFor: Int) {
-        mandrelsSampleList.value = SampleCreator.crate(mandrelsRoomList.value as ArrayList<Mandrel>, vertexDiameter, heightSoughtFor)
+    fun createSample(inputSampleCapParameters: SampleCapParameters) {
+        sampleCapParameters = inputSampleCapParameters
+        mandrelsSampleList.value = SampleCreator.crate(
+            mandrelsRoomList.value as ArrayList<Mandrel>,
+            inputSampleCapParameters
+        )
         isSampleCreated = true
     }
 

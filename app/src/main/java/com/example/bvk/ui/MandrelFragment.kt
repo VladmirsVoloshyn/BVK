@@ -1,6 +1,7 @@
 package com.example.bvk.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     private val viewModel: MandrelViewModel by viewModels {
         MandrelViewModelFactory((activity?.application as BVKApplication).repository)
     }
+    private var savingStateListener: FragmentCommutator? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,11 +37,29 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         return binding.root
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        savingStateListener = activity as FragmentCommutator
+    }
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         inflateList()
+       // viewModel.insert(Mandrel(mandrelName = "29x1" , vertexDiameter = 29.65, baseDiameter = 32.9, height = 75))
+       // viewModel.insert(Mandrel(mandrelName = "29x2" ,vertexDiameter = 29.55, baseDiameter = 33.16, height = 75))
+       // viewModel.insert(Mandrel(mandrelName = "29x3" ,vertexDiameter = 29.88, baseDiameter = 33.81, height = 75))
+       // viewModel.insert(Mandrel(mandrelName = "29x4" ,vertexDiameter = 29.55, baseDiameter = 32.79, height = 75))
+       // viewModel.insert(Mandrel(mandrelName = "33x1" ,vertexDiameter = 33.20, baseDiameter = 36.38, height = 75))
+       // viewModel.insert(Mandrel(mandrelName = "43x1" ,vertexDiameter = 42.65, baseDiameter = 44.56, height = 75))
+       // viewModel.insert(Mandrel(mandrelName = "56x1" ,vertexDiameter = 57.3, baseDiameter = 60.62, height = 75))
 
-        binding.textViewLabel.text = activity?.resources?.getString(R.string.mandrel_list_label)
+        if (viewModel.isSampleCreated) {
+            binding.clearSampleButton.visibility = Button.VISIBLE
+            binding.textViewLabel.text =
+                activity?.resources?.getString(R.string.sample_param_label) + viewModel.sampleCapParameters.toString()
+        } else {
+            binding.textViewLabel.text = activity?.resources?.getString(R.string.mandrel_list_label)
+        }
         binding.addFab.setOnClickListener {
             val addFragment = AddMandrelDialogFragment(CALL_KEY_NEW, Mandrel(), this)
             addFragment.show(activity?.supportFragmentManager!!, ADD_FRAGMENT_TAG)
@@ -53,9 +73,9 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         }
         binding.clearSampleButton.setOnClickListener {
             viewModel.isSampleCreated = false
-            inflateList()
             binding.textViewLabel.text = activity?.resources?.getString(R.string.mandrel_list_label)
             binding.clearSampleButton.visibility = Button.INVISIBLE
+            inflateList()
         }
     }
 
@@ -89,24 +109,24 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 LinearLayoutManager(requireActivity().applicationContext)
         }
     }
-
     @SuppressLint("SetTextI18n")
     override fun onSampleCreate(sampleCapParam: SampleCapParameters) {
-        viewModel.createSample(sampleCapParam.capVertexDiameter, sampleCapParam.capHeight)
-        binding.textViewLabel.text = activity?.resources?.getString(R.string.sample_param_label) + sampleCapParam.toString()
-        inflateList()
+        viewModel.createSample(sampleCapParam)
+        binding.textViewLabel.text =
+            activity?.resources?.getString(R.string.sample_param_label) + sampleCapParam.toString()
         binding.clearSampleButton.visibility = Button.VISIBLE
+        viewModel.isSampleCreated = true
+        inflateList()
     }
-
     companion object {
         const val CALL_KEY_NEW = "new"
         const val CALL_KEY_EDIT = "edit"
         const val ADD_FRAGMENT_TAG = "add"
         const val SAMPLE_CREATE_FRAGMENT_TAG = "sample"
     }
-
     override fun onDestroyView() {
         _binding = null
+        savingStateListener = null
         super.onDestroyView()
     }
 

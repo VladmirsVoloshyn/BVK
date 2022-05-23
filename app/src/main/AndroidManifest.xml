@@ -3,8 +3,8 @@
     package="com.example.bvk">
 
     <application
-        android:name=".BVKApplication"
         android:allowBackup="false"
+        android:name=".BVKApplication"
         android:icon="@drawable/ic_custom_launcher_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -15,10 +15,8 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
