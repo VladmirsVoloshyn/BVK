@@ -5,19 +5,26 @@
       <map>
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.234" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/card_bg.xml" value="0.1285" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_baseline_arrow_circle_up_24.xml" value="0.219" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.219" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.2155" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.2155" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.219" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.2505" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_baseline_playlist_add_24.xml" value="0.219" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_baseline_sample_recycler_image.xml" value="0.1165" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_custom_launcher_icon.xml" value="0.234" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1165" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.234" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/add_mandrel_dialog_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/developer_mode_dialog_fragment.xml" value="0.33" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/fragment_mandrel.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/fragment_sample_create.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/mandrel_recycler_container.xml" value="0.35260416666666666" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/new_sample_create_dialog_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/recycler_view_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/menu/recycler_container_menu.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

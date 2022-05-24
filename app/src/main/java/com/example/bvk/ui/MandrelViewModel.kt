@@ -14,7 +14,8 @@ class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() 
     private var mandrelsSampleList: MutableLiveData<List<Mandrel>> = MutableLiveData()
 
     var isSampleCreated = false
-    var sampleCapParameters = SampleCapParameters(0, 0, 0, 0)
+    var sampleCapParameters = SampleCapParameters()
+    var isDeveloperMode = false
 
     fun createSample(inputSampleCapParameters: SampleCapParameters) {
         sampleCapParameters = inputSampleCapParameters

@@ -31,14 +31,14 @@
         android:id="@+id/add_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
         android:layout_marginBottom="14dp"
         android:clickable="true"
         android:contentDescription="@string/add_new_item"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/search_fab"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_baseline_playlist_add_24" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/search_fab"
@@ -51,7 +51,7 @@
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_sort_alphabetically" />
+        app:srcCompat="@drawable/ic_baseline_filter_list_24" />
 
     <TextView
         android:id="@+id/textViewLabel"
@@ -59,11 +59,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginTop="3dp"
-        android:layout_marginEnd="13dp"
-        android:text="@string/mandrel_list_label"
+        android:text="@string/mandrel_list_operator_label"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/mandrels_list"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/update_mode_button"
+        app:layout_constraintHorizontal_bias="0.396"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,14 +71,38 @@
         android:id="@+id/clearSampleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
         android:layout_marginBottom="14dp"
+        android:layout_marginEnd="12dp"
         android:clickable="true"
-        android:visibility="invisible"
         android:contentDescription="@string/click_to_clear_sample"
+        android:focusable="true"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/add_fab"
-        app:srcCompat="@drawable/ic_baseline_sample_recycler_image"
-        android:focusable="true" />
+        app:layout_constraintEnd_toStartOf="@+id/search_fab"
+        app:srcCompat="@drawable/ic_baseline_sample_recycler_image" />
+
+    <TextView
+        android:id="@+id/nothing_to_show_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nothing_to_show_label"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
+
+    <ImageButton
+        android:id="@+id/update_mode_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/mandrels_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#F6F6F6"
+        app:srcCompat="@drawable/ic_baseline_arrow_circle_up_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

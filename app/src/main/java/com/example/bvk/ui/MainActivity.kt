@@ -23,16 +23,12 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val mLaunchCounter = getSharedPreferences(LAUNCH_PREFERENCE , Context.MODE_PRIVATE)
+        val mLaunchCounter = getSharedPreferences(LAUNCH_PREFERENCE, Context.MODE_PRIVATE)
 
-       if(savedInstanceState == null){
-           fragmentTransaction.replace(binding.container.id, mandrelFragment).commit()
-       }
+        if (savedInstanceState == null) {
+            fragmentTransaction.replace(binding.container.id, mandrelFragment).commit()
+        }
         launchCounter++
-    }
-
-    override fun onPause() {
-        super.onPause()
     }
 
     companion object {

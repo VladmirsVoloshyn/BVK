@@ -13,11 +13,13 @@
     <string name="create_button_label">create</string>
 
     //mandrel fragment
-    <string name="mandrel_list_label">Mandrel List</string>
+    <string name="mandrel_list_operator_label">Mandrel List(operator)</string>
+    <string name="mandrel_list_admin_label">Mandrel List(admin)</string>
     <string name="sample_param_label">Sample for parameters :</string>
 
+
     //mandrels list adapter
-    <string name="name_prefix">name :</string>
+    <string name="name_prefix">Mandrel:</string>
     <string name="name_separator">x</string>
     <string name="vertex_prefix">vertex diameter =</string>
     <string name="base_prefix">base diameter =</string>
@@ -50,5 +52,13 @@
     <string name="sample_dialog_set_cap_height_hint">set cap height</string>
     <string name="click_to_clear_sample">click to clear sample</string>
     <string name="total_membrane_length">total membrane length</string>
+
+
+    <string name="menu_item_delete">delete</string>
+    <string name="menu_item_update">update</string>
+    <string name="nothing_to_show_label">nothing to show</string>
+    <string name="enter_password_to_join_developer_mode_dialog_label">Enter password to join admin mode</string>
+    <string name="enter_developer_password_developer_fragment_hint">enter developer password</string>
+    <string name="enter_button_label">enter</string>
 
 </resources>

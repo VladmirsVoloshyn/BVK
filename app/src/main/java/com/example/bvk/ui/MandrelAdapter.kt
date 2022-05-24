@@ -6,6 +6,8 @@ import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bvk.R
@@ -14,16 +16,16 @@ import com.example.bvk.model.Mandrel
 
 class MandrelAdapter(
     private var mandrelsList: List<Mandrel>,
-    context: Context,
+    val context: Context,
     private val listener: OnPetListButtonClickListener? = null,
-    var isSampleCreate: Boolean = false
+    var isSampleCreate: Boolean = false,
+    var isDeveloperMode: Boolean = false
 ) : RecyclerView.Adapter<MandrelAdapter.MandrelListViewHolder>() {
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private val res: Resources = context.resources
     private var _binding: MandrelRecyclerContainerBinding? = null
     private val binding get() = _binding!!
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MandrelListViewHolder {
         _binding = MandrelRecyclerContainerBinding.inflate(layoutInflater, parent, false)
         return MandrelListViewHolder(binding)
@@ -31,7 +33,8 @@ class MandrelAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MandrelListViewHolder, position: Int) {
-        binding.mandrelName.text = mandrelsList[position].mandrelName
+        binding.mandrelName.text =
+            res.getString(R.string.name_prefix) + SPACE + mandrelsList[position].mandrelName
         binding.mandrelVertexDiameter.text =
             res.getText(R.string.vertex_prefix)
                 .toString() + SPACE + mandrelsList[position].vertexDiameter
@@ -48,33 +51,42 @@ class MandrelAdapter(
         binding.tapperTextView.text =
             res.getText(R.string.tapper_prefix).toString() + SPACE + mandrelsList[position].tapper
         binding.TotalMembraneLengthTextView.text =
-            res.getString(R.string.total_membrane_length) + SPACE + mandrelsList[position].totalMembraneLength
+            res.getString(R.string.total_membrane_length) + SPACE + (mandrelsList[position].totalMembraneLength).toInt()
     }
 
     override fun getItemCount(): Int = mandrelsList.count()
 
     inner class MandrelListViewHolder(binding: MandrelRecyclerContainerBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        private lateinit var popupMenu: PopupMenu
 
         init {
             if (isSampleCreate) {
                 binding.mandrelSampleDataLayout.visibility = ConstraintLayout.VISIBLE
-                binding.deleteButton.visibility = Button.INVISIBLE
-                binding.editButton.visibility = Button.INVISIBLE
+                binding.menuButton.visibility = Button.INVISIBLE
             } else {
                 binding.mandrelSampleDataLayout.visibility = ConstraintLayout.GONE
-                binding.deleteButton.visibility = Button.VISIBLE
-                binding.editButton.visibility = Button.VISIBLE
             }
 
-            binding.deleteButton.setOnClickListener {
-                listener?.onDeleteClick(adapterPosition)
+            if (!isDeveloperMode) {
+                binding.menuButton.visibility = Button.INVISIBLE
             }
-            binding.editButton.setOnClickListener {
-                listener?.onEditClick(mandrelsList[adapterPosition])
+
+            binding.menuButton.setOnClickListener {
+                popupMenu = PopupMenu(context, it)
+                popupMenu.inflate(R.menu.recycler_container_menu)
+                popupMenu.show()
+                popupMenu.setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.menu_button_delete -> listener?.onDeleteClick(adapterPosition)
+                        R.id.menu_button_update -> listener?.onEditClick(mandrelsList[adapterPosition])
+                    }
+                    true
+                }
             }
         }
     }
+
 
     companion object {
         const val SPACE = " "

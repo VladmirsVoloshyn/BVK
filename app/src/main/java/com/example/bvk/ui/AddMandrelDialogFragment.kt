@@ -29,6 +29,7 @@ class AddMandrelDialogFragment(
             binding.buttonAdd.text = activity?.resources?.getText(R.string.add_button_label)
         } else {
             binding.buttonAdd.text = activity?.resources?.getText(R.string.update_button_label)
+            binding.mandrelName.setText(mandrel.mandrelName)
             binding.mandrelVertexDiameter.setText(mandrel.vertexDiameter.toString())
             binding.mandrelBaseDiameter.setText(mandrel.baseDiameter.toString())
             binding.mandrelHeight.setText(mandrel.height.toString())
