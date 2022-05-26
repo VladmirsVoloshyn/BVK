@@ -1,0 +1,67 @@
+<resources>
+
+    //layouts
+    <string name="app_name">BVK</string>
+    <string name="add_new_item">добавить новую оправку</string>
+    <string name="search_new_sample">создать новую выборку</string>
+    <string name="all_items">все оправки</string>
+    <string name="mandrel_image">изображение оправки</string>
+    <string name="mandrel_name">имя оправки</string>
+    <string name="mandrel">оправка</string>
+    <string name="press_if_edit_item">нажмите что-бы редактирвать</string>
+    <string name="press_if_delete_item">нажмите что-юы удалить</string>
+    <string name="create_button_label">создать</string>
+
+    //mandrel fragment
+    <string name="mandrel_list_operator_label">Список оправок(оператор)</string>
+    <string name="mandrel_list_admin_label">Список оправок(администратор)</string>
+    <string name="sample_param_label">Выборка для параметров:</string>
+
+
+    //mandrels list adapter
+    <string name="name_prefix">Оправка:</string>
+    <string name="name_separator">x</string>
+    <string name="vertex_prefix">диаметр вершины =</string>
+    <string name="base_prefix">диаметр основания =</string>
+    <string name="height_prefix">высота =</string>
+    <string name="tapper_prefix">конусность =</string>
+    <string name="membrane_weight_prefix">ширина плёнки =</string>
+    <string name="adhesive_sleeve_weight_prefix">ширина плёночного рукава =</string>
+
+    //add dialog
+    <string name="add_dialog_vertex_error_message">Пожалуйста, установите диаметр вершины</string>
+    <string name="add_dialog_base_error_message">Пожалуйста, установите диаметр основания</string>
+    <string name="add_dialog_height_error_message">Пожалуйста, установите высоту</string>
+    <string name="add_button_label">добавить</string>
+    <string name="update_button_label">изменить</string>
+    <string name="skip_button_label">отмена</string>
+    <string name="add_dialog_set_mandrel_data_label">установите параметры оправки</string>
+    <string name="add_dialog_set_mandrel_vertex_diameter_hint">установите диаметр вершины оправки</string>
+    <string name="add_dialog_set_mandrel_base_diameter_hint">установите диаметр основания оправки</string>
+    <string name="add_dialog_set_mandrel_height_hint">установите высоту оправки</string>
+    <string name="add_dialog_set_mandrel_name_hint">установите имя оправки</string>
+    <string name="add_dialog_name_error_message">Пожалуйста, установите имя</string>
+
+    //sample dialog
+    <string name="sample_dialog_vertex_error_message">Пожалуйста, установите диаметр вершины колпака</string>
+    <string name="sample_dialog_height_error_message">Пожалуйста, установите высоту колпака</string>
+    <string name="sample_dialog_inversion_error_message">Пожалуйста, установите размер заворота</string>
+    <string name="sample_dialog_amount_error_message">Пожалуйта установите количество колпака</string>
+    <string name="sample_dialog_create_new_sample_label">создать новую выборку</string>
+    <string name="sample_dialog_set_cap_vertex_diameter_hint">установите диаметр вершины колпака</string>
+    <string name="sample_dialog_set_cap_height_hint">установите высоту колпака</string>
+    <string name="click_to_clear_sample">нажмите, что-бы очистить выборку</string>
+    <string name="total_membrane_length">общая длина плёночного рукава</string>
+
+
+    <string name="menu_item_delete">удалить</string>
+    <string name="menu_item_update">изменить</string>
+    <string name="nothing_to_show_label">список пуст</string>
+    <string name="enter_password_to_join_developer_mode_dialog_label">Введите пароль, что-бы войти как администратор</string>
+    <string name="enter_developer_password_developer_fragment_hint">введите пароль администратора</string>
+    <string name="enter_button_label">ввести</string>
+    <string name="new_sample_dialog_set_cap_inversion_hint">установите размер заворота</string>
+    <string name="new_sample_dialog_set_total_cap_amount_hint">установите количество колпака</string>
+    <string name="delete_confirm_dialog_label">Вы уверены, что хотите удалить оправку :</string>
+
+</resources>

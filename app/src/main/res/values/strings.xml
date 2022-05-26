@@ -34,7 +34,7 @@
     <string name="add_dialog_height_error_message">"Please, set height"</string>
     <string name="add_button_label">add</string>
     <string name="update_button_label">update</string>
-    <string name="skip_button_label">skip</string>
+    <string name="skip_button_label">cancel</string>
     <string name="add_dialog_set_mandrel_data_label">set mandrel data</string>
     <string name="add_dialog_set_mandrel_vertex_diameter_hint">set mandrel vertex diameter</string>
     <string name="add_dialog_set_mandrel_base_diameter_hint">set mandrel base diameter</string>
@@ -60,5 +60,8 @@
     <string name="enter_password_to_join_developer_mode_dialog_label">Enter password to join admin mode</string>
     <string name="enter_developer_password_developer_fragment_hint">enter developer password</string>
     <string name="enter_button_label">enter</string>
+    <string name="new_sample_dialog_set_cap_inversion_hint">set cap inversion</string>
+    <string name="new_sample_dialog_set_total_cap_amount_hint">set total cap amount</string>
+    <string name="delete_confirm_dialog_label">A you shure about delete mandrel:</string>
 
 </resources>

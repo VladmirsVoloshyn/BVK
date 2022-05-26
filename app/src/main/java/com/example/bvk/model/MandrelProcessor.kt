@@ -22,18 +22,11 @@ class MandrelProcessor {
             sampleCapParameters: SampleCapParameters
         ): Mandrel {
             mandrel.tapper = getTapper(mandrel)
-            mandrel.membraneWight =
-                (DecimalFormat("#0.00").format(
-                    getCircumferenceSoughtFor(
-                        mandrel,
-                        (sampleCapParameters.capHeight - 5)
-                    ) + 5
-                )).toDouble()
-
-            mandrel.adhesiveSleeveWeight = (DecimalFormat("#0.00").format(
-                getCircumferenceSoughtFor(mandrel, (sampleCapParameters.capHeight - 5)) / 2
-            )).toDouble()
-
+            mandrel.membraneWight = getCircumferenceSoughtFor(
+                    mandrel,
+                    (sampleCapParameters.capHeight - 5)
+                ) + 5
+            mandrel.adhesiveSleeveWeight = getCircumferenceSoughtFor(mandrel, (sampleCapParameters.capHeight - 5)) / 2
             mandrel.height = sampleCapParameters.capHeight
             mandrel.totalMembraneLength = MembraneLengthCounter.count(
                 sampleCapParameters.capHeight,

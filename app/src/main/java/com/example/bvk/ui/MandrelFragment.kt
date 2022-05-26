@@ -17,11 +17,16 @@ import com.example.bvk.R
 import com.example.bvk.databinding.FragmentMandrelBinding
 import com.example.bvk.model.Mandrel
 import com.example.bvk.model.sample.SampleCapParameters
+import com.example.bvk.ui.Dialogs.AddMandrelDialogFragment
+import com.example.bvk.ui.Dialogs.DeleteConfirmationDialogFragment
+import com.example.bvk.ui.Dialogs.DeveloperModeDialogFragment
+import com.example.bvk.ui.Dialogs.SampleCreateDialogFragment
 
 class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelListener,
     MandrelAdapter.OnPetListButtonClickListener,
     SampleCreateDialogFragment.OnSampleCreatedListener,
-    DeveloperModeDialogFragment.OnPasswordEnterListener {
+    DeveloperModeDialogFragment.OnPasswordEnterListener,
+    DeleteConfirmationDialogFragment.OnDeleteConfirmationListener {
 
     private var _binding: FragmentMandrelBinding? = null
     private val binding get() = _binding!!
@@ -129,7 +134,11 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     override fun onDeleteClick(position: Int) {
-        viewModel.delete(position)
+        val deleteConfirmationFragment = DeleteConfirmationDialogFragment(
+            viewModel.getData().value?.get(position) ?: Mandrel(),
+            this,
+            position)
+        deleteConfirmationFragment.show(activity?.supportFragmentManager!!, DELETE_DIALOG_TAG)
     }
 
     override fun onEditClick(mandrel: Mandrel) {
@@ -166,11 +175,21 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         inflateList()
     }
 
+    override fun onPasswordEnter() {
+        setAdminMode()
+    }
+
+    override fun onDeleteConfirm(position: Int) {
+        viewModel.delete(position)
+    }
+
     companion object {
+        val TAG = MandrelFragment::class.java
         const val CALL_KEY_NEW = "new"
         const val CALL_KEY_EDIT = "edit"
         const val ADD_FRAGMENT_TAG = "add"
         const val SAMPLE_CREATE_FRAGMENT_TAG = "sample"
+        const val DELETE_DIALOG_TAG = "delete"
     }
 
     override fun onDestroyView() {
@@ -179,9 +198,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         super.onDestroyView()
     }
 
-    override fun onPasswordEnter() {
-        setAdminMode()
-    }
+
 
 
 }

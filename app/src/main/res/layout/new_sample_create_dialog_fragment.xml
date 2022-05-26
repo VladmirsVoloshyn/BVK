@@ -64,7 +64,7 @@
             android:id="@+id/cap_cap_inversion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="set cap inversion"
+            android:hint="@string/new_sample_dialog_set_cap_inversion_hint"
             android:inputType="text|numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -82,7 +82,7 @@
             android:id="@+id/cap_total_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="set total cap amount"
+            android:hint="@string/new_sample_dialog_set_total_cap_amount_hint"
             android:inputType="text|numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
