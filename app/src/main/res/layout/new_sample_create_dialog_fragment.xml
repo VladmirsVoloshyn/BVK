@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCapHeight">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/cap_cap_inversion"
+            android:id="@+id/cap_inversion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/new_sample_dialog_set_cap_inversion_hint"

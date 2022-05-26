@@ -40,22 +40,24 @@ class SampleCreateDialogFragment(
                     activity?.resources?.getString(R.string.sample_dialog_height_error_message),
                     binding.textInputLayoutCapHeight
                 )
-                && !binding.capCapInversion.shouldShowError(
-                    activity?.resources?.getString(R.string.sample_dialog_inversion_error_message),
-                    binding.textInputLayoutCapInversion
-                )
-                && !binding.capTotalAmount.shouldShowError(
-                    activity?.resources?.getString(R.string.sample_dialog_amount_error_message),
-                    binding.textInputLayoutCapTotalAmount
-                )
             ) {
 
+                var capInversion = 0
+                var capAmount = 0
+
+                if (!binding.capInversion.text.isNullOrEmpty()){
+                    capInversion = binding.capInversion.text.toString().toInt()
+                }
+
+                if (!binding.capTotalAmount.text.isNullOrEmpty()){
+                    capAmount = binding.capTotalAmount.text.toString().toInt()
+                }
                 onSampleCreatedListener?.onSampleCreate(
                     SampleCapParameters(
                         binding.capVertexDiameter.text.toString().toInt(),
                         binding.mandrelCapHeight.text.toString().toInt(),
-                        binding.capCapInversion.text.toString().toInt(),
-                        binding.capTotalAmount.text.toString().toInt()
+                        capInversion,
+                        capAmount
                     )
                 )
                 dialog?.dismiss()

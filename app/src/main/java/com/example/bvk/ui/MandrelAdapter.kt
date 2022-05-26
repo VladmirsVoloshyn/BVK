@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bvk.R
 import com.example.bvk.databinding.MandrelRecyclerContainerBinding
 import com.example.bvk.model.Mandrel
+import java.text.DecimalFormat
 
 class MandrelAdapter(
     private var mandrelsList: List<Mandrel>,
@@ -45,13 +47,14 @@ class MandrelAdapter(
             res.getText(R.string.height_prefix).toString() + SPACE + mandrelsList[position].height
         binding.adhesiveSleeveWeightTextView.text =
             res.getText(R.string.adhesive_sleeve_weight_prefix)
-                .toString() + SPACE + mandrelsList[position].adhesiveSleeveWeight
+                .toString() + SPACE + (DecimalFormat("#0.00").format(mandrelsList[position].adhesiveSleeveWeight))
         binding.membraneWightTextView.text = res.getText(R.string.membrane_weight_prefix)
-            .toString() + SPACE + mandrelsList[position].membraneWight
-        binding.tapperTextView.text =
-            res.getText(R.string.tapper_prefix).toString() + SPACE + mandrelsList[position].tapper
+            .toString() + SPACE + (DecimalFormat("#0.00").format(mandrelsList[position].membraneWight))
         binding.TotalMembraneLengthTextView.text =
-            res.getString(R.string.total_membrane_length) + SPACE + (mandrelsList[position].totalMembraneLength).toInt()
+            res.getString(R.string.total_membrane_length) + SPACE + (DecimalFormat("#0.00").format((mandrelsList[position].totalMembraneLength)))
+        if (mandrelsList[position].totalMembraneLength == 0.00)  {
+            binding.TotalMembraneLengthTextView.visibility = TextView.GONE
+        }
     }
 
     override fun getItemCount(): Int = mandrelsList.count()
