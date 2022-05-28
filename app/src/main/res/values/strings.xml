@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     //layouts
     <string name="app_name">BVK</string>
@@ -35,7 +35,7 @@
     <string name="add_dialog_height_error_message">"Please, set height"</string>
     <string name="add_button_label">add</string>
     <string name="update_button_label">update</string>
-    <string name="skip_button_label">cancel</string>
+    <string name="skip_button_label" tools:ignore="ButtonCase">cancel</string>
     <string name="add_dialog_set_mandrel_data_label">set mandrel data</string>
     <string name="add_dialog_set_mandrel_vertex_diameter_hint">set mandrel vertex diameter</string>
     <string name="add_dialog_set_mandrel_base_diameter_hint">set mandrel base diameter</string>
@@ -57,6 +57,7 @@
 
     <string name="menu_item_delete">delete</string>
     <string name="menu_item_update">update</string>
+    <string name="confirm_restore_default_button_label">restore</string>
     <string name="nothing_to_show_label">nothing to show</string>
     <string name="enter_password_to_join_developer_mode_dialog_label">Enter password to join admin mode</string>
     <string name="enter_developer_password_developer_fragment_hint">enter developer password</string>
@@ -66,5 +67,6 @@
     <string name="delete_confirm_dialog_label">A you sure about delete mandrel:</string>
     <string name="add_mandrel_dialog_infelicity_hint">set infelicity</string>
     <string name="add_dialog_infelicity_error_message">please, set mandrel infelicity</string>
+    <string name="confirnation_dialog_restore_default_label"> Are you sure about restore default? All data will be lost and app will restarted.</string>
 
 </resources>

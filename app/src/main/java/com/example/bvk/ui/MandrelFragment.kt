@@ -82,46 +82,112 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
             )
         }
         binding.clearSampleButton.setOnClickListener {
-            viewModel.isSampleCreated = false
-            binding.textViewLabel.text =
-                activity?.resources?.getString(R.string.mandrel_list_operator_label)
-            binding.clearSampleButton.visibility = Button.INVISIBLE
-            binding.nothingToShowTextView.visibility = TextView.INVISIBLE
-            binding.mandrelsList.visibility = RecyclerView.VISIBLE
-            inflateList()
+            clearSample()
         }
 
         binding.restoreDefaultButton.setOnClickListener {
-            setInitializeData()
+            val confirmationDialogFragment = ConfirmationDialogFragment(
+                RESTORE_DEFAULT_CONFIRMATION_CALL_KEY, listener = this
+            )
+            confirmationDialogFragment.show(
+                activity?.supportFragmentManager!!,
+                RESTORE_DEFAULT_CONFIRMATION_CALL_KEY
+            )
         }
 
     }
 
-    private fun setInitializeData(){
+    private fun setInitializeData() {
         viewModel.deleteAll()
-        viewModel.insert(Mandrel(mandrelName = "29x1" , vertexDiameter = 29.65, baseDiameter = 32.9, height = 75))
-        viewModel.insert(Mandrel(mandrelName = "29x2" ,vertexDiameter = 29.55, baseDiameter = 33.16, height = 75))
-        viewModel.insert(Mandrel(mandrelName = "29x3" ,vertexDiameter = 29.88, baseDiameter = 33.81, height = 75))
-        viewModel.insert(Mandrel(mandrelName = "29x4" ,vertexDiameter = 29.55, baseDiameter = 32.79, height = 75))
-        viewModel.insert(Mandrel(mandrelName = "33x1" ,vertexDiameter = 33.20, baseDiameter = 36.38, height = 75))
-        viewModel.insert(Mandrel(mandrelName = "43x1" ,vertexDiameter = 42.65, baseDiameter = 44.56, height = 75))
-        viewModel.insert(Mandrel(mandrelName = "56x1" ,vertexDiameter = 57.3, baseDiameter = 60.62, height = 75, infelicity = 0.4))
-        viewModel.insert(Mandrel(mandrelName = "61x1" ,vertexDiameter = 60.6, baseDiameter = 64.4, height = 75, infelicity = -0.3))
+        viewModel.insert(
+            Mandrel(
+                mandrelName = "29x1",
+                vertexDiameter = 29.65,
+                baseDiameter = 32.9,
+                height = 75
+            )
+        )
+        viewModel.insert(
+            Mandrel(
+                mandrelName = "29x2",
+                vertexDiameter = 29.55,
+                baseDiameter = 33.16,
+                height = 75
+            )
+        )
+        viewModel.insert(
+            Mandrel(
+                mandrelName = "29x3",
+                vertexDiameter = 29.88,
+                baseDiameter = 33.81,
+                height = 75
+            )
+        )
+        viewModel.insert(
+            Mandrel(
+                mandrelName = "29x4",
+                vertexDiameter = 29.55,
+                baseDiameter = 32.79,
+                height = 75
+            )
+        )
+        viewModel.insert(
+            Mandrel(
+                mandrelName = "33x1",
+                vertexDiameter = 33.20,
+                baseDiameter = 36.38,
+                height = 75
+            )
+        )
+        viewModel.insert(
+            Mandrel(
+                mandrelName = "43x1",
+                vertexDiameter = 42.65,
+                baseDiameter = 44.56,
+                height = 75
+            )
+        )
+        viewModel.insert(
+            Mandrel(
+                mandrelName = "56x1",
+                vertexDiameter = 57.3,
+                baseDiameter = 60.62,
+                height = 75,
+                infelicity = 0.4
+            )
+        )
+        viewModel.insert(
+            Mandrel(
+                mandrelName = "61x1",
+                vertexDiameter = 60.6,
+                baseDiameter = 64.4,
+                height = 75,
+                infelicity = -0.3
+            )
+        )
         activity?.finish()
+    }
+
+    fun clearSample() {
+        viewModel.isSampleCreated = false
+        if (viewModel.isDeveloperMode) {
+            binding.textViewLabel.text =
+                activity?.resources?.getString(R.string.mandrel_list_admin_label)
+        } else {
+            binding.textViewLabel.text =
+                activity?.resources?.getString(R.string.mandrel_list_operator_label)
+        }
+        binding.clearSampleButton.visibility = Button.INVISIBLE
+        binding.nothingToShowTextView.visibility = TextView.INVISIBLE
+        binding.mandrelsList.visibility = RecyclerView.VISIBLE
+        inflateList()
     }
 
     private val backPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             if (viewModel.isSampleCreated) {
-                viewModel.isSampleCreated = false
-                binding.textViewLabel.text =
-                    activity?.resources?.getString(R.string.mandrel_list_operator_label)
-                binding.clearSampleButton.visibility = Button.INVISIBLE
-                binding.nothingToShowTextView.visibility = TextView.INVISIBLE
-                binding.mandrelsList.visibility = RecyclerView.VISIBLE
-                inflateList()
-            }
-            else{
+                clearSample()
+            } else {
                 activity?.finish()
             }
         }
@@ -203,12 +269,21 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         setAdminMode()
     }
 
+    override fun onUpdateModeClicked() {
+        if (!viewModel.isDeveloperMode) {
+            val developerModeDialogFragment = DeveloperModeDialogFragment("123", this)
+            developerModeDialogFragment.show(activity?.supportFragmentManager!!, "PASSWORD")
+        } else {
+            setOperatorMode()
+        }
+    }
+
     override fun onDeleteConfirm(position: Int) {
         viewModel.delete(position)
     }
 
     override fun onRestoreDefaultConfirm() {
-        TODO("Not yet implemented")
+        setInitializeData()
     }
 
     companion object {
@@ -226,15 +301,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         _binding = null
         savingStateListener = null
         super.onDestroyView()
-    }
-
-    override fun onUpdateModeClicked() {
-        if (!viewModel.isDeveloperMode) {
-            val developerModeDialogFragment = DeveloperModeDialogFragment("123", this)
-            developerModeDialogFragment.show(activity?.supportFragmentManager!!, "PASSWORD")
-        } else {
-            setOperatorMode()
-        }
     }
 
 

@@ -59,6 +59,7 @@
 
     <string name="menu_item_delete">удалить</string>
     <string name="menu_item_update">изменить</string>
+    <string name="confirm_restore_default_button_label">продолжить</string>
     <string name="nothing_to_show_label">список пуст</string>
     <string name="enter_password_to_join_developer_mode_dialog_label">Введите пароль, что-бы войти как администратор</string>
     <string name="enter_developer_password_developer_fragment_hint">введите пароль администратора</string>
@@ -67,5 +68,5 @@
     <string name="new_sample_dialog_set_total_cap_amount_hint">установите количество колпака</string>
     <string name="delete_confirm_dialog_label">Вы уверены, что хотите удалить оправку :</string>
     <string name="add_dialog_infelicity_error_message">Пожалуйста, установите погрешность</string>
-
+    <string name="confirnation_dialog_restore_default_label"> Вы уверены, что хотите восстановить умолчания? Все введенные данные будут потеряны. Потребуется перезапуск приложения</string>
 </resources>
