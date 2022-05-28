@@ -27,6 +27,7 @@
     <string name="tapper_prefix">tapper =</string>
     <string name="membrane_weight_prefix">membrane weight =</string>
     <string name="adhesive_sleeve_weight_prefix">adhesive sleeve weight =</string>
+    <string name="infelicity_prefix">infelicity =</string>
 
     //add dialog
     <string name="add_dialog_vertex_error_message">"Please, set vertex diameter"</string>
@@ -62,6 +63,8 @@
     <string name="enter_button_label">enter</string>
     <string name="new_sample_dialog_set_cap_inversion_hint">set cap inversion</string>
     <string name="new_sample_dialog_set_total_cap_amount_hint">set total cap amount</string>
-    <string name="delete_confirm_dialog_label">A you shure about delete mandrel:</string>
+    <string name="delete_confirm_dialog_label">A you sure about delete mandrel:</string>
+    <string name="add_mandrel_dialog_infelicity_hint">set infelicity</string>
+    <string name="add_dialog_infelicity_error_message">please, set mandrel infelicity</string>
 
 </resources>

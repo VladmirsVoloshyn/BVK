@@ -62,8 +62,6 @@
         android:text="@string/mandrel_list_operator_label"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/mandrels_list"
-        app:layout_constraintEnd_toStartOf="@+id/update_mode_button"
-        app:layout_constraintHorizontal_bias="0.396"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,16 +91,17 @@
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="invisible"/>
 
-    <ImageButton
-        android:id="@+id/update_mode_button"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/restoreDefaultButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/mandrels_list"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="#F6F6F6"
-        app:srcCompat="@drawable/ic_baseline_arrow_circle_up_24" />
+        android:layout_marginTop="12dp"
+        android:clickable="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/add_fab"
+        app:srcCompat="@drawable/ic_baseline_archive_24"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

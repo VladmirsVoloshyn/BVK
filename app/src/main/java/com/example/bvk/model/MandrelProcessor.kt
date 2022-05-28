@@ -23,15 +23,12 @@ class MandrelProcessor {
         ): Mandrel {
             mandrel.tapper = getTapper(mandrel)
             mandrel.membraneWight = getCircumferenceSoughtFor(
-                    mandrel,
-                    (sampleCapParameters.capHeight - 5)
-                ) + 5
-
-
+                mandrel,
+                (sampleCapParameters.capHeight - 5)
+            ) + 5
             mandrel.adhesiveSleeveWeight =
-                getCircumferenceSoughtFor(mandrel, (sampleCapParameters.capHeight - 5)) / 2
+                (getCircumferenceSoughtFor(mandrel, (sampleCapParameters.capHeight - 5)) / 2) + mandrel.infelicity
 
-            mandrel.height = sampleCapParameters.capHeight
             mandrel.totalMembraneLength = MembraneLengthCounter.count(
                 sampleCapParameters.capHeight,
                 sampleCapParameters.capInversion,

@@ -27,6 +27,8 @@
     <string name="tapper_prefix">конусность =</string>
     <string name="membrane_weight_prefix">ширина плёнки =</string>
     <string name="adhesive_sleeve_weight_prefix">ширина плёночного рукава =</string>
+    <string name="infelicity_prefix">погрешность =</string>
+
 
     //add dialog
     <string name="add_dialog_vertex_error_message">Пожалуйста, установите диаметр вершины</string>
@@ -41,6 +43,7 @@
     <string name="add_dialog_set_mandrel_height_hint">установите высоту оправки</string>
     <string name="add_dialog_set_mandrel_name_hint">установите имя оправки</string>
     <string name="add_dialog_name_error_message">Пожалуйста, установите имя</string>
+    <string name="add_mandrel_dialog_infelicity_hint">установите погрешность</string>
 
     //sample dialog
     <string name="sample_dialog_vertex_error_message">Пожалуйста, установите диаметр вершины колпака</string>
@@ -63,5 +66,6 @@
     <string name="new_sample_dialog_set_cap_inversion_hint">установите размер заворота</string>
     <string name="new_sample_dialog_set_total_cap_amount_hint">установите количество колпака</string>
     <string name="delete_confirm_dialog_label">Вы уверены, что хотите удалить оправку :</string>
+    <string name="add_dialog_infelicity_error_message">Пожалуйста, установите погрешность</string>
 
 </resources>

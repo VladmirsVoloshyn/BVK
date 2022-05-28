@@ -67,6 +67,10 @@ class AddMandrelDialogFragment(
                     activity?.resources?.getString(R.string.add_dialog_name_error_message),
                     binding.textInputLayoutHeight
                 )
+                && !binding.mandrelInfelicity.shouldShowError(
+                    getString(R.string.add_dialog_infelicity_error_message),
+                    binding.textInputLayoutInfelicity
+                )
             ) {
                 if (callKey == CALL_KEY_NEW) {
                     listener?.onMandrelAdd(
@@ -75,7 +79,8 @@ class AddMandrelDialogFragment(
                             vertexDiameter = binding.mandrelVertexDiameter.text.toString()
                                 .toDouble(),
                             baseDiameter = binding.mandrelBaseDiameter.text.toString().toDouble(),
-                            height = binding.mandrelHeight.text.toString().toInt()
+                            height = binding.mandrelHeight.text.toString().toInt(),
+                            infelicity = binding.mandrelInfelicity.text.toString().toDouble()
                         )
                     )
                 } else {
@@ -86,7 +91,8 @@ class AddMandrelDialogFragment(
                             vertexDiameter = binding.mandrelVertexDiameter.text.toString()
                                 .toDouble(),
                             baseDiameter = binding.mandrelBaseDiameter.text.toString().toDouble(),
-                            height = binding.mandrelHeight.text.toString().toInt()
+                            height = binding.mandrelHeight.text.toString().toInt(),
+                            infelicity = binding.mandrelInfelicity.text.toString().toDouble()
                         )
                     )
                 }

@@ -21,8 +21,8 @@
 
         <ImageView
             android:id="@+id/mandrel_avatar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/mandrel_image"
             android:src="@drawable/ic_baseline_sample_recycler_image"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,6 +56,15 @@
             android:text="@string/mandrel"
             app:layout_constraintStart_toEndOf="@id/mandrel_avatar"
             app:layout_constraintTop_toBottomOf="@id/mandrel_name" />
+
+        <TextView
+            android:id="@+id/mandrel_infelicity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/mandrel"
+            app:layout_constraintStart_toEndOf="@id/mandrel_avatar"
+            app:layout_constraintTop_toBottomOf="@id/mandrel_height" />
 
         <TextView
             android:id="@+id/mandrel_height"

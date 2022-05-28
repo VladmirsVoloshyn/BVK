@@ -3,11 +3,10 @@ package com.example.bvk.ui
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +17,7 @@ import com.example.bvk.databinding.FragmentMandrelBinding
 import com.example.bvk.model.Mandrel
 import com.example.bvk.model.sample.SampleCapParameters
 import com.example.bvk.ui.Dialogs.AddMandrelDialogFragment
-import com.example.bvk.ui.Dialogs.DeleteConfirmationDialogFragment
+import com.example.bvk.ui.Dialogs.ConfirmationDialogFragment
 import com.example.bvk.ui.Dialogs.DeveloperModeDialogFragment
 import com.example.bvk.ui.Dialogs.SampleCreateDialogFragment
 
@@ -26,7 +25,8 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     MandrelAdapter.OnPetListButtonClickListener,
     SampleCreateDialogFragment.OnSampleCreatedListener,
     DeveloperModeDialogFragment.OnPasswordEnterListener,
-    DeleteConfirmationDialogFragment.OnDeleteConfirmationListener {
+    ConfirmationDialogFragment.OnConfirmationListener,
+    MainActivity.IfUpdateButtonClickedListener {
 
     private var _binding: FragmentMandrelBinding? = null
     private val binding get() = _binding!!
@@ -54,13 +54,8 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         inflateList()
-        // viewModel.insert(Mandrel(mandrelName = "29x1" , vertexDiameter = 29.65, baseDiameter = 32.9, height = 75))
-        // viewModel.insert(Mandrel(mandrelName = "29x2" ,vertexDiameter = 29.55, baseDiameter = 33.16, height = 75))
-        // viewModel.insert(Mandrel(mandrelName = "29x3" ,vertexDiameter = 29.88, baseDiameter = 33.81, height = 75))
-        // viewModel.insert(Mandrel(mandrelName = "29x4" ,vertexDiameter = 29.55, baseDiameter = 32.79, height = 75))
-        // viewModel.insert(Mandrel(mandrelName = "33x1" ,vertexDiameter = 33.20, baseDiameter = 36.38, height = 75))
-        // viewModel.insert(Mandrel(mandrelName = "43x1" ,vertexDiameter = 42.65, baseDiameter = 44.56, height = 75))
-        // viewModel.insert(Mandrel(mandrelName = "56x1" ,vertexDiameter = 57.3, baseDiameter = 60.62, height = 75))
+        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
+
         if (viewModel.isSampleCreated) {
             binding.clearSampleButton.visibility = Button.VISIBLE
             binding.textViewLabel.text =
@@ -95,12 +90,39 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
             binding.mandrelsList.visibility = RecyclerView.VISIBLE
             inflateList()
         }
-        binding.updateModeButton.setOnClickListener {
-            if (!viewModel.isDeveloperMode) {
-                val developerModeDialogFragment = DeveloperModeDialogFragment("123", this)
-                developerModeDialogFragment.show(activity?.supportFragmentManager!!, "PASSWORD")
-            } else {
-                setOperatorMode()
+
+        binding.restoreDefaultButton.setOnClickListener {
+            setInitializeData()
+        }
+
+    }
+
+    private fun setInitializeData(){
+        viewModel.deleteAll()
+        viewModel.insert(Mandrel(mandrelName = "29x1" , vertexDiameter = 29.65, baseDiameter = 32.9, height = 75))
+        viewModel.insert(Mandrel(mandrelName = "29x2" ,vertexDiameter = 29.55, baseDiameter = 33.16, height = 75))
+        viewModel.insert(Mandrel(mandrelName = "29x3" ,vertexDiameter = 29.88, baseDiameter = 33.81, height = 75))
+        viewModel.insert(Mandrel(mandrelName = "29x4" ,vertexDiameter = 29.55, baseDiameter = 32.79, height = 75))
+        viewModel.insert(Mandrel(mandrelName = "33x1" ,vertexDiameter = 33.20, baseDiameter = 36.38, height = 75))
+        viewModel.insert(Mandrel(mandrelName = "43x1" ,vertexDiameter = 42.65, baseDiameter = 44.56, height = 75))
+        viewModel.insert(Mandrel(mandrelName = "56x1" ,vertexDiameter = 57.3, baseDiameter = 60.62, height = 75, infelicity = 0.4))
+        viewModel.insert(Mandrel(mandrelName = "61x1" ,vertexDiameter = 60.6, baseDiameter = 64.4, height = 75, infelicity = -0.3))
+        activity?.finish()
+    }
+
+    private val backPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (viewModel.isSampleCreated) {
+                viewModel.isSampleCreated = false
+                binding.textViewLabel.text =
+                    activity?.resources?.getString(R.string.mandrel_list_operator_label)
+                binding.clearSampleButton.visibility = Button.INVISIBLE
+                binding.nothingToShowTextView.visibility = TextView.INVISIBLE
+                binding.mandrelsList.visibility = RecyclerView.VISIBLE
+                inflateList()
+            }
+            else{
+                activity?.finish()
             }
         }
     }
@@ -109,9 +131,9 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     private fun setAdminMode() {
         viewModel.isDeveloperMode = true
         binding.addFab.visibility = Button.VISIBLE
+        binding.restoreDefaultButton.visibility = Button.VISIBLE
         binding.textViewLabel.text =
             activity?.resources?.getString(R.string.mandrel_list_admin_label)
-        binding.updateModeButton.setImageDrawable(activity?.resources!!.getDrawable(R.drawable.ic_baseline_close_24))
         inflateList()
     }
 
@@ -119,9 +141,9 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     private fun setOperatorMode() {
         viewModel.isDeveloperMode = false
         binding.addFab.visibility = Button.INVISIBLE
+        binding.restoreDefaultButton.visibility = Button.INVISIBLE
         binding.textViewLabel.text =
             activity?.resources?.getString(R.string.mandrel_list_operator_label)
-        binding.updateModeButton.setImageDrawable(activity?.resources!!.getDrawable(R.drawable.ic_baseline_arrow_circle_up_24))
         inflateList()
     }
 
@@ -134,10 +156,12 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     override fun onDeleteClick(position: Int) {
-        val deleteConfirmationFragment = DeleteConfirmationDialogFragment(
+        val deleteConfirmationFragment = ConfirmationDialogFragment(
+            DELETE_CONFIRMATION_CALL_KEY,
             viewModel.getData().value?.get(position) ?: Mandrel(),
             this,
-            position)
+            position
+        )
         deleteConfirmationFragment.show(activity?.supportFragmentManager!!, DELETE_DIALOG_TAG)
     }
 
@@ -183,6 +207,10 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         viewModel.delete(position)
     }
 
+    override fun onRestoreDefaultConfirm() {
+        TODO("Not yet implemented")
+    }
+
     companion object {
         val TAG = MandrelFragment::class.java
         const val CALL_KEY_NEW = "new"
@@ -190,6 +218,8 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         const val ADD_FRAGMENT_TAG = "add"
         const val SAMPLE_CREATE_FRAGMENT_TAG = "sample"
         const val DELETE_DIALOG_TAG = "delete"
+        const val DELETE_CONFIRMATION_CALL_KEY = "DELETE"
+        const val RESTORE_DEFAULT_CONFIRMATION_CALL_KEY = "RESTORE"
     }
 
     override fun onDestroyView() {
@@ -198,7 +228,14 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         super.onDestroyView()
     }
 
-
+    override fun onUpdateModeClicked() {
+        if (!viewModel.isDeveloperMode) {
+            val developerModeDialogFragment = DeveloperModeDialogFragment("123", this)
+            developerModeDialogFragment.show(activity?.supportFragmentManager!!, "PASSWORD")
+        } else {
+            setOperatorMode()
+        }
+    }
 
 
 }

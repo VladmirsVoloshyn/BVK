@@ -52,6 +52,7 @@ class MandrelAdapter(
             .toString() + SPACE + (DecimalFormat("#0.00").format(mandrelsList[position].membraneWight))
         binding.TotalMembraneLengthTextView.text =
             res.getString(R.string.total_membrane_length) + SPACE + (DecimalFormat("#0.00").format((mandrelsList[position].totalMembraneLength)))
+        binding.mandrelInfelicity.text = res.getText(R.string.infelicity_prefix).toString() + SPACE + mandrelsList[position].infelicity
         if (mandrelsList[position].totalMembraneLength == 0.00)  {
             binding.TotalMembraneLengthTextView.visibility = TextView.GONE
         }
@@ -72,6 +73,10 @@ class MandrelAdapter(
             }
 
             if (!isDeveloperMode) {
+                binding.mandrelVertexDiameter.visibility = TextView.GONE
+                binding.mandrelBaseDiameter.visibility = TextView.GONE
+                binding.mandrelHeight.visibility = TextView.GONE
+                binding.mandrelInfelicity.visibility = TextView.GONE
                 binding.menuButton.visibility = Button.INVISIBLE
             }
 
