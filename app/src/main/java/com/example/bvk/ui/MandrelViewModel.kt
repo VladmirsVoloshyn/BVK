@@ -42,10 +42,8 @@ class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() 
         mandrelsRoomList.value?.get(id)?.let { repository.delete(it.id) }
     }
 
-    fun deleteAll() = viewModelScope.launch{
-        for (mandrels in mandrelsRoomList.value as ArrayList){
-            repository.delete(mandrels.id)
-        }
+    fun deleteAll() = viewModelScope.launch {
+        repository.deleteAll()
     }
 
     fun update(mandrel: Mandrel) = viewModelScope.launch {

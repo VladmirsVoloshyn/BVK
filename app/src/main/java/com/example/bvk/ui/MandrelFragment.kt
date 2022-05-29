@@ -99,7 +99,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
     private fun setInitializeData() {
         viewModel.deleteAll()
-        viewModel.insert(
+               viewModel.insert(
             Mandrel(
                 mandrelName = "29x1",
                 vertexDiameter = 29.65,
@@ -165,7 +165,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 infelicity = -0.3
             )
         )
-        activity?.finish()
+        requireActivity().finish()
     }
 
     fun clearSample() {
