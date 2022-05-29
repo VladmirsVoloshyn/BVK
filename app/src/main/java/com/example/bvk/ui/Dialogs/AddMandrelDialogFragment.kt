@@ -33,6 +33,7 @@ class AddMandrelDialogFragment(
             binding.mandrelVertexDiameter.setText(mandrel.vertexDiameter.toString())
             binding.mandrelBaseDiameter.setText(mandrel.baseDiameter.toString())
             binding.mandrelHeight.setText(mandrel.height.toString())
+            binding.mandrelInfelicity.setText(mandrel.infelicity.toString())
         }
         return binding.root
     }

@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginTop="3dp"
-        android:text="@string/mandrel_list_operator_label"
+        android:text="@string/mandrel_list_label"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/mandrels_list"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,5 +103,7 @@
         app:layout_constraintStart_toEndOf="@+id/add_fab"
         app:srcCompat="@drawable/ic_baseline_archive_24"
         android:focusable="true" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

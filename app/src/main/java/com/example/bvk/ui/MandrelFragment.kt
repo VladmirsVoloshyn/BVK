@@ -1,12 +1,12 @@
 package com.example.bvk.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,11 +30,12 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
     private var _binding: FragmentMandrelBinding? = null
     private val binding get() = _binding!!
+    private var actionBar: androidx.appcompat.app.ActionBar? = null
 
     private val viewModel: MandrelViewModel by viewModels {
-        MandrelViewModelFactory((activity?.application as BVKApplication).repository)
+        MandrelViewModelFactory((requireActivity().application as BVKApplication).repository)
     }
-    private var savingStateListener: FragmentCommutator? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,17 +43,14 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMandrelBinding.inflate(inflater, container, false)
+        actionBar = (activity as AppCompatActivity).supportActionBar
         return binding.root
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        savingStateListener = activity as FragmentCommutator
     }
 
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         inflateList()
         requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
 
@@ -62,7 +60,9 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 activity?.resources?.getString(R.string.sample_param_label) + viewModel.sampleCapParameters.toString()
         } else {
             binding.textViewLabel.text =
-                activity?.resources?.getString(R.string.mandrel_list_operator_label)
+                activity?.resources?.getString(R.string.mandrel_list_label)
+            actionBar?.subtitle =
+                activity?.resources?.getString(R.string.action_bar_subtitle_operator_mode)
         }
         if (!viewModel.isDeveloperMode) {
             setOperatorMode()
@@ -72,12 +72,12 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
         binding.addFab.setOnClickListener {
             val addFragment = AddMandrelDialogFragment(CALL_KEY_NEW, Mandrel(), this)
-            addFragment.show(activity?.supportFragmentManager!!, ADD_FRAGMENT_TAG)
+            addFragment.show(requireActivity().supportFragmentManager, ADD_FRAGMENT_TAG)
         }
         binding.searchFab.setOnClickListener {
             val sampleCreateDialogFragment = SampleCreateDialogFragment(this)
             sampleCreateDialogFragment.show(
-                activity?.supportFragmentManager!!,
+                requireActivity().supportFragmentManager,
                 SAMPLE_CREATE_FRAGMENT_TAG
             )
         }
@@ -90,7 +90,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 RESTORE_DEFAULT_CONFIRMATION_CALL_KEY, listener = this
             )
             confirmationDialogFragment.show(
-                activity?.supportFragmentManager!!,
+                requireActivity().supportFragmentManager,
                 RESTORE_DEFAULT_CONFIRMATION_CALL_KEY
             )
         }
@@ -172,10 +172,14 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         viewModel.isSampleCreated = false
         if (viewModel.isDeveloperMode) {
             binding.textViewLabel.text =
-                activity?.resources?.getString(R.string.mandrel_list_admin_label)
+                activity?.resources?.getString(R.string.mandrel_list_label)
+            actionBar?.subtitle =
+                activity?.resources?.getString(R.string.action_bar_subtitle_administrator_mode)
         } else {
             binding.textViewLabel.text =
-                activity?.resources?.getString(R.string.mandrel_list_operator_label)
+                activity?.resources?.getString(R.string.mandrel_list_label)
+            actionBar?.subtitle =
+                activity?.resources?.getString(R.string.action_bar_subtitle_operator_mode)
         }
         binding.clearSampleButton.visibility = Button.INVISIBLE
         binding.nothingToShowTextView.visibility = TextView.INVISIBLE
@@ -199,7 +203,9 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.addFab.visibility = Button.VISIBLE
         binding.restoreDefaultButton.visibility = Button.VISIBLE
         binding.textViewLabel.text =
-            activity?.resources?.getString(R.string.mandrel_list_admin_label)
+            activity?.resources?.getString(R.string.mandrel_list_label)
+        actionBar?.subtitle =
+            activity?.resources?.getString(R.string.action_bar_subtitle_administrator_mode)
         inflateList()
     }
 
@@ -209,7 +215,9 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.addFab.visibility = Button.INVISIBLE
         binding.restoreDefaultButton.visibility = Button.INVISIBLE
         binding.textViewLabel.text =
-            activity?.resources?.getString(R.string.mandrel_list_operator_label)
+            activity?.resources?.getString(R.string.mandrel_list_label)
+        actionBar?.subtitle =
+            activity?.resources?.getString(R.string.action_bar_subtitle_operator_mode)
         inflateList()
     }
 
@@ -287,7 +295,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     companion object {
-        val TAG = MandrelFragment::class.java
+        val TAG = (MandrelFragment::class.java).toString()
         const val CALL_KEY_NEW = "new"
         const val CALL_KEY_EDIT = "edit"
         const val ADD_FRAGMENT_TAG = "add"
@@ -299,7 +307,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
     override fun onDestroyView() {
         _binding = null
-        savingStateListener = null
         super.onDestroyView()
     }
 

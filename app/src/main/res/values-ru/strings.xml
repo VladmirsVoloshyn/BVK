@@ -13,9 +13,8 @@
     <string name="create_button_label">создать</string>
 
     //mandrel fragment
-    <string name="mandrel_list_operator_label">Список оправок(оператор)</string>
-    <string name="mandrel_list_admin_label">Список оправок(администратор)</string>
-    <string name="sample_param_label">Выборка для параметров:</string>
+    <string name="mandrel_list_label">Список оправок</string>
+    <string name="sample_param_label">Выборка для параметров :</string>
 
 
     //mandrels list adapter
@@ -69,4 +68,8 @@
     <string name="delete_confirm_dialog_label">Вы уверены, что хотите удалить оправку :</string>
     <string name="add_dialog_infelicity_error_message">Пожалуйста, установите погрешность</string>
     <string name="confirnation_dialog_restore_default_label"> Вы уверены, что хотите восстановить умолчания? Все введенные данные будут потеряны. Потребуется перезапуск приложения</string>
+
+    //actionbar
+    <string name="action_bar_subtitle_operator_mode">режим оператора</string>
+    <string name="action_bar_subtitle_administrator_mode">режим администратора</string>
 </resources>

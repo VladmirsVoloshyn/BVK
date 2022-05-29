@@ -13,8 +13,7 @@
     <string name="create_button_label">create</string>
 
     //mandrel fragment
-    <string name="mandrel_list_operator_label">Mandrel List(operator)</string>
-    <string name="mandrel_list_admin_label">Mandrel List(admin)</string>
+    <string name="mandrel_list_label">Mandrel List</string>
     <string name="sample_param_label">Sample for parameters :</string>
 
 
@@ -68,5 +67,9 @@
     <string name="add_mandrel_dialog_infelicity_hint">set infelicity</string>
     <string name="add_dialog_infelicity_error_message">please, set mandrel infelicity</string>
     <string name="confirnation_dialog_restore_default_label"> Are you sure about restore default? All data will be lost and app will restarted.</string>
+
+    //actionbar
+    <string name="action_bar_subtitle_operator_mode">operator mode</string>
+    <string name="action_bar_subtitle_administrator_mode">administrator mode</string>
 
 </resources>
