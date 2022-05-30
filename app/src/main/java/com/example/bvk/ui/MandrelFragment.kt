@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bvk.BVKApplication
@@ -74,7 +75,10 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
             val addFragment = AddMandrelDialogFragment(CALL_KEY_NEW, Mandrel(), this)
             addFragment.show(requireActivity().supportFragmentManager, ADD_FRAGMENT_TAG)
         }
-        binding.searchFab.setOnClickListener {
+        binding.createSamplreFab.setOnClickListener {
+            if (viewModel.isSampleCreated){
+                clearSample()
+            }
             val sampleCreateDialogFragment = SampleCreateDialogFragment(this)
             sampleCreateDialogFragment.show(
                 requireActivity().supportFragmentManager,
@@ -170,6 +174,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
     fun clearSample() {
         viewModel.isSampleCreated = false
+        viewModel.mandrelsSampleList = MutableLiveData()
         if (viewModel.isDeveloperMode) {
             binding.textViewLabel.text =
                 activity?.resources?.getString(R.string.mandrel_list_label)

@@ -11,7 +11,7 @@ class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() 
 
     private val mandrelsRoomList: LiveData<List<Mandrel>> = repository.allMandrels.asLiveData()
 
-    private var mandrelsSampleList: MutableLiveData<List<Mandrel>> = MutableLiveData()
+    var mandrelsSampleList: MutableLiveData<List<Mandrel>> = MutableLiveData()
 
     var isSampleCreated = false
     var sampleCapParameters = SampleCapParameters()

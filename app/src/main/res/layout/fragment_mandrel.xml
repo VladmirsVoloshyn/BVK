@@ -41,7 +41,7 @@
         app:srcCompat="@drawable/ic_baseline_playlist_add_24" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/search_fab"
+        android:id="@+id/create_samplre_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="14dp"
@@ -76,7 +76,7 @@
         android:focusable="true"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/search_fab"
+        app:layout_constraintEnd_toStartOf="@+id/create_samplre_fab"
         app:srcCompat="@drawable/ic_baseline_sample_recycler_image" />
 
     <TextView
