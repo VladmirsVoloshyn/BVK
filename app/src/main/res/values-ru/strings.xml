@@ -27,6 +27,7 @@
     <string name="membrane_weight_prefix">ширина плёнки =</string>
     <string name="adhesive_sleeve_weight_prefix">ширина плёночного рукава =</string>
     <string name="infelicity_prefix">погрешность =</string>
+    <string name="recommended_adhesive_sleeve_weight_hint">малый размер колпака, рекомедуемая ширина плёночного рукава =</string>
 
 
     //add dialog

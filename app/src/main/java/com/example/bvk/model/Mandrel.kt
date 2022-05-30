@@ -16,4 +16,5 @@ data class Mandrel(
     var membraneWight: Double = 0.0,
     var adhesiveSleeveWeight: Double = 0.0,
     var totalMembraneLength : Double = 0.0,
+    var recommendedAdhesiveSleeveWeight : Double = 0.0
 )

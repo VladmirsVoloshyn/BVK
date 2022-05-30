@@ -27,6 +27,7 @@
     <string name="membrane_weight_prefix">membrane weight =</string>
     <string name="adhesive_sleeve_weight_prefix">adhesive sleeve weight =</string>
     <string name="infelicity_prefix">infelicity =</string>
+    <string name="recommended_adhesive_sleeve_weight_hint">small cap, recommended adhesive sleeve weight =</string>
 
     //add dialog
     <string name="add_dialog_vertex_error_message">"Please, set vertex diameter"</string>

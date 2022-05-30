@@ -17,7 +17,7 @@ class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() 
     var sampleCapParameters = SampleCapParameters()
     var isDeveloperMode = false
 
-    fun createSample(inputSampleCapParameters: SampleCapParameters) {
+    fun createSample(inputSampleCapParameters: SampleCapParameters) = viewModelScope.launch {
         sampleCapParameters = inputSampleCapParameters
         mandrelsSampleList.value = SampleCreator.crate(
             mandrelsRoomList.value as ArrayList<Mandrel>,

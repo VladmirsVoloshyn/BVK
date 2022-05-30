@@ -122,7 +122,21 @@
             app:layout_constraintVertical_bias="0.045" />
 
         <TextView
-            android:id="@+id/TotalMembraneLengthTextView"
+            android:id="@+id/recommendedAdhesiveSleeveWeightTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/mandrel"
+            android:textColor="@color/red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adhesiveSleeveWeightTextView"
+            app:layout_constraintVertical_bias="0.047" />
+
+        <TextView
+            android:id="@+id/totalMembraneLengthTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -130,7 +144,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/adhesiveSleeveWeightTextView" />
+            app:layout_constraintTop_toBottomOf="@id/recommendedAdhesiveSleeveWeightTextView" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

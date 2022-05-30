@@ -47,15 +47,22 @@ class MandrelAdapter(
             res.getText(R.string.height_prefix).toString() + SPACE + mandrelsList[position].height
         binding.adhesiveSleeveWeightTextView.text =
             res.getText(R.string.adhesive_sleeve_weight_prefix)
-                .toString() + SPACE + (DecimalFormat("#0.00").format(mandrelsList[position].adhesiveSleeveWeight))
+                .toString() + SPACE + (DecimalFormat(DOUBLE_PATTERN).format(mandrelsList[position].adhesiveSleeveWeight))
         binding.membraneWightTextView.text = res.getText(R.string.membrane_weight_prefix)
-            .toString() + SPACE + (DecimalFormat("#0.00").format(mandrelsList[position].membraneWight))
-        binding.TotalMembraneLengthTextView.text =
-            res.getString(R.string.total_membrane_length) + SPACE + (DecimalFormat("#0.00").format((mandrelsList[position].totalMembraneLength)))
+            .toString() + SPACE + (DecimalFormat(DOUBLE_PATTERN).format(mandrelsList[position].membraneWight))
+        binding.totalMembraneLengthTextView.text =
+            res.getString(R.string.total_membrane_length) + SPACE + (DecimalFormat(DOUBLE_PATTERN).format((mandrelsList[position].totalMembraneLength)))
         binding.mandrelInfelicity.text = res.getText(R.string.infelicity_prefix).toString() + SPACE + mandrelsList[position].infelicity
+        res.getString(R.string.recommended_adhesive_sleeve_weight_hint)
+        binding.recommendedAdhesiveSleeveWeightTextView.text = res.getString(R.string.recommended_adhesive_sleeve_weight_hint) + SPACE + mandrelsList[position].recommendedAdhesiveSleeveWeight
+
         if (mandrelsList[position].totalMembraneLength == 0.00)  {
-            binding.TotalMembraneLengthTextView.visibility = TextView.GONE
+            binding.totalMembraneLengthTextView.visibility = TextView.GONE
         }
+        if (mandrelsList[position].recommendedAdhesiveSleeveWeight == 0.00)  {
+            binding.recommendedAdhesiveSleeveWeightTextView.visibility = TextView.GONE
+        }
+
     }
 
     override fun getItemCount(): Int = mandrelsList.count()
@@ -98,6 +105,7 @@ class MandrelAdapter(
 
     companion object {
         const val SPACE = " "
+        const val DOUBLE_PATTERN = "#0.00"
     }
 
     interface OnPetListButtonClickListener {
