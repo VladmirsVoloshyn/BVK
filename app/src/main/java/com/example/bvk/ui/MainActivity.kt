@@ -23,9 +23,6 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
     private var fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
     private var saveIsSampleCreated: Boolean = false
     private var onUpdateModeListener: MandrelFragment? = null
-    private var actionBar: ActionBar? = null
-
-    private var launchCounter = 0
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +32,9 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
         if (savedInstanceState == null) {
             fragmentTransaction.replace(binding.container.id, mandrelFragment).commit()
         }
-
         onUpdateModeListener = mandrelFragment
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        //requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
-
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -66,7 +61,6 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
     interface IfUpdateButtonClickedListener {
         fun onUpdateModeClicked()
     }
-
 
     companion object {
         const val IS_SAMPLE_CREATE_TAG = "is_sample_create"

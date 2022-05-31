@@ -11,7 +11,6 @@ import kotlinx.coroutines.SupervisorJob
 class BVKApplication : Application() {
 
     private val applicationScope = CoroutineScope(SupervisorJob())
-
     private val dataBase by lazy {
         MandrelRoomDataBase.getDataBase(this, applicationScope)
     }

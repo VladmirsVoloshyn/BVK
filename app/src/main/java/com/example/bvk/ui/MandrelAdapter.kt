@@ -102,7 +102,6 @@ class MandrelAdapter(
         }
     }
 
-
     companion object {
         const val SPACE = " "
         const val DOUBLE_PATTERN = "#0.00"

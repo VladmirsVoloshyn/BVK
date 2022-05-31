@@ -10,12 +10,10 @@ import kotlinx.coroutines.launch
 class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() {
 
     private val mandrelsRoomList: LiveData<List<Mandrel>> = repository.allMandrels.asLiveData()
-
     var mandrelsSampleList: MutableLiveData<List<Mandrel>> = MutableLiveData()
-
     var isSampleCreated = false
-    var sampleCapParameters = SampleCapParameters()
     var isDeveloperMode = false
+    var sampleCapParameters = SampleCapParameters()
 
     fun createSample(inputSampleCapParameters: SampleCapParameters) = viewModelScope.launch {
         sampleCapParameters = inputSampleCapParameters
