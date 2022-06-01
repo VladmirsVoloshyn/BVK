@@ -54,6 +54,9 @@
     <string name="click_to_clear_sample">click to clear sample</string>
     <string name="total_membrane_length">total membrane length</string>
 
+    //developer mode dialog
+    <string name="incorect_password_error_message">Password is incorrect</string>
+
 
     <string name="menu_item_delete">delete</string>
     <string name="menu_item_update">update</string>

@@ -75,7 +75,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
             addFragment.show(requireActivity().supportFragmentManager, ADD_FRAGMENT_TAG)
         }
         binding.createSamplreFab.setOnClickListener {
-            if (viewModel.isSampleCreated){
+            if (viewModel.isSampleCreated) {
                 clearSample()
             }
             val sampleCreateDialogFragment = SampleCreateDialogFragment(this)
@@ -102,7 +102,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
     private fun setInitializeData() {
         viewModel.deleteAll()
-               viewModel.insert(
+        viewModel.insert(
             Mandrel(
                 mandrelName = "29x1",
                 vertexDiameter = 29.65,
@@ -246,6 +246,18 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     override fun onEditClick(mandrel: Mandrel) {
         val addFragment = AddMandrelDialogFragment(CALL_KEY_EDIT, mandrel, this)
         addFragment.show(activity?.supportFragmentManager!!, ADD_FRAGMENT_TAG)
+    }
+
+    override fun onItemClick(position: Int) {
+        if (viewModel.isSampleCreated) {
+            clearSample()
+        }
+        val sampleCreateDialogFragment =
+            SampleCreateDialogFragment(this, viewModel.getItem(position)?.getSizeIdentifier())
+        sampleCreateDialogFragment.show(
+            requireActivity().supportFragmentManager,
+            SAMPLE_CREATE_FRAGMENT_TAG
+        )
     }
 
     private fun inflateList() {

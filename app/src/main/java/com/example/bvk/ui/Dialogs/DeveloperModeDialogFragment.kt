@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.example.bvk.R
 import com.example.bvk.databinding.DeveloperModeDialogFragmentBinding
 import com.example.bvk.shouldShowError
 
@@ -41,11 +42,11 @@ class DeveloperModeDialogFragment(
                     dialog?.dismiss()
                 }
                 password != binding.password.text.toString() -> {
-                    binding.textInputLayoutPassword.error = "Password is incorrect"
+                    binding.textInputLayoutPassword.error = activity?.resources?.getText(R.string.incorect_password_error_message)
                 }
                 else -> {
                     binding.password.shouldShowError(
-                        "Password is incorrect",
+                        activity?.resources?.getText(R.string.incorect_password_error_message).toString(),
                         binding.textInputLayoutPassword
                     )
                 }

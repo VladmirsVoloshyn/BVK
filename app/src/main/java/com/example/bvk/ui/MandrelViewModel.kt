@@ -6,6 +6,7 @@ import com.example.bvk.model.Mandrel
 import com.example.bvk.model.sample.SampleCapParameters
 import com.example.bvk.model.sample.SampleCreator
 import kotlinx.coroutines.launch
+import java.text.FieldPosition
 
 class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() {
 
@@ -23,6 +24,8 @@ class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() 
         )
         isSampleCreated = true
     }
+
+    fun getItem (position: Int) : Mandrel? = mandrelsRoomList.value?.get(position)
 
     fun getData(): LiveData<List<Mandrel>> {
         if (isSampleCreated) {

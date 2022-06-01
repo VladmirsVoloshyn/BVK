@@ -72,6 +72,10 @@ class MandrelAdapter(
         private lateinit var popupMenu: PopupMenu
 
         init {
+            itemView.setOnClickListener {
+                listener?.onItemClick(adapterPosition)
+            }
+
             if (isSampleCreate) {
                 binding.mandrelSampleDataLayout.visibility = ConstraintLayout.VISIBLE
                 binding.menuButton.visibility = Button.INVISIBLE
@@ -110,5 +114,6 @@ class MandrelAdapter(
     interface OnPetListButtonClickListener {
         fun onDeleteClick(position: Int)
         fun onEditClick(mandrel: Mandrel)
+        fun onItemClick(position: Int)
     }
 }

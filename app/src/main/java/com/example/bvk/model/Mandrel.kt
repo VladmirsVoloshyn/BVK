@@ -17,4 +17,8 @@ data class Mandrel(
     var adhesiveSleeveWeight: Double = 0.0,
     var totalMembraneLength : Double = 0.0,
     var recommendedAdhesiveSleeveWeight : Double = 0.0
-)
+) {
+    fun getSizeIdentifier(): String {
+        return this.mandrelName.substring(0..1)
+    }
+}

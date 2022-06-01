@@ -12,7 +12,8 @@ import com.example.bvk.model.sample.SampleCapParameters
 import com.example.bvk.shouldShowError
 
 class SampleCreateDialogFragment(
-    var onSampleCreatedListener: OnSampleCreatedListener? = null
+    var onSampleCreatedListener: OnSampleCreatedListener? = null,
+    var name : String? = null
 ) : DialogFragment() {
 
     var iListener: OnSampleCreatedListener? = null
@@ -25,6 +26,9 @@ class SampleCreateDialogFragment(
         savedInstanceState: Bundle?
     ): View {
         mBinding = NewSampleCreateDialogFragmentBinding.inflate(inflater, container, false)
+        if (name!=null){
+            binding.capVertexDiameter.setText(name)
+        }
         return binding.root
     }
 
@@ -76,6 +80,7 @@ class SampleCreateDialogFragment(
     override fun onDestroy() {
         mBinding = null
         onSampleCreatedListener = null
+        name = null
         super.onDestroy()
     }
 

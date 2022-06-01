@@ -9,7 +9,7 @@ class SampleCreator {
         fun crate(inputMandrelsList : ArrayList<Mandrel>, sampleCapParameters: SampleCapParameters) : ArrayList<Mandrel> {
             val mandrelsList = ArrayList<Mandrel>()
             for (mandrel in inputMandrelsList) {
-                if (mandrel.mandrelName.substring(0..1).toInt() == sampleCapParameters.capVertexDiameter) {
+                if (mandrel.mandrelName.substring(0..1) == sampleCapParameters.capVertexDiameter.toString()) {
                     mandrelsList.add(
                         MandrelProcessor.calculateDataForMandrel(
                             mandrel,

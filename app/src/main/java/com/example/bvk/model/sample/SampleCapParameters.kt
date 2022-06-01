@@ -6,6 +6,9 @@ data class SampleCapParameters(
     var capInversion: Int = 0,
     var totalCapAmount: Int = 0
 ) {
+    init {
+        totalCapAmount *= 1000
+    }
     override fun toString(): String {
         return "V=$capVertexDiameter, H=$capHeight, I=$capInversion, C=$totalCapAmount"
     }
