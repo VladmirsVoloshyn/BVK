@@ -74,7 +74,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
             val addFragment = AddMandrelDialogFragment(CALL_KEY_NEW, Mandrel(), this)
             addFragment.show(requireActivity().supportFragmentManager, ADD_FRAGMENT_TAG)
         }
-        binding.createSamplreFab.setOnClickListener {
+        binding.createSampleFab.setOnClickListener {
             if (viewModel.isSampleCreated) {
                 clearSample()
             }
@@ -156,7 +156,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 vertexDiameter = 57.3,
                 baseDiameter = 60.62,
                 height = 75,
-                infelicity = 0.4
             )
         )
         viewModel.insert(
@@ -165,7 +164,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 vertexDiameter = 60.6,
                 baseDiameter = 64.4,
                 height = 75,
-                infelicity = -0.3
             )
         )
         requireActivity().finish()

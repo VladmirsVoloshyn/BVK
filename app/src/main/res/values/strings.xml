@@ -42,6 +42,7 @@
     <string name="add_dialog_set_mandrel_height_hint">set mandrel height</string>
     <string name="add_dialog_set_mandrel_name_hint">set mandrel name</string>
     <string name="add_dialog_name_error_message">Please,set name</string>
+    <string name="add_dialog_max_infelicity_height">set max infelicity height</string>
 
     //sample dialog
     <string name="sample_dialog_vertex_error_message">"Please, set cap vertex diameter"</string>
@@ -68,9 +69,10 @@
     <string name="new_sample_dialog_set_cap_inversion_hint">set cap inversion</string>
     <string name="new_sample_dialog_set_total_cap_amount_hint">set total cap amount</string>
     <string name="delete_confirm_dialog_label">A you sure about delete mandrel:</string>
-    <string name="add_mandrel_dialog_infelicity_hint">set infelicity</string>
+    <string name="add_mandrel_dialog_infelicity_hint">set infelicity coefficient</string>
     <string name="add_dialog_infelicity_error_message">please, set mandrel infelicity</string>
-    <string name="confirnation_dialog_restore_default_label"> Are you sure about restore default? All data will be lost and app will restarted.</string>
+    <string name="add_dialog_max_infelicity_heihgt_error_message">please, set max infelicity height</string>
+    <string name="confirmation_dialog_restore_default_label"> Are you sure about restore default? All data will be lost and app will restarted.</string>
 
     //actionbar
     <string name="action_bar_subtitle_operator_mode">operator mode</string>

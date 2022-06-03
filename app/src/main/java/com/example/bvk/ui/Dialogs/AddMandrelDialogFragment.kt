@@ -33,7 +33,8 @@ class AddMandrelDialogFragment(
             binding.mandrelVertexDiameter.setText(mandrel.vertexDiameter.toString())
             binding.mandrelBaseDiameter.setText(mandrel.baseDiameter.toString())
             binding.mandrelHeight.setText(mandrel.height.toString())
-            binding.mandrelInfelicity.setText(mandrel.infelicity.toString())
+            binding.mandrelInfelicity.setText(mandrel.infelicityCoefficient.toString())
+            binding.mandrelMaxInfelicityHeight.setText(mandrel.maxInfelicityHeight.toString())
         }
         return binding.root
     }
@@ -72,6 +73,10 @@ class AddMandrelDialogFragment(
                     getString(R.string.add_dialog_infelicity_error_message),
                     binding.textInputLayoutInfelicity
                 )
+                && !binding.mandrelMaxInfelicityHeight.shouldShowError(
+                    getString(R.string.add_dialog_infelicity_error_message),
+                    binding.textInputLayoutMaxInfelicityHeight
+                )
             ) {
                 if (callKey == CALL_KEY_NEW) {
                     listener?.onMandrelAdd(
@@ -81,7 +86,10 @@ class AddMandrelDialogFragment(
                                 .toDouble(),
                             baseDiameter = binding.mandrelBaseDiameter.text.toString().toDouble(),
                             height = binding.mandrelHeight.text.toString().toInt(),
-                            infelicity = binding.mandrelInfelicity.text.toString().toDouble()
+                            infelicityCoefficient = binding.mandrelInfelicity.text.toString()
+                                .toDouble(),
+                            maxInfelicityHeight = binding.mandrelMaxInfelicityHeight.text.toString()
+                                .toInt()
                         )
                     )
                 } else {
@@ -93,7 +101,10 @@ class AddMandrelDialogFragment(
                                 .toDouble(),
                             baseDiameter = binding.mandrelBaseDiameter.text.toString().toDouble(),
                             height = binding.mandrelHeight.text.toString().toInt(),
-                            infelicity = binding.mandrelInfelicity.text.toString().toDouble()
+                            infelicityCoefficient = binding.mandrelInfelicity.text.toString()
+                                .toDouble(),
+                            maxInfelicityHeight = binding.mandrelMaxInfelicityHeight.text.toString()
+                                .toInt()
                         )
                     )
                 }

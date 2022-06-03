@@ -43,7 +43,8 @@
     <string name="add_dialog_set_mandrel_height_hint">высота оправки</string>
     <string name="add_dialog_set_mandrel_name_hint">имя оправки</string>
     <string name="add_dialog_name_error_message">Пожалуйста, установите имя</string>
-    <string name="add_mandrel_dialog_infelicity_hint">погрешность</string>
+    <string name="add_mandrel_dialog_infelicity_hint">максимальный коэфицент погрешности</string>
+    <string name="add_dialog_max_infelicity_height">максимальная высота погрешности</string>
 
     //sample dialog
     <string name="sample_dialog_vertex_error_message">Пожалуйста, установите диаметр вершины колпака</string>
@@ -71,7 +72,8 @@
     <string name="new_sample_dialog_set_total_cap_amount_hint">количество колпака тыс.шт.</string>
     <string name="delete_confirm_dialog_label">Вы уверены, что хотите удалить оправку :</string>
     <string name="add_dialog_infelicity_error_message">Пожалуйста,установите погрешность</string>
-    <string name="confirnation_dialog_restore_default_label"> Вы уверены, что хотите восстановить умолчания? Все введенные данные будут потеряны. Потребуется перезапуск приложения</string>
+    <string name="add_dialog_max_infelicity_heihgt_error_message">Пожалуйста, установите максимальную высоту погрешности</string>
+    <string name="confirmation_dialog_restore_default_label"> Вы уверены, что хотите восстановить умолчания? Все введенные данные будут потеряны. Потребуется перезапуск приложения</string>
 
     //actionbar
     <string name="action_bar_subtitle_operator_mode">режим оператора</string>

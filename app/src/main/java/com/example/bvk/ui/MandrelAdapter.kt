@@ -2,13 +2,13 @@ package com.example.bvk.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bvk.R
@@ -28,13 +28,27 @@ class MandrelAdapter(
     private val res: Resources = context.resources
     private var _binding: MandrelRecyclerContainerBinding? = null
     private val binding get() = _binding!!
+
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MandrelListViewHolder {
         _binding = MandrelRecyclerContainerBinding.inflate(layoutInflater, parent, false)
         return MandrelListViewHolder(binding)
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: MandrelListViewHolder, position: Int) {
+        when (res.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                binding.mandrelSimpleDataLayout.background = res.getDrawable(R.drawable.card_bg)
+                binding.mandrelSampleDataLayout.background = res.getDrawable(R.drawable.card_bg)
+            }
+            Configuration.UI_MODE_NIGHT_YES -> {
+                binding.mandrelSimpleDataLayout.background =
+                    res.getDrawable(R.drawable.card_bg_night)
+                binding.mandrelSampleDataLayout.background =
+                    res.getDrawable(R.drawable.card_bg_night)
+            }
+        }
         binding.mandrelName.text =
             res.getString(R.string.name_prefix) + SPACE + mandrelsList[position].mandrelName
         binding.mandrelVertexDiameter.text =
@@ -51,15 +65,19 @@ class MandrelAdapter(
         binding.membraneWightTextView.text = res.getText(R.string.membrane_weight_prefix)
             .toString() + SPACE + (DecimalFormat(DOUBLE_PATTERN).format(mandrelsList[position].membraneWight))
         binding.totalMembraneLengthTextView.text =
-            res.getString(R.string.total_membrane_length) + SPACE + (DecimalFormat(DOUBLE_PATTERN).format((mandrelsList[position].totalMembraneLength)))
-        binding.mandrelInfelicity.text = res.getText(R.string.infelicity_prefix).toString() + SPACE + mandrelsList[position].infelicity
+            res.getString(R.string.total_membrane_length) + SPACE + (DecimalFormat(DOUBLE_PATTERN).format(
+                (mandrelsList[position].totalMembraneLength)
+            ))
+        binding.mandrelInfelicity.text = res.getText(R.string.infelicity_prefix)
+            .toString() + SPACE + mandrelsList[position].infelicityCoefficient
         res.getString(R.string.recommended_adhesive_sleeve_weight_hint)
-        binding.recommendedAdhesiveSleeveWeightTextView.text = res.getString(R.string.recommended_adhesive_sleeve_weight_hint) + SPACE + mandrelsList[position].recommendedAdhesiveSleeveWeight
+        binding.recommendedAdhesiveSleeveWeightTextView.text =
+            res.getString(R.string.recommended_adhesive_sleeve_weight_hint) + SPACE + mandrelsList[position].recommendedAdhesiveSleeveWeight
 
-        if (mandrelsList[position].totalMembraneLength == 0.00)  {
+        if (mandrelsList[position].totalMembraneLength == 0.00) {
             binding.totalMembraneLengthTextView.visibility = TextView.GONE
         }
-        if (mandrelsList[position].recommendedAdhesiveSleeveWeight == 0.00)  {
+        if (mandrelsList[position].recommendedAdhesiveSleeveWeight == 0.00) {
             binding.recommendedAdhesiveSleeveWeightTextView.visibility = TextView.GONE
         }
 
@@ -88,7 +106,7 @@ class MandrelAdapter(
                 binding.mandrelBaseDiameter.visibility = TextView.GONE
                 binding.mandrelHeight.visibility = TextView.GONE
                 binding.mandrelInfelicity.visibility = TextView.GONE
-                binding.menuButton.visibility = Button.INVISIBLE
+                binding.menuButton.visibility = Button.GONE
             }
 
             binding.menuButton.setOnClickListener {

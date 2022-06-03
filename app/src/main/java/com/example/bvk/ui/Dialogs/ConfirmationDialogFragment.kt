@@ -48,7 +48,7 @@ class ConfirmationDialogFragment(
         if (callKeyEvent == RESTORE_DEFAULT_CONFIRMATION_CALL_KEY) {
 
             binding.deleteConfirmLabel.text =
-                activity?.resources?.getText(R.string.confirnation_dialog_restore_default_label)
+                activity?.resources?.getText(R.string.confirmation_dialog_restore_default_label)
             binding.confirmDialogSubmitButton.text = activity?.resources?.getText(R.string.confirm_restore_default_button_label)
             binding.confirmDialogSubmitButton.setOnClickListener {
                 listener.onRestoreDefaultConfirm()

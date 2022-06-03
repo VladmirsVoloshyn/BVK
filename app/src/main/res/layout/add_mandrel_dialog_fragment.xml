@@ -9,12 +9,12 @@
         android:id="@+id/label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/add_dialog_set_mandrel_data_label"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/add_dialog_set_mandrel_data_label"
-        android:gravity="center_horizontal" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutName"
@@ -29,7 +29,7 @@
             android:id="@+id/mandrel_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/add_dialog_set_mandrel_name_hint"/>
+            android:hint="@string/add_dialog_set_mandrel_name_hint" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,9 +69,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutHeight"
-        android:layout_marginTop="4dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutBase">
@@ -87,9 +87,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutInfelicity"
-        android:layout_marginTop="4dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutHeight">
@@ -100,6 +100,23 @@
             android:layout_height="wrap_content"
             android:hint="@string/add_mandrel_dialog_infelicity_hint"
             android:inputType="numberSigned|number|numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutMaxInfelicityHeight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutInfelicity">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/mandrel_max_infelicity_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_dialog_max_infelicity_height"
+            android:inputType="numberSigned|number|numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,7 +126,7 @@
         android:layout_height="wrap_content"
         android:text="@string/add_button_label"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutInfelicity" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutMaxInfelicityHeight" />
 
     <Button
         android:id="@+id/button_skip"
@@ -118,6 +135,6 @@
         android:layout_marginEnd="16dp"
         android:text="@string/skip_button_label"
         app:layout_constraintEnd_toStartOf="@+id/button_add"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutInfelicity" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutMaxInfelicityHeight" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
