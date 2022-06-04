@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -37,20 +38,8 @@ class MandrelAdapter(
 
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: MandrelListViewHolder, position: Int) {
-        when (res.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> {
-                binding.mandrelSimpleDataLayout.background = res.getDrawable(R.drawable.card_bg)
-                binding.mandrelSampleDataLayout.background = res.getDrawable(R.drawable.card_bg)
-                binding.menuButton.background = res.getDrawable(R.drawable.card_bg)
-            }
-            Configuration.UI_MODE_NIGHT_YES -> {
-                binding.mandrelSimpleDataLayout.background =
-                    res.getDrawable(R.drawable.card_bg_night)
-                binding.mandrelSampleDataLayout.background =
-                    res.getDrawable(R.drawable.card_bg_night)
-                binding.menuButton.background = res.getDrawable(R.drawable.card_bg_night)
-            }
-        }
+        setUIMode()
+
         binding.mandrelName.text =
             res.getString(R.string.name_prefix) + SPACE + mandrelsList[position].mandrelName
         binding.mandrelVertexDiameter.text =
@@ -83,6 +72,34 @@ class MandrelAdapter(
             binding.recommendedAdhesiveSleeveWeightTextView.visibility = TextView.GONE
         }
 
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    fun setUIMode(){
+        when (res.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                binding.mandrelSimpleDataLayout.background = res.getDrawable(R.drawable.card_bg)
+                binding.mandrelSampleDataLayout.background = res.getDrawable(R.drawable.card_bg)
+                binding.menuButton.background = res.getDrawable(R.drawable.card_bg)
+
+
+            }
+            Configuration.UI_MODE_NIGHT_YES -> {
+                binding.mandrelSimpleDataLayout.background =
+                    res.getDrawable(R.drawable.card_bg_night)
+                binding.mandrelSampleDataLayout.background =
+                    res.getDrawable(R.drawable.card_bg_night)
+                binding.menuButton.background = res.getDrawable(R.drawable.card_bg_night)
+                binding.mandrelName.setTextColor(res.getColor(R.color.text_mode_night))
+                binding.mandrelVertexDiameter.setTextColor(res.getColor(R.color.text_mode_night))
+                binding.mandrelBaseDiameter.setTextColor(res.getColor(R.color.text_mode_night))
+                binding.mandrelInfelicity.setTextColor(res.getColor(R.color.text_mode_night))
+                binding.membraneWightTextView.setTextColor(res.getColor(R.color.text_mode_night))
+                binding.adhesiveSleeveWeightTextView.setTextColor(res.getColor(R.color.text_mode_night))
+                binding.totalMembraneLengthTextView.setTextColor(res.getColor(R.color.text_mode_night))
+                binding.mandrelHeight.setTextColor(res.getColor(R.color.text_mode_night))
+            }
+        }
     }
 
     override fun getItemCount(): Int = mandrelsList.count()
