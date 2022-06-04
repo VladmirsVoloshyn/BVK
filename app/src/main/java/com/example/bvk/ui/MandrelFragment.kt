@@ -34,7 +34,10 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     private var actionBar: androidx.appcompat.app.ActionBar? = null
 
     private val viewModel: MandrelViewModel by viewModels {
-        MandrelViewModelFactory((requireActivity().application as BVKApplication).repository)
+        MandrelViewModelFactory(
+            (requireActivity().application as BVKApplication).mandrelsRepository,
+            (requireActivity().application as BVKApplication).schemasRepository
+        )
     }
 
     override fun onCreateView(
@@ -101,8 +104,8 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     private fun setInitializeData() {
-        viewModel.deleteAll()
-        viewModel.insert(
+        viewModel.deleteAllMandrels()
+        viewModel.insertMandrel(
             Mandrel(
                 mandrelName = "29x1",
                 vertexDiameter = 29.65,
@@ -110,7 +113,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 height = 75
             )
         )
-        viewModel.insert(
+        viewModel.insertMandrel(
             Mandrel(
                 mandrelName = "29x2",
                 vertexDiameter = 29.55,
@@ -118,7 +121,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 height = 75
             )
         )
-        viewModel.insert(
+        viewModel.insertMandrel(
             Mandrel(
                 mandrelName = "29x3",
                 vertexDiameter = 29.88,
@@ -126,7 +129,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 height = 75
             )
         )
-        viewModel.insert(
+        viewModel.insertMandrel(
             Mandrel(
                 mandrelName = "29x4",
                 vertexDiameter = 29.55,
@@ -134,7 +137,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 height = 75
             )
         )
-        viewModel.insert(
+        viewModel.insertMandrel(
             Mandrel(
                 mandrelName = "33x1",
                 vertexDiameter = 33.20,
@@ -142,7 +145,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 height = 75
             )
         )
-        viewModel.insert(
+        viewModel.insertMandrel(
             Mandrel(
                 mandrelName = "43x1",
                 vertexDiameter = 42.65,
@@ -150,7 +153,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 height = 75
             )
         )
-        viewModel.insert(
+        viewModel.insertMandrel(
             Mandrel(
                 mandrelName = "56x1",
                 vertexDiameter = 57.3,
@@ -158,7 +161,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 height = 75,
             )
         )
-        viewModel.insert(
+        viewModel.insertMandrel(
             Mandrel(
                 mandrelName = "61x1",
                 vertexDiameter = 60.6,
@@ -224,17 +227,17 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     override fun onMandrelAdd(mandrel: Mandrel) {
-        viewModel.insert(mandrel)
+        viewModel.insertMandrel(mandrel)
     }
 
     override fun onMandrelEdit(mandrel: Mandrel) {
-        viewModel.update(mandrel)
+        viewModel.updateMandrel(mandrel)
     }
 
     override fun onDeleteClick(position: Int) {
         val deleteConfirmationFragment = ConfirmationDialogFragment(
             DELETE_CONFIRMATION_CALL_KEY,
-            viewModel.getData().value?.get(position) ?: Mandrel(),
+            viewModel.getMandrelsData().value?.get(position) ?: Mandrel(),
             this,
             position
         )
@@ -259,7 +262,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     private fun inflateList() {
-        viewModel.getData().observe(viewLifecycleOwner) {
+        viewModel.getMandrelsData().observe(viewLifecycleOwner) {
             if (it.isNullOrEmpty()) {
                 binding.nothingToShowTextView.visibility = TextView.VISIBLE
                 binding.mandrelsList.visibility = RecyclerView.INVISIBLE
@@ -301,7 +304,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     override fun onDeleteConfirm(position: Int) {
-        viewModel.delete(position)
+        viewModel.deleteMandrel(position)
     }
 
     override fun onRestoreDefaultConfirm() {

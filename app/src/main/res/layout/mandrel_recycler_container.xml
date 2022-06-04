@@ -11,13 +11,13 @@
         android:layout_width="0dp"
         android:elevation="14dp"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.BVK"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        android:background="@drawable/card_bg">
 
         <ImageView
             android:id="@+id/mandrel_avatar"
@@ -80,6 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:background="@drawable/card_bg"
             android:contentDescription="@string/press_if_edit_item"
             android:src="@drawable/ic_baseline_menu_24"
 
@@ -93,7 +94,7 @@
         android:layout_height="wrap_content"
         android:padding="6dp"
         android:elevation="9dp"
-        android:theme="@style/Theme.BVK"
+        android:background="@drawable/card_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

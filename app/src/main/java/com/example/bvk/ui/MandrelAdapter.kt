@@ -41,12 +41,14 @@ class MandrelAdapter(
             Configuration.UI_MODE_NIGHT_NO -> {
                 binding.mandrelSimpleDataLayout.background = res.getDrawable(R.drawable.card_bg)
                 binding.mandrelSampleDataLayout.background = res.getDrawable(R.drawable.card_bg)
+                binding.menuButton.background = res.getDrawable(R.drawable.card_bg)
             }
             Configuration.UI_MODE_NIGHT_YES -> {
                 binding.mandrelSimpleDataLayout.background =
                     res.getDrawable(R.drawable.card_bg_night)
                 binding.mandrelSampleDataLayout.background =
                     res.getDrawable(R.drawable.card_bg_night)
+                binding.menuButton.background = res.getDrawable(R.drawable.card_bg_night)
             }
         }
         binding.mandrelName.text =

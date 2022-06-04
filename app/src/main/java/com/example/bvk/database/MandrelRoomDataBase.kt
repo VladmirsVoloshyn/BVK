@@ -14,7 +14,7 @@ abstract class MandrelRoomDataBase : RoomDatabase() {
 
         abstract fun mandrelDao(): MandrelDao
 
-        private class PetsDataBaseCallBack(
+        private class MandrelsDataBaseCallBack(
             private val scope: CoroutineScope
         ) : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
@@ -40,8 +40,8 @@ abstract class MandrelRoomDataBase : RoomDatabase() {
                     val instance = Room.databaseBuilder(
                         context.applicationContext,
                         MandrelRoomDataBase::class.java,
-                        "pets_database"
-                    ).addCallback(PetsDataBaseCallBack(scope)).build()
+                        "mandrels_database"
+                    ).addCallback(MandrelsDataBaseCallBack(scope)).build()
                     INSTANCE = instance
                     instance
                 }

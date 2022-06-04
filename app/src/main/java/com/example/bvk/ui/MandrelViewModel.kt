@@ -2,20 +2,38 @@ package com.example.bvk.ui
 
 import androidx.lifecycle.*
 import com.example.bvk.database.MandrelRepository
+import com.example.bvk.database.packagedatabase.PackageRepository
 import com.example.bvk.model.Mandrel
+import com.example.bvk.model.packageschema.PackageSchema
 import com.example.bvk.model.sample.SampleCapParameters
 import com.example.bvk.model.sample.SampleCreator
 import kotlinx.coroutines.launch
-import java.text.FieldPosition
 
-class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() {
+class MandrelViewModel(
+    private val mandrelRepository: MandrelRepository,
+    private val schemasRepository: PackageRepository
+) : ViewModel() {
 
-    private val mandrelsRoomList: LiveData<List<Mandrel>> = repository.allMandrels.asLiveData()
+    //schema values
+    private val schemasRoomList: LiveData<List<PackageSchema>> =
+        schemasRepository.allSchemas.asLiveData()
+
+    //mandrel values
+    private val mandrelsRoomList: LiveData<List<Mandrel>> =
+        mandrelRepository.allMandrels.asLiveData()
     var mandrelsSampleList: MutableLiveData<List<Mandrel>> = MutableLiveData()
     var isSampleCreated = false
     var isDeveloperMode = false
+    var isMandrelViewMode = true
     var sampleCapParameters = SampleCapParameters()
 
+    //schemas impl
+    fun getSchemasData(): LiveData<List<PackageSchema>> {
+        return schemasRoomList
+    }
+
+
+    //mandrel impl
     fun createSample(inputSampleCapParameters: SampleCapParameters) = viewModelScope.launch {
         sampleCapParameters = inputSampleCapParameters
         mandrelsSampleList.value = SampleCreator.crate(
@@ -25,29 +43,46 @@ class MandrelViewModel(private val repository: MandrelRepository) : ViewModel() 
         isSampleCreated = true
     }
 
-    fun getItem (position: Int) : Mandrel? = mandrelsRoomList.value?.get(position)
+    fun getItem(position: Int): Mandrel? = mandrelsRoomList.value?.get(position)
 
-    fun getData(): LiveData<List<Mandrel>> {
+    fun getMandrelsData(): LiveData<List<Mandrel>> {
         if (isSampleCreated) {
             return mandrelsSampleList
         }
         return mandrelsRoomList
     }
 
-    //room impl
-    fun insert(mandrel: Mandrel) = viewModelScope.launch {
-        repository.insert(mandrel)
+    //room schemas impl
+    fun insertSchema(schema: PackageSchema) = viewModelScope.launch {
+        schemasRepository.insert(schema)
     }
 
-    fun delete(id: Int) = viewModelScope.launch {
-        mandrelsRoomList.value?.get(id)?.let { repository.delete(it.id) }
+    fun deleteSchema(id: Int) = viewModelScope.launch {
+        schemasRoomList.value?.get(id)?.let { schemasRepository.delete(it.id) }
     }
 
-    fun deleteAll() = viewModelScope.launch {
-        repository.deleteAll()
+    fun deleteAllSchemas() = viewModelScope.launch {
+        schemasRepository.deleteAll()
     }
 
-    fun update(mandrel: Mandrel) = viewModelScope.launch {
-        repository.update(mandrel)
+    fun updateSchema(schema: PackageSchema) = viewModelScope.launch {
+        schemasRepository.update(schema)
+    }
+
+    //room mandrel impl
+    fun insertMandrel(mandrel: Mandrel) = viewModelScope.launch {
+        mandrelRepository.insert(mandrel)
+    }
+
+    fun deleteMandrel(id: Int) = viewModelScope.launch {
+        mandrelsRoomList.value?.get(id)?.let { mandrelRepository.delete(it.id) }
+    }
+
+    fun deleteAllMandrels() = viewModelScope.launch {
+        mandrelRepository.deleteAll()
+    }
+
+    fun updateMandrel(mandrel: Mandrel) = viewModelScope.launch {
+        mandrelRepository.update(mandrel)
     }
 }
