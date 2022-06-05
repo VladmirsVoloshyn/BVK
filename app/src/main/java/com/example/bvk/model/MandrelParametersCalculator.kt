@@ -3,7 +3,7 @@ package com.example.bvk.model
 import com.example.bvk.model.amount.MembraneLengthCounter
 import com.example.bvk.model.sample.SampleCapParameters
 
-class MandrelProcessor {
+class MandrelParametersCalculator {
     companion object {
 
         private const val MEMBRANE_DEPTH: Double = 0.0060
@@ -31,7 +31,7 @@ class MandrelProcessor {
                 (getCircumferenceSoughtFor(
                     mandrel,
                     (sampleCapParameters.capHeight - PUSHER_HEIGHT)
-                ) / 2) + mandrel.infelicityCoefficient
+                ) / 2)
             val infelicityDecayFactor = (mandrel.infelicityCoefficient - 1) / (mandrel.maxInfelicityHeight - PUSHER_HEIGHT)
 
             if (sampleCapParameters.capHeight <= mandrel.maxInfelicityHeight){

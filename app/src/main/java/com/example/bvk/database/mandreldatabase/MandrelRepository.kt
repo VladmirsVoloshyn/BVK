@@ -1,4 +1,4 @@
-package com.example.bvk.database
+package com.example.bvk.database.mandreldatabase
 
 import androidx.annotation.WorkerThread
 import com.example.bvk.model.Mandrel

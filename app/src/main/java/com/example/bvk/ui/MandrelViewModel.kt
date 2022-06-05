@@ -1,7 +1,7 @@
 package com.example.bvk.ui
 
 import androidx.lifecycle.*
-import com.example.bvk.database.MandrelRepository
+import com.example.bvk.database.mandreldatabase.MandrelRepository
 import com.example.bvk.database.packagedatabase.PackageRepository
 import com.example.bvk.model.Mandrel
 import com.example.bvk.model.packageschema.PackageSchema

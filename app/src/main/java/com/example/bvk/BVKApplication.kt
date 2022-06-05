@@ -1,8 +1,8 @@
 package com.example.bvk
 
 import android.app.Application
-import com.example.bvk.database.MandrelRepository
-import com.example.bvk.database.MandrelRoomDataBase
+import com.example.bvk.database.mandreldatabase.MandrelRepository
+import com.example.bvk.database.mandreldatabase.MandrelRoomDataBase
 import com.example.bvk.database.packagedatabase.PackageRepository
 import com.example.bvk.database.packagedatabase.PackageRoomDatabase
 import kotlinx.coroutines.CoroutineScope

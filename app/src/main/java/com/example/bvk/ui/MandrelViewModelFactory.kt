@@ -2,7 +2,7 @@ package com.example.bvk.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.bvk.database.MandrelRepository
+import com.example.bvk.database.mandreldatabase.MandrelRepository
 import com.example.bvk.database.packagedatabase.PackageRepository
 import java.lang.IllegalArgumentException
 

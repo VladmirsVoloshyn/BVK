@@ -1,4 +1,4 @@
-package com.example.bvk.database
+package com.example.bvk.database.mandreldatabase
 
 import android.content.Context
 import androidx.room.Database
@@ -19,7 +19,7 @@ abstract class MandrelRoomDataBase : RoomDatabase() {
         ) : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                INSTANCE?.let {dataBase ->
+                INSTANCE?.let { dataBase ->
                     scope.launch {
                         populateDatabase(dataBase.mandrelDao())
                     }

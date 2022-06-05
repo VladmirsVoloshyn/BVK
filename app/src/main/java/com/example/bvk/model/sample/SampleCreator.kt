@@ -1,7 +1,7 @@
 package com.example.bvk.model.sample
 
 import com.example.bvk.model.Mandrel
-import com.example.bvk.model.MandrelProcessor
+import com.example.bvk.model.MandrelParametersCalculator
 
 class SampleCreator {
 
@@ -11,7 +11,7 @@ class SampleCreator {
             for (mandrel in inputMandrelsList) {
                 if (mandrel.mandrelName.substring(0..1) == sampleCapParameters.capVertexDiameter.toString()) {
                     mandrelsList.add(
-                        MandrelProcessor.calculateDataForMandrel(
+                        MandrelParametersCalculator.calculateDataForMandrel(
                             mandrel,
                             sampleCapParameters
                         )

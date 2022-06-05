@@ -39,7 +39,6 @@ class MandrelAdapter(
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: MandrelListViewHolder, position: Int) {
         setUIMode()
-
         binding.mandrelName.text =
             res.getString(R.string.name_prefix) + SPACE + mandrelsList[position].mandrelName
         binding.mandrelVertexDiameter.text =
