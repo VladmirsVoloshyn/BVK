@@ -58,7 +58,7 @@
     <string name="total_membrane_length">длина рукава</string>
 
     //developer mode dialog
-    <string name="incorect_password_error_message">Неверный пароль</string>
+    <string name="incorrect_password_error_message">Неверный пароль</string>
 
 
     <string name="menu_item_delete">удалить</string>
@@ -72,7 +72,7 @@
     <string name="new_sample_dialog_set_total_cap_amount_hint">количество колпака тыс.шт.</string>
     <string name="delete_confirm_dialog_label">Вы уверены, что хотите удалить оправку :</string>
     <string name="add_dialog_infelicity_error_message">Пожалуйста,установите погрешность</string>
-    <string name="add_dialog_max_infelicity_heihgt_error_message">Пожалуйста, установите максимальную высоту погрешности</string>
+    <string name="add_dialog_max_infelicity_height_error_message">Пожалуйста, установите максимальную высоту погрешности</string>
     <string name="confirmation_dialog_restore_default_label"> Вы уверены, что хотите восстановить умолчания? Все введенные данные будут потеряны. Потребуется перезапуск приложения</string>
 
     //actionbar
@@ -97,8 +97,11 @@
     <string name="add_dialog_set_name_error_message">Пожалуйста, назовите схему</string>
     <string name="add_dialog_box_type_error_message">Пожалуйста, установите тип коробки</string>
     <string name="add_dialog_first_line_count_error_message">Пожалуйста, установите укладку первой линии</string>
-    <string name="add_dialog_second_line_eror_message">Пожалуйста, установите укладку второй линии</string>
+    <string name="add_dialog_second_line_error_message">Пожалуйста, установите укладку второй линии</string>
     <string name="add_dialog_cap_amount_in_box_error_message">Пожалуйста, установите количество колпака в коробке</string>
     <string name="add_dialog_cap_in_bundle_error_message">Пожалуйста, установите количество колпака в штанге</string>
+
+    <string name="confirmation_dialog_delete_schema_label">Удалить схему упаковки :</string>
+    <string name="confirmation_dialog_delete_mandrel_label">Удалить оправку :</string>
 
 </resources>

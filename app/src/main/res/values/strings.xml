@@ -56,7 +56,7 @@
     <string name="total_membrane_length">total membrane length</string>
 
     //developer mode dialog
-    <string name="incorect_password_error_message">Password is incorrect</string>
+    <string name="incorrect_password_error_message">Password is incorrect</string>
 
 
     <string name="menu_item_delete">delete</string>
@@ -71,7 +71,7 @@
     <string name="delete_confirm_dialog_label">A you sure about delete mandrel:</string>
     <string name="add_mandrel_dialog_infelicity_hint">set infelicity coefficient</string>
     <string name="add_dialog_infelicity_error_message">please, set mandrel infelicity</string>
-    <string name="add_dialog_max_infelicity_heihgt_error_message">please, set max infelicity height</string>
+    <string name="add_dialog_max_infelicity_height_error_message">please, set max infelicity height</string>
     <string name="confirmation_dialog_restore_default_label"> Are you sure about restore default? All data will be lost and app will restarted.</string>
 
     //actionbar
@@ -95,9 +95,11 @@
     <string name="add_dialog_set_name_error_message">Please, set schema name</string>
     <string name="add_dialog_box_type_error_message">Please, set box type</string>
     <string name="add_dialog_first_line_count_error_message">Please, set first line count</string>
-    <string name="add_dialog_second_line_eror_message">Please, set second line count</string>
+    <string name="add_dialog_second_line_error_message">Please, set second line count</string>
     <string name="add_dialog_cap_amount_in_box_error_message">Please, set cap amount in box</string>
     <string name="add_dialog_cap_in_bundle_error_message">Please, set cap amount in bundle</string>
+    <string name="confirmation_dialog_delete_schema_label">Delete package schema :</string>
+    <string name="confirmation_dialog_delete_mandrel_label">Delete mandrel :</string>
 
 
 </resources>

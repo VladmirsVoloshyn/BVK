@@ -42,11 +42,11 @@ class DeveloperModeDialogFragment(
                     dialog?.dismiss()
                 }
                 password != binding.password.text.toString() -> {
-                    binding.textInputLayoutPassword.error = activity?.resources?.getText(R.string.incorect_password_error_message)
+                    binding.textInputLayoutPassword.error = activity?.resources?.getText(R.string.incorrect_password_error_message)
                 }
                 else -> {
                     binding.password.shouldShowError(
-                        activity?.resources?.getText(R.string.incorect_password_error_message).toString(),
+                        activity?.resources?.getText(R.string.incorrect_password_error_message).toString(),
                         binding.textInputLayoutPassword
                     )
                 }

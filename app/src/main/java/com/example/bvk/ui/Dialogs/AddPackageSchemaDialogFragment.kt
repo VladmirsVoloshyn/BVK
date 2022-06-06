@@ -68,8 +68,8 @@ class AddPackageSchemaDialogFragment(
                     binding.textInputLayoutSchemaParameters
                 )
                 && !binding.schemaSecondLine.shouldShowError(
-                    getString(R.string.add_dialog_second_line_eror_message),
-                    binding.textInputLayoutSchemaParameters
+                    getString(R.string.add_dialog_second_line_error_message),
+                    binding.textInputLayoutSchemaSecondLine
                 )
                 && !binding.capAmountInBox.shouldShowError(
                     getString(R.string.add_dialog_cap_amount_in_box_error_message),

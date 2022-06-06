@@ -113,16 +113,16 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.changeDataListFab.setOnClickListener {
             clearSample()
             if (viewModel.isMandrelViewMode) {
-               setMandrelDataView()
-            } else {
                 setPackageSchemaDataView()
+            } else {
+                setMandrelDataView()
             }
         }
 
     }
 
     //ui mode
-    private fun setMandrelDataView(){
+    private fun setMandrelDataView() {
         binding.mandrelsList.visibility = RecyclerView.VISIBLE
         binding.schemasList.visibility = RecyclerView.INVISIBLE
         binding.textViewLabel.text =
@@ -131,7 +131,8 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.restoreDefaultButton.visibility = Button.VISIBLE
         viewModel.isMandrelViewMode = true
     }
-    private fun setPackageSchemaDataView(){
+
+    private fun setPackageSchemaDataView() {
         inflateSchemasList()
         binding.mandrelsList.visibility = RecyclerView.INVISIBLE
         binding.schemasList.visibility = RecyclerView.VISIBLE
@@ -201,7 +202,10 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         override fun handleOnBackPressed() {
             if (viewModel.isSampleCreated) {
                 clearSample()
-            } else {
+            } else if (!viewModel.isMandrelViewMode){
+                setMandrelDataView()
+            }
+            else {
                 activity?.finish()
             }
         }
@@ -215,18 +219,24 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     override fun onMandrelEdit(mandrel: Mandrel) {
         viewModel.updateMandrel(mandrel)
     }
+
     override fun onMandrelDeleteClick(position: Int) {
         val deleteConfirmationFragment = ConfirmationDialogFragment(
-            DELETE_CONFIRMATION_CALL_KEY,
+            DELETE_MANDREL_CONFIRMATION_CALL_KEY,
             viewModel.getMandrelsData().value?.get(position) ?: Mandrel(),
+            PackageSchema(),
             this,
             position
         )
         deleteConfirmationFragment.show(activity?.supportFragmentManager!!, DELETE_DIALOG_TAG)
     }
 
-    override fun onDeleteConfirm(position: Int) {
-        viewModel.deleteMandrel(position)
+    override fun onDeleteConfirm(position: Int, confirmationKey : String) {
+        when(confirmationKey){
+            DELETE_MANDREL_CONFIRMATION_CALL_KEY ->viewModel.deleteMandrel(position)
+            DELETE_PACKAGE_SCHEMA_CONFIRMATION_CALL_KEY -> viewModel.deleteSchema(position)
+        }
+
     }
 
     override fun onMandrelEditClick(mandrel: Mandrel) {
@@ -245,6 +255,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
             SAMPLE_CREATE_FRAGMENT_TAG
         )
     }
+
     @SuppressLint("SetTextI18n")
     override fun onSampleCreate(sampleCapParam: SampleCapParameters) {
         viewModel.createSample(sampleCapParam)
@@ -254,7 +265,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         viewModel.isSampleCreated = true
         inflateMandrelsList(viewModel.findPackageSchema(sampleCapParam))
     }
-
 
 
     // schema data operation
@@ -267,7 +277,14 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     override fun onSchemaDeleteClick(position: Int) {
-        viewModel.deleteSchema(position)
+        val deleteConfirmationFragment = ConfirmationDialogFragment(
+            DELETE_PACKAGE_SCHEMA_CONFIRMATION_CALL_KEY,
+            Mandrel(),
+            viewModel.getSchemasData().value?.get(position) ?: PackageSchema(),
+            this,
+            position
+        )
+        deleteConfirmationFragment.show(activity?.supportFragmentManager!!, DELETE_DIALOG_TAG)
     }
 
     override fun onSchemaEditClick(schema: PackageSchema) {
@@ -313,23 +330,25 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     override fun onPasswordEnter() {
         setAdminMode()
     }
+
     override fun onRestoreDefaultConfirm() {
         setInitializeData()
     }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
 
     companion object {
-        val TAG = (MandrelFragment::class.java).toString()
         const val CALL_KEY_NEW = "new"
         const val CALL_KEY_EDIT = "edit"
         const val ADD_FRAGMENT_TAG = "add"
         const val SAMPLE_CREATE_FRAGMENT_TAG = "sample"
         const val DELETE_DIALOG_TAG = "delete"
-        const val DELETE_CONFIRMATION_CALL_KEY = "DELETE"
         const val RESTORE_DEFAULT_CONFIRMATION_CALL_KEY = "RESTORE"
+        const val DELETE_MANDREL_CONFIRMATION_CALL_KEY = "DELETE_MANDREL"
+        const val DELETE_PACKAGE_SCHEMA_CONFIRMATION_CALL_KEY = "DELETE_PACKAGE_SCHEMA"
     }
 
     private fun setInitializeData() {
