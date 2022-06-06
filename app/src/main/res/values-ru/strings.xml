@@ -78,4 +78,27 @@
     //actionbar
     <string name="action_bar_subtitle_operator_mode">режим оператора</string>
     <string name="action_bar_subtitle_administrator_mode">режим администратора</string>
+
+    //schema adapter
+    <string name="package_schema_name_label">схема укладки :</string>
+    <string name="package_schema_box_type_label">формат коробки :</string>
+    <string name="schema_format_label">формат укладки :</string>
+    <string name="schema_cup_in_box_label">соличество колпака в коробке :</string>
+    <string name="schema_cap_in_bundle_label">количество колпака в штанге :</string>
+    //add schema dialog
+    <string name="add_schema_dialog_package_schema_data_label">новая схема упаковки</string>
+    <string name="add_dialog_schema_name">название схемы</string>
+    <string name="add_dialog_box_type">тип коробки</string>
+    <string name="add_dialog_first_package_line_label">первая линия укладки</string>
+    <string name="add_schema_dialog_second_package_line">вторая линия укладки</string>
+    <string name="add_schema_dialog_cap_amount_in_box">колпака в коробке шт.</string>
+    <string name="add_schema_dialog_cap_amount_in_bundle">колпака в штанге шт</string>
+
+    <string name="add_dialog_set_name_error_message">Пожалуйста, назовите схему</string>
+    <string name="add_dialog_box_type_error_message">Пожалуйста, установите тип коробки</string>
+    <string name="add_dialog_first_line_count_error_message">Пожалуйста, установите укладку первой линии</string>
+    <string name="add_dialog_second_line_eror_message">Пожалуйста, установите укладку второй линии</string>
+    <string name="add_dialog_cap_amount_in_box_error_message">Пожалуйста, установите количество колпака в коробке</string>
+    <string name="add_dialog_cap_in_bundle_error_message">Пожалуйста, установите количество колпака в штанге</string>
+
 </resources>

@@ -32,6 +32,16 @@ class MandrelViewModel(
         return schemasRoomList
     }
 
+    fun findPackageSchema(sampleCapParameters: SampleCapParameters): PackageSchema? {
+        val schemaName =
+            sampleCapParameters.capVertexDiameter.toString() + "x" + sampleCapParameters.capHeight.toString()
+        for (schemas in schemasRoomList.value as ArrayList<PackageSchema>) {
+            if (schemas.schemaName == schemaName)
+                return schemas
+        }
+        return null
+    }
+
 
     //mandrel impl
     fun createSample(inputSampleCapParameters: SampleCapParameters) = viewModelScope.launch {

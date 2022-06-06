@@ -10,6 +10,7 @@ data class PackageSchema(
     @ColumnInfo(name = "schema_name") val schemaName: String = "",
     @ColumnInfo(name = "box_type") val boxType: String = "",
     @ColumnInfo(name = "first_line_count") val firstLineCount: Int = 0,
-    @ColumnInfo(name = "second_line_count") val secondLineCount: Int = 0
-) {
-}
+    @ColumnInfo(name = "second_line_count") val secondLineCount: Int = 0,
+    @ColumnInfo(name = "cap_amount_in_box") val capAmountInBox: Int = 0,
+    @ColumnInfo(name = "cap_amount_in_bundle") val capAmountInBundle: Int = 0
+)

@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="package schema data"
+        android:text="@string/add_schema_dialog_package_schema_data_label"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
             android:id="@+id/schema_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="set schema name" />
+            android:hint="@string/add_dialog_schema_name" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -45,7 +45,7 @@
             android:id="@+id/box_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="box type"
+            android:hint="@string/add_dialog_box_type"
             android:inputType="text|numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -60,11 +60,63 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutBoxType">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/schema_parameters"
+            android:id="@+id/first_line_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="schema parameters"
+            android:hint="@string/add_dialog_first_package_line_label"
             android:inputType="numberSigned|number|numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutSchemaSecondLine"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaParameters">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/schema_second_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_schema_dialog_second_package_line"
+            android:inputType="numberSigned|number|numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutCapAmountInBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaSecondLine">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cap_amount_in_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_schema_dialog_cap_amount_in_box"
+            android:inputType="numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutCapAmountInBundle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCapAmountInBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cap_amount_in_bundle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_schema_dialog_cap_amount_in_bundle"
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -73,7 +125,7 @@
         android:layout_height="wrap_content"
         android:text="@string/add_button_label"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaParameters" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCapAmountInBundle" />
 
     <Button
         android:id="@+id/button_skip"
@@ -82,6 +134,6 @@
         android:layout_marginEnd="16dp"
         android:text="@string/skip_button_label"
         app:layout_constraintEnd_toStartOf="@+id/button_add"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaParameters" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCapAmountInBundle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

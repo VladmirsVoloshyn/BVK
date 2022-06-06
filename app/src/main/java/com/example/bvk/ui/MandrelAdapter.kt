@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -15,12 +14,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bvk.R
 import com.example.bvk.databinding.MandrelRecyclerContainerBinding
 import com.example.bvk.model.Mandrel
+import com.example.bvk.model.packageschema.PackageSchema
+import com.example.bvk.ui.packageschema.PackageSchemaAdapter
 import java.text.DecimalFormat
 
 class MandrelAdapter(
     private var mandrelsList: List<Mandrel>,
     val context: Context,
-    private val listener: OnPetListButtonClickListener? = null,
+    private val listener: OnMandrelListButtonClickListener? = null,
+    private val packageSchema: PackageSchema? = null,
     var isSampleCreate: Boolean = false,
     var isDeveloperMode: Boolean = false
 ) : RecyclerView.Adapter<MandrelAdapter.MandrelListViewHolder>() {
@@ -71,14 +73,33 @@ class MandrelAdapter(
             binding.recommendedAdhesiveSleeveWeightTextView.visibility = TextView.GONE
         }
 
+        if (packageSchema != null) {
+            binding.schemaNameTextView.text =
+                context.getString(R.string.package_schema_name_label) + packageSchema.schemaName
+            binding.boxTypeTextView.text =
+                context.getString(R.string.package_schema_box_type_label) + packageSchema.boxType
+            binding.schemaSignsTextView.text =
+                context.getString(R.string.schema_format_label) + packageSchema.firstLineCount.toString() + "x" + packageSchema.secondLineCount.toString()
+            binding.totalCountInBoxTextView.text =
+                context.getString(R.string.schema_cup_in_box_label) + packageSchema.capAmountInBox.toString()
+            binding.totalCountInBundleTextView.text =
+                context.getString(R.string.schema_cap_in_bundle_label) + packageSchema.capAmountInBundle.toString()
+            binding.schemaImage.setSchema(
+                packageSchema.firstLineCount,
+                packageSchema.secondLineCount
+            )
+        }
+
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun setUIMode(){
+    fun setUIMode() {
         when (res.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
             Configuration.UI_MODE_NIGHT_NO -> {
                 binding.mandrelSimpleDataLayout.background = res.getDrawable(R.drawable.card_bg)
                 binding.mandrelSampleDataLayout.background = res.getDrawable(R.drawable.card_bg)
+                binding.menuButton.background = res.getDrawable(R.drawable.card_bg)
+                binding.schemaDataLayout.background = res.getDrawable(R.drawable.card_bg)
                 binding.menuButton.background = res.getDrawable(R.drawable.card_bg)
 
 
@@ -97,6 +118,15 @@ class MandrelAdapter(
                 binding.adhesiveSleeveWeightTextView.setTextColor(res.getColor(R.color.text_mode_night))
                 binding.totalMembraneLengthTextView.setTextColor(res.getColor(R.color.text_mode_night))
                 binding.mandrelHeight.setTextColor(res.getColor(R.color.text_mode_night))
+
+                binding.schemaDataLayout.background =
+                    res.getDrawable(R.drawable.card_bg_night)
+                binding.menuButton.background = res.getDrawable(R.drawable.card_bg_night)
+                binding.schemaNameTextView.setTextColor(res.getColor(R.color.text_mode_night))
+                binding.boxTypeTextView.setTextColor(res.getColor(R.color.text_mode_night))
+                binding.schemaSignsTextView.setTextColor(res.getColor(R.color.text_mode_night))
+                binding.totalCountInBoxTextView.setTextColor(res.getColor(R.color.text_mode_night))
+                binding.totalCountInBundleTextView.setTextColor(res.getColor(R.color.text_mode_night))
             }
         }
     }
@@ -108,8 +138,12 @@ class MandrelAdapter(
         private lateinit var popupMenu: PopupMenu
 
         init {
+            if (packageSchema == null) {
+                binding.schemaDataLayout.visibility = ConstraintLayout.GONE
+            }
+
             itemView.setOnClickListener {
-                listener?.onItemClick(adapterPosition)
+                listener?.onMandrelItemClick(adapterPosition)
             }
 
             if (isSampleCreate) {
@@ -133,8 +167,8 @@ class MandrelAdapter(
                 popupMenu.show()
                 popupMenu.setOnMenuItemClickListener { item ->
                     when (item.itemId) {
-                        R.id.menu_button_delete -> listener?.onDeleteClick(adapterPosition)
-                        R.id.menu_button_update -> listener?.onEditClick(mandrelsList[adapterPosition])
+                        R.id.menu_button_delete -> listener?.onMandrelDeleteClick(adapterPosition)
+                        R.id.menu_button_update -> listener?.onMandrelEditClick(mandrelsList[adapterPosition])
                     }
                     true
                 }
@@ -147,9 +181,9 @@ class MandrelAdapter(
         const val DOUBLE_PATTERN = "#0.00"
     }
 
-    interface OnPetListButtonClickListener {
-        fun onDeleteClick(position: Int)
-        fun onEditClick(mandrel: Mandrel)
-        fun onItemClick(position: Int)
+    interface OnMandrelListButtonClickListener {
+        fun onMandrelDeleteClick(position: Int)
+        fun onMandrelEditClick(mandrel: Mandrel)
+        fun onMandrelItemClick(position: Int)
     }
 }

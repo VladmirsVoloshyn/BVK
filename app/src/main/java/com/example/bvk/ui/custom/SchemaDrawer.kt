@@ -17,19 +17,16 @@ class SchemaDrawer @JvmOverloads constructor(
     var firstLineSchema = 1
     var secondLineSchema = 1
 
-    private var isSchemaSet = false
-
     var startFX = 25f
     var startFY = 25f
-    var circleRadius = 10f
+    private var circleRadius = 10f
 
     private val paint: Paint = Paint()
 
     fun setSchema(firstLineAmount: Int, secondLineAmount: Int) {
         firstLineSchema = firstLineAmount
         secondLineSchema = secondLineAmount
-        isSchemaSet = true
-        invalidate()
+        postInvalidate()
     }
 
 
@@ -39,27 +36,24 @@ class SchemaDrawer @JvmOverloads constructor(
             isAntiAlias = true
             color = Color.BLACK
         }
-        val w = width
-        val h = height
-        Log.d("customView", w.toString() + h.toString())
-
-        if (isSchemaSet) {
-            for (i in 1..firstLineSchema) {
-                canvas?.drawCircle(startFX, startFY, circleRadius, paint)
-                startFX += 40
-            }
-            startFX = 45f
-            startFY = 50f
-            for (i in 1..secondLineSchema) {
-                canvas?.drawCircle(startFX, startFY, circleRadius, paint)
-                startFX += 40
-            }
-            startFY = 75f
-            startFX = 25f
-            for (i in 1..firstLineSchema) {
-                canvas?.drawCircle(startFX, startFY, circleRadius, paint)
-                startFX += 40
-            }
+        startFX = 25f
+        startFY = 25f
+        for (i in 1..firstLineSchema) {
+            canvas?.drawCircle(startFX, startFY, circleRadius, paint)
+            startFX += 40
         }
+        startFX = 45f
+        startFY = 50f
+        for (i in 1..secondLineSchema) {
+            canvas?.drawCircle(startFX, startFY, circleRadius, paint)
+            startFX += 40
+        }
+        startFY = 75f
+        startFX = 25f
+        for (i in 1..firstLineSchema) {
+            canvas?.drawCircle(startFX, startFY, circleRadius, paint)
+            startFX += 40
+        }
+
     }
 }
