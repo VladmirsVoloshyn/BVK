@@ -3,8 +3,8 @@
     package="com.example.bvk">
 
     <application
-        android:allowBackup="true"
         android:name=".BVKApplication"
+        android:allowBackup="true"
         android:icon="@drawable/ic_custom_launcher_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -12,12 +12,14 @@
         android:theme="@style/Theme.BVK">
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true"
-            android:configChanges="keyboardHidden|orientation|screenSize">
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.settings.SettingsActivity" />
     </application>
 </manifest>

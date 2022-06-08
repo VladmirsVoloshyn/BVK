@@ -136,7 +136,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         inflateSchemasList()
         binding.mandrelsList.visibility = RecyclerView.INVISIBLE
         binding.schemasList.visibility = RecyclerView.VISIBLE
-        binding.textViewLabel.text = "Список схем укладки"
+        binding.textViewLabel.text = getString(R.string.package_schemas_list_label)
         binding.createSampleFab.visibility = Button.INVISIBLE
         binding.restoreDefaultButton.visibility = Button.INVISIBLE
         viewModel.isMandrelViewMode = false

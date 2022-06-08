@@ -33,10 +33,14 @@ class PackageSchemaAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: PackageSchemaViewHolder, position: Int) {
-        binding.schemaNameTextView.text = context.getString(R.string.package_schema_name_label) + SPACE + schemasList[position].schemaName
-        binding.boxTypeTextView.text = context.getString(R.string.package_schema_box_type_label) + SPACE + schemasList[position].boxType
+        binding.schemaNameTextView.text =
+            context.getString(R.string.package_schema_name_label) + SPACE + schemasList[position].schemaName
+        binding.boxTypeTextView.text =
+            context.getString(R.string.package_schema_box_type_label) + SPACE + schemasList[position].boxType
         binding.schemaSignsTextView.text =
-            context.getString(R.string.schema_format_label) + SPACE + schemasList[position].firstLineCount.toString() + "x" + schemasList[position].secondLineCount.toString()
+            context.getString(R.string.schema_format_label) + SPACE + schemasList[position].firstLineCount.toString() + context.getString(
+                R.string.name_separator
+            ) + schemasList[position].secondLineCount.toString()
         binding.totalCountInBoxTextView.text =
             context.getString(R.string.schema_cup_in_box_label) + SPACE + schemasList[position].capAmountInBox
         binding.totalCountInBundleTextView.text =

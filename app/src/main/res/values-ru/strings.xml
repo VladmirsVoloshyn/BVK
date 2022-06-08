@@ -15,6 +15,7 @@
     //mandrel fragment
     <string name="mandrel_list_label">Список оправок</string>
     <string name="sample_param_label">Выборка для параметров :</string>
+    <string name="package_schemas_list_label">Список схем укладки</string>
 
 
     //mandrels list adapter

@@ -1,20 +1,16 @@
 package com.example.bvk.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
-import android.widget.Toolbar
-import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.FragmentTransaction
-import com.bumptech.glide.disklrucache.DiskLruCache
 import com.example.bvk.R
 import com.example.bvk.databinding.ActivityMainBinding
+import com.example.bvk.ui.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity(), FragmentCommutator {
 
@@ -33,7 +29,7 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
             fragmentTransaction.replace(binding.container.id, mandrelFragment).commit()
         }
         onUpdateModeListener = mandrelFragment
-        //requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -45,6 +41,7 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
         saveIsSampleCreated = isSampleCreated
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.main, menu)
@@ -52,8 +49,11 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.item1) {
+        if (item.itemId == R.id.updateModeItem) {
             onUpdateModeListener?.onUpdateModeClicked()
+        } else if (item.itemId == R.id.openSettingsItem) {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
     }

@@ -7,6 +7,7 @@
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/card_bg.xml" value="0.1285" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/card_bg_hinght.xml" value="0.2305" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/card_bg_night.xml" value="0.2305" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/fragment_settings.xml" value="0.101" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_baseline_archive_24.xml" value="0.261" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_baseline_arrow_circle_up_24.xml" value="0.219" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_baseline_backpack_24.xml" value="0.2305" />
@@ -22,13 +23,15 @@
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1165" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.234" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/activity_settings.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/add_mandrel_dialog_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/add_package_schema_dialog_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/developer_mode_dialog_fragment.xml" value="0.33" />
-        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/fragment_confirmation_dialog.xml" value="0.25" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/fragment_confirmation_dialog.xml" value="0.33" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/fragment_delete_confirmation_dialog.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/fragment_mandrel.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/fragment_sample_create.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/fragment_settings.xml" value="0.33" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/mandrel_recycler_container.xml" value="0.35260416666666666" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/new_sample_create_dialog_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/packageSchemaContainer_recycler_container.xml" value="0.36666666666666664" />
@@ -36,10 +39,13 @@
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/recycler_view_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/schema_container_layuot.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/schema_recycler_container.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/settings_activity.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/layout/tool_bar.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/menu-v26/recycler_container_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/menu/main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/menu/recycler_container_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/xml/preference.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/xml/settings_screen.xml" value="0.5" />
       </map>
     </option>
   </component>

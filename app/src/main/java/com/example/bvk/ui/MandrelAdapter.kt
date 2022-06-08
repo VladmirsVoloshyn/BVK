@@ -15,7 +15,6 @@ import com.example.bvk.R
 import com.example.bvk.databinding.MandrelRecyclerContainerBinding
 import com.example.bvk.model.Mandrel
 import com.example.bvk.model.packageschema.PackageSchema
-import com.example.bvk.ui.packageschema.PackageSchemaAdapter
 import java.text.DecimalFormat
 
 class MandrelAdapter(
@@ -35,12 +34,12 @@ class MandrelAdapter(
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MandrelListViewHolder {
         _binding = MandrelRecyclerContainerBinding.inflate(layoutInflater, parent, false)
+        setUIMode()
         return MandrelListViewHolder(binding)
     }
 
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: MandrelListViewHolder, position: Int) {
-        setUIMode()
         binding.mandrelName.text =
             res.getString(R.string.name_prefix) + SPACE + mandrelsList[position].mandrelName
         binding.mandrelVertexDiameter.text =
@@ -72,14 +71,13 @@ class MandrelAdapter(
         if (mandrelsList[position].recommendedAdhesiveSleeveWeight == 0.00) {
             binding.recommendedAdhesiveSleeveWeightTextView.visibility = TextView.GONE
         }
-
         if (packageSchema != null) {
             binding.schemaNameTextView.text =
                 context.getString(R.string.package_schema_name_label) + packageSchema.schemaName
             binding.boxTypeTextView.text =
                 context.getString(R.string.package_schema_box_type_label) + packageSchema.boxType
             binding.schemaSignsTextView.text =
-                context.getString(R.string.schema_format_label) + packageSchema.firstLineCount.toString() + "x" + packageSchema.secondLineCount.toString()
+                context.getString(R.string.schema_format_label) + packageSchema.firstLineCount.toString() + res.getText(R.string.name_separator) + packageSchema.secondLineCount.toString()
             binding.totalCountInBoxTextView.text =
                 context.getString(R.string.schema_cup_in_box_label) + packageSchema.capAmountInBox.toString()
             binding.totalCountInBundleTextView.text =
