@@ -79,6 +79,7 @@
     //actionbar
     <string name="action_bar_subtitle_operator_mode">режим оператора</string>
     <string name="action_bar_subtitle_administrator_mode">режим администратора</string>
+    <string name="action_bar_settings_label">настройки</string>
 
     //schema adapter
     <string name="package_schema_name_label">схема укладки :</string>

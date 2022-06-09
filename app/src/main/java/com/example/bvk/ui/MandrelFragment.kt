@@ -1,6 +1,8 @@
 package com.example.bvk.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
@@ -34,6 +36,8 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     private val binding get() = _binding!!
     private var actionBar: androidx.appcompat.app.ActionBar? = null
 
+    private var preferences: SharedPreferences? = null
+
     private val viewModel: MandrelViewModel by viewModels {
         MandrelViewModelFactory(
             (requireActivity().application as BVKApplication).mandrelsRepository,
@@ -48,6 +52,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     ): View {
         _binding = FragmentMandrelBinding.inflate(inflater, container, false)
         actionBar = (activity as AppCompatActivity).supportActionBar
+        preferences = activity?.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
         return binding.root
     }
 
@@ -170,7 +175,12 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
     override fun onUpdateModeClicked() {
         if (!viewModel.isDeveloperMode) {
-            val developerModeDialogFragment = DeveloperModeDialogFragment("123", this)
+            val developerModeDialogFragment = DeveloperModeDialogFragment(
+                preferences?.getString(
+                    PREFERENCE_KEY_PASSWORD,
+                    DEFAULT_PASSWORD
+                ), this
+            )
             developerModeDialogFragment.show(activity?.supportFragmentManager!!, "PASSWORD")
         } else {
             setOperatorMode()
@@ -202,10 +212,9 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         override fun handleOnBackPressed() {
             if (viewModel.isSampleCreated) {
                 clearSample()
-            } else if (!viewModel.isMandrelViewMode){
+            } else if (!viewModel.isMandrelViewMode) {
                 setMandrelDataView()
-            }
-            else {
+            } else {
                 activity?.finish()
             }
         }
@@ -231,9 +240,9 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         deleteConfirmationFragment.show(activity?.supportFragmentManager!!, DELETE_DIALOG_TAG)
     }
 
-    override fun onDeleteConfirm(position: Int, confirmationKey : String) {
-        when(confirmationKey){
-            DELETE_MANDREL_CONFIRMATION_CALL_KEY ->viewModel.deleteMandrel(position)
+    override fun onDeleteConfirm(position: Int, confirmationKey: String) {
+        when (confirmationKey) {
+            DELETE_MANDREL_CONFIRMATION_CALL_KEY -> viewModel.deleteMandrel(position)
             DELETE_PACKAGE_SCHEMA_CONFIRMATION_CALL_KEY -> viewModel.deleteSchema(position)
         }
 
@@ -341,6 +350,13 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     companion object {
+        const val APP_PREFERENCES = "settings"
+        const val PREFERENCE_KEY_PASSWORD = "pass"
+        const val PREFERENCE_KEY_LAUNCH_COUNTER = "launch_counter"
+        const val PREFERENCE_KEY_ADHESIVE_LINE = "kal"
+        const val PREFERENCE_KEY_MEMBRANE_WEIGHT = "kmw"
+        const val DEFAULT_PASSWORD = "123"
+
         const val CALL_KEY_NEW = "new"
         const val CALL_KEY_EDIT = "edit"
         const val ADD_FRAGMENT_TAG = "add"

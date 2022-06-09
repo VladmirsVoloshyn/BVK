@@ -79,6 +79,7 @@
     //actionbar
     <string name="action_bar_subtitle_operator_mode">operator mode</string>
     <string name="action_bar_subtitle_administrator_mode">administrator mode</string>
+    <string name="action_bar_settings_label">settings</string>
 
     //schema adapter
     <string name="package_schema_name_label">schema name:</string>
@@ -102,6 +103,8 @@
     <string name="add_dialog_cap_in_bundle_error_message">Please, set cap amount in bundle</string>
     <string name="confirmation_dialog_delete_schema_label">Delete package schema :</string>
     <string name="confirmation_dialog_delete_mandrel_label">Delete mandrel :</string>
+
+
 
 
 </resources>

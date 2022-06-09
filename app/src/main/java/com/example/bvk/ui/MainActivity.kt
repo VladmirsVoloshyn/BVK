@@ -1,12 +1,15 @@
 package com.example.bvk.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import com.example.bvk.R
 import com.example.bvk.databinding.ActivityMainBinding
@@ -20,16 +23,47 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
     private var saveIsSampleCreated: Boolean = false
     private var onUpdateModeListener: MandrelFragment? = null
 
+    private var preferences: SharedPreferences? = null
+    private lateinit var editor: SharedPreferences.Editor
+    private var launchCounter = 0
+
+
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        preferences =
+            application.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
+        editor = preferences!!.edit()
+        registerNewLaunch()
+
+        setDefaultPreferences()
+
         if (savedInstanceState == null) {
             fragmentTransaction.replace(binding.container.id, mandrelFragment).commit()
         }
         onUpdateModeListener = mandrelFragment
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+
+    }
+
+    private fun registerNewLaunch() {
+        launchCounter = preferences!!.getInt(PREFERENCE_KEY_LAUNCH_COUNTER, 0)
+        launchCounter += 1
+        editor.putInt(PREFERENCE_KEY_LAUNCH_COUNTER, launchCounter)
+        editor.apply()
+    }
+
+    private fun setDefaultPreferences() {
+        if (launchCounter == 1) {
+            Toast.makeText(this,launchCounter.toString(), Toast.LENGTH_SHORT).show()
+            editor.putString(PREFERENCE_KEY_PASSWORD, DEFAULT_PASSWORD).apply()
+            editor.putInt(PREFERENCE_KEY_ADHESIVE_LINE, 5).apply()
+            editor.putFloat(PREFERENCE_KEY_MEMBRANE_WEIGHT, 0.060f).apply()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -64,5 +98,11 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
 
     companion object {
         const val IS_SAMPLE_CREATE_TAG = "is_sample_create"
+        const val APP_PREFERENCES = "settings"
+        const val PREFERENCE_KEY_PASSWORD = "pass"
+        const val PREFERENCE_KEY_LAUNCH_COUNTER = "launch_counter"
+        const val PREFERENCE_KEY_ADHESIVE_LINE = "kal"
+        const val PREFERENCE_KEY_MEMBRANE_WEIGHT = "kmw"
+        const val DEFAULT_PASSWORD = "123"
     }
 }

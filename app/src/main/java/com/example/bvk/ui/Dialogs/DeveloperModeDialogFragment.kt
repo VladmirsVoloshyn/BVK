@@ -10,7 +10,7 @@ import com.example.bvk.databinding.DeveloperModeDialogFragmentBinding
 import com.example.bvk.shouldShowError
 
 class DeveloperModeDialogFragment(
-    private val password: String,
+    private val password: String?,
     private var passwordEnterListener: OnPasswordEnterListener?
 ) : DialogFragment() {
 
