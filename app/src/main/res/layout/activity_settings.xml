@@ -9,7 +9,7 @@
         android:id="@+id/password_settings_label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="password settings"
+        android:text="@string/settings_activity_password_group_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -17,8 +17,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/password_settings_container"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/card_bg"
+        android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_settings_label">
@@ -35,8 +36,8 @@
         <TextView
             android:id="@+id/password_label_text_view"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:text="Password"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_activity_password_label"
             android:textSize="25sp"
             android:layout_marginStart="5dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,8 +47,8 @@
         <TextView
             android:id="@+id/password_summary_text_view"
             android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:text="Click to call dialog for change your password"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_activity_password_sublabel"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="5dp"
             app:layout_constraintStart_toEndOf="@+id/password_icon_image_view"
@@ -59,7 +60,7 @@
         android:id="@+id/textView1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="main settings"
+        android:text="@string/settings_activity_main_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_settings_container" />
@@ -67,8 +68,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/adhesive_save_line_settings_container"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/card_bg"
+        android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView1">
@@ -85,8 +87,8 @@
         <TextView
             android:id="@+id/safe_zone_label_text_view"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:text="Adhesive safe line"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_activity_adhesive_safe_line_label"
             android:textSize="25sp"
             android:layout_marginStart="5dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -96,8 +98,8 @@
         <TextView
             android:id="@+id/safe_zone_summary_text_view"
             android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:text="Set safe zone to adhesive line in mm."
+            android:layout_height="wrap_content"
+            android:text="@string/settings_activity_adhesive_safe_line_sublabel"
             android:layout_marginStart="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/safe_zone_icon_image_view"
@@ -108,7 +110,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/membrane_depth_settings_container"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/card_bg"
@@ -125,8 +129,8 @@
         <TextView
             android:id="@+id/membrane_depth_label_text_view"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:text="Membrane depth"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_activity_membrane_depth_label"
             android:textSize="25sp"
             android:layout_marginStart="5dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -136,8 +140,8 @@
         <TextView
             android:id="@+id/membrane_weight_summary_text_view"
             android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:text="Set membrane depth in mkm."
+            android:layout_height="wrap_content"
+            android:text="@string/settings_activity_membrane_depth_sublabel"
             android:layout_marginStart="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/membrane_depth_icon_image_view"

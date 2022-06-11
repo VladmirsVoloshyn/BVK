@@ -26,7 +26,7 @@
     <string name="height_prefix">высота =</string>
     <string name="tapper_prefix">конусность =</string>
     <string name="membrane_weight_prefix">ширина плёнки =</string>
-    <string name="adhesive_sleeve_weight_prefix">ширина плёночного рукава =</string>
+    <string name="adhesive_sleeve_weight_prefix">ширина рукава =</string>
     <string name="infelicity_prefix">погрешность =</string>
     <string name="recommended_adhesive_sleeve_weight_hint">малый размер колпака, рекомедуемая ширина плёночного рукава =</string>
 
@@ -46,6 +46,7 @@
     <string name="add_dialog_name_error_message">Пожалуйста, установите имя</string>
     <string name="add_mandrel_dialog_infelicity_hint">максимальный коэфицент погрешности</string>
     <string name="add_dialog_max_infelicity_height">максимальная высота погрешности</string>
+    <string name="add_dialog_unique_name_error_message">Имя не уникально, измените имя</string>
 
     //sample dialog
     <string name="sample_dialog_vertex_error_message">Пожалуйста, установите диаметр вершины колпака</string>
@@ -60,8 +61,6 @@
 
     //developer mode dialog
     <string name="incorrect_password_error_message">Неверный пароль</string>
-
-
     <string name="menu_item_delete">удалить</string>
     <string name="menu_item_update">изменить</string>
     <string name="confirm_restore_default_button_label">продолжить</string>
@@ -95,15 +94,31 @@
     <string name="add_schema_dialog_second_package_line">вторая линия укладки</string>
     <string name="add_schema_dialog_cap_amount_in_box">колпака в коробке шт.</string>
     <string name="add_schema_dialog_cap_amount_in_bundle">колпака в штанге шт</string>
-
     <string name="add_dialog_set_name_error_message">Пожалуйста, назовите схему</string>
     <string name="add_dialog_box_type_error_message">Пожалуйста, установите тип коробки</string>
     <string name="add_dialog_first_line_count_error_message">Пожалуйста, установите укладку первой линии</string>
     <string name="add_dialog_second_line_error_message">Пожалуйста, установите укладку второй линии</string>
     <string name="add_dialog_cap_amount_in_box_error_message">Пожалуйста, установите количество колпака в коробке</string>
     <string name="add_dialog_cap_in_bundle_error_message">Пожалуйста, установите количество колпака в штанге</string>
-
     <string name="confirmation_dialog_delete_schema_label">Удалить схему упаковки :</string>
     <string name="confirmation_dialog_delete_mandrel_label">Удалить оправку :</string>
+
+    //settings activity
+    <string name="settings_activity_password_group_label">установки пароля</string>
+    <string name="settings_activity_password_label">Пароль</string>
+    <string name="settings_activity_password_sublabel">Нажмите, что-бы сменить пароль администратора</string>
+    <string name="settings_activity_main_label">основные настройки</string>
+    <string name="settings_activity_adhesive_safe_line_label">Ширина клеевого шва</string>
+    <string name="settings_activity_adhesive_safe_line_sublabel">Нажмите, что-бы установить размер зоны клеевого шва в миллиметрах.</string>
+    <string name="settings_activity_membrane_depth_label">Толщина плёнки</string>
+    <string name="settings_activity_membrane_depth_sublabel">Нажмите, что-бы установить толщину плёнки в микрометрах.</string>
+
+    //change password dialog fragment
+    <string name="dialog_fragment_change_password_label">смена пароля</string>
+    <string name="dialog_fragment_change_password_old_password_hint">введите старый пароль</string>
+    <string name="dialog_fragment_change_password_new_password_hint">введите новый пароль</string>
+    <string name="dialog_fragment_change_password_change_button">изменить</string>
+
+
 
 </resources>

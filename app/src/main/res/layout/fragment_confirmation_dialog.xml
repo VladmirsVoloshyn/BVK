@@ -5,23 +5,20 @@
     android:layout_height="match_parent"
     android:padding="10dp">
 
-
     <Button
         android:id="@+id/confirm_dialog_cancel_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="@dimen/button_margin"
         android:text="@string/skip_button_label"
         app:layout_constraintEnd_toStartOf="@+id/confirm_dialog_submit_button"
         app:layout_constraintTop_toBottomOf="@+id/delete_confirm_label" />
-
     <Button
         android:id="@+id/confirm_dialog_submit_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:text="@string/menu_item_delete"
+        android:layout_marginEnd="@dimen/button_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/delete_confirm_label" />
 

@@ -62,6 +62,14 @@ class MandrelViewModel(
         return mandrelsRoomList
     }
 
+    fun getMandrelUniqueNames() : ArrayList<String>{
+        val mandrelsUniqueNamesList = ArrayList<String>()
+        for (mandrel in mandrelsRoomList.value as ArrayList){
+            mandrelsUniqueNamesList.add(mandrel.mandrelName)
+        }
+        return mandrelsUniqueNamesList
+    }
+
     //room schemas impl
     fun insertSchema(schema: PackageSchema) = viewModelScope.launch {
         schemasRepository.insert(schema)

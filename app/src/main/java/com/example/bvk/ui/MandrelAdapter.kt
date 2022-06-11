@@ -129,6 +129,15 @@ class MandrelAdapter(
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+
+    }
+
     override fun getItemCount(): Int = mandrelsList.count()
 
     inner class MandrelListViewHolder(binding: MandrelRecyclerContainerBinding) :

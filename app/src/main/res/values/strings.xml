@@ -45,6 +45,7 @@
     <string name="add_dialog_set_mandrel_name_hint">set mandrel name</string>
     <string name="add_dialog_name_error_message">Please,set name</string>
     <string name="add_dialog_max_infelicity_height">set max infelicity height</string>
+    <string name="add_dialog_unique_name_error_message">this name is already exist, change name</string>
 
     //sample dialog
     <string name="sample_dialog_vertex_error_message">"Please, set cap vertex diameter"</string>
@@ -103,8 +104,21 @@
     <string name="add_dialog_cap_in_bundle_error_message">Please, set cap amount in bundle</string>
     <string name="confirmation_dialog_delete_schema_label">Delete package schema :</string>
     <string name="confirmation_dialog_delete_mandrel_label">Delete mandrel :</string>
+    //settings activity
+    <string name="settings_activity_password_group_label">password settings</string>
+    <string name="settings_activity_password_label">Password</string>
+    <string name="settings_activity_password_sublabel">Click to call dialog for change password</string>
+    <string name="settings_activity_main_label">main settings</string>
+    <string name="settings_activity_adhesive_safe_line_label">Adhesive save line</string>
+    <string name="settings_activity_adhesive_safe_line_sublabel">Set safe zone to adhesive line in mm.</string>
+    <string name="settings_activity_membrane_depth_label">Membrane depth</string>
+    <string name="settings_activity_membrane_depth_sublabel">Set membrane depth in mkm.</string>
 
-
+    //change password dialog fragment
+    <string name="dialog_fragment_change_password_label">change password</string>
+    <string name="dialog_fragment_change_password_old_password_hint">set old password</string>
+    <string name="dialog_fragment_change_password_new_password_hint">set new password</string>
+    <string name="dialog_fragment_change_password_change_button">change</string>
 
 
 </resources>

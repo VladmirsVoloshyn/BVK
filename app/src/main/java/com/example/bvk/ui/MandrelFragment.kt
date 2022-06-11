@@ -83,7 +83,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
         binding.addFab.setOnClickListener {
             if (viewModel.isMandrelViewMode) {
-                val addMandrelFragment = AddMandrelDialogFragment(CALL_KEY_NEW, Mandrel(), this)
+                val addMandrelFragment = AddMandrelDialogFragment(CALL_KEY_NEW, Mandrel(), this, viewModel.getMandrelUniqueNames())
                 addMandrelFragment.show(requireActivity().supportFragmentManager, ADD_FRAGMENT_TAG)
             } else {
                 val addSchemaFragment =
@@ -249,7 +249,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     override fun onMandrelEditClick(mandrel: Mandrel) {
-        val addFragment = AddMandrelDialogFragment(CALL_KEY_EDIT, mandrel, this)
+        val addFragment = AddMandrelDialogFragment(CALL_KEY_EDIT, mandrel, this, viewModel.getMandrelUniqueNames())
         addFragment.show(activity?.supportFragmentManager!!, ADD_FRAGMENT_TAG)
     }
 
