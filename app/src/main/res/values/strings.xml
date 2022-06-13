@@ -104,6 +104,7 @@
     <string name="add_dialog_cap_in_bundle_error_message">Please, set cap amount in bundle</string>
     <string name="confirmation_dialog_delete_schema_label">Delete package schema :</string>
     <string name="confirmation_dialog_delete_mandrel_label">Delete mandrel :</string>
+    <string name="add_schema_doalog_is_straight_laying_check">is straight laying</string>
     //settings activity
     <string name="settings_activity_password_group_label">password settings</string>
     <string name="settings_activity_password_label">Password</string>
@@ -119,6 +120,18 @@
     <string name="dialog_fragment_change_password_old_password_hint">set old password</string>
     <string name="dialog_fragment_change_password_new_password_hint">set new password</string>
     <string name="dialog_fragment_change_password_change_button">change</string>
+
+    <string name="add_schema_layer_count_hint">row count</string>
+    <string name="add_schema_dialog_layer_count_error_message">Please, set layer count</string>
+
+    //values format postfixes
+    <string name="meter_postfix">m</string>
+    <string name="milimeter_postfix">mm</string>
+    <string name="micrometer_postfix">mkm</string>
+    <string name="pcs_postfix">pcs</string>
+
+    <string name="settings_activity_restore_default_data_label">Restore default data</string>
+    <string name="settings_activity_restore_default_data_summary">Click to restore all databases and password to default.</string>
 
 
 </resources>

@@ -94,7 +94,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/create_sample_fab"
-        app:srcCompat="@drawable/ic_baseline_sample_recycler_image" />
+        app:srcCompat="@drawable/ic_baseline_refresh_24" />
 
     <TextView
         android:id="@+id/nothing_to_show_text_view"
@@ -109,19 +109,6 @@
         android:visibility="invisible"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/restoreDefaultButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/button_margin"
-        android:clickable="true"
-        android:layout_marginStart="@dimen/button_margin"
-        android:layout_marginBottom="@dimen/button_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/changeDataListFab"
-        app:srcCompat="@drawable/ic_baseline_archive_24"
-        android:focusable="true" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/changeDataListFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -130,7 +117,8 @@
         android:layout_marginBottom="@dimen/button_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/add_fab"
-        app:srcCompat="@drawable/ic_baseline_refresh_24" />
+        app:srcCompat="@drawable/ic_baseline_backpack_24"
+        android:focusable="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

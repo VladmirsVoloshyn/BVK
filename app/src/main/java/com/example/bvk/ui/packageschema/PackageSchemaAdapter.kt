@@ -42,13 +42,14 @@ class PackageSchemaAdapter(
                 R.string.name_separator
             ) + schemasList[position].secondLineCount.toString()
         binding.totalCountInBoxTextView.text =
-            context.getString(R.string.schema_cup_in_box_label) + SPACE + schemasList[position].capAmountInBox
+            context.getString(R.string.schema_cup_in_box_label) + SPACE + schemasList[position].capAmountInBox + SPACE + res.getText(R.string.pcs_postfix)
         binding.totalCountInBundleTextView.text =
-            context.getString(R.string.schema_cap_in_bundle_label) + SPACE + schemasList[position].capAmountInBundle
+            context.getString(R.string.schema_cap_in_bundle_label) + SPACE + schemasList[position].capAmountInBundle + SPACE + res.getText(R.string.pcs_postfix)
 
         binding.schemaImage.setSchema(
             schemasList[position].firstLineCount,
-            schemasList[position].secondLineCount
+            schemasList[position].secondLineCount,
+            schemasList[position].isStraightLaying
         )
 
     }
@@ -79,6 +80,11 @@ class PackageSchemaAdapter(
         return position
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+
+    }
+    
     override fun getItemCount(): Int = schemasList.count()
 
     companion object {

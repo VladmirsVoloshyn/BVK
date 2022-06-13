@@ -32,13 +32,15 @@ class AddPackageSchemaDialogFragment(
         if (callKey == CALL_KEY_NEW) {
             binding.buttonAdd.text = activity?.resources?.getText(R.string.add_button_label)
         } else {
+            binding.buttonAdd.text = resources.getText(R.string.update_button_label)
             binding.schemaName.setText(packageSchema.schemaName)
             binding.boxType.setText(packageSchema.boxType)
             binding.firstLineCount.setText(packageSchema.firstLineCount.toString())
             binding.schemaSecondLine.setText(packageSchema.secondLineCount.toString())
-            binding.capAmountInBox.setText(packageSchema.capAmountInBox.toString())
+            binding.layerCount.setText(packageSchema.layerCount.toString())
             binding.capAmountInBundle.setText(packageSchema.capAmountInBundle.toString())
-        }
+            binding.isStraightLayingCheckBox.isChecked = packageSchema.isStraightLaying
+                    }
         return binding.root
     }
 
@@ -71,9 +73,9 @@ class AddPackageSchemaDialogFragment(
                     getString(R.string.add_dialog_second_line_error_message),
                     binding.textInputLayoutSchemaSecondLine
                 )
-                && !binding.capAmountInBox.shouldShowError(
-                    getString(R.string.add_dialog_cap_amount_in_box_error_message),
-                    binding.textInputLayoutCapAmountInBox
+                && !binding.layerCount.shouldShowError(
+                    getString(R.string.add_schema_dialog_layer_count_error_message),
+                    binding.textInputLayoutCapLayerCount
                 )
                 && !binding.capAmountInBundle.shouldShowError(
                     getString(R.string.add_dialog_cap_in_bundle_error_message),
@@ -81,17 +83,22 @@ class AddPackageSchemaDialogFragment(
                 )
             ) {
                 if (callKey == CALL_KEY_NEW) {
+                    val isStraightLaying = binding.isStraightLayingCheckBox.isChecked
+
                     listener?.onSchemaAdd(
                         PackageSchema(
                             schemaName = binding.schemaName.text.toString(),
                             boxType = binding.boxType.text.toString(),
                             firstLineCount = binding.firstLineCount.text.toString().toInt(),
                             secondLineCount = binding.schemaSecondLine.text.toString().toInt(),
-                            capAmountInBox = binding.capAmountInBox.text.toString().toInt(),
-                            capAmountInBundle = binding.capAmountInBundle.text.toString().toInt()
+                            layerCount = binding.layerCount.text.toString().toInt(),
+                            capAmountInBundle = binding.capAmountInBundle.text.toString().toInt(),
+                            isStraightLaying = isStraightLaying
                         )
                     )
                 } else {
+                    val isStraightLaying = binding.isStraightLayingCheckBox.isChecked
+
                     listener?.onSchemaEdit(
                         PackageSchema(
                             id = packageSchema.id,
@@ -99,8 +106,9 @@ class AddPackageSchemaDialogFragment(
                             boxType = binding.boxType.text.toString(),
                             firstLineCount = binding.firstLineCount.text.toString().toInt(),
                             secondLineCount = binding.schemaSecondLine.text.toString().toInt(),
-                            capAmountInBox = binding.capAmountInBox.text.toString().toInt(),
-                            capAmountInBundle = binding.capAmountInBundle.text.toString().toInt()
+                            layerCount = binding.layerCount.text.toString().toInt(),
+                            capAmountInBundle = binding.capAmountInBundle.text.toString().toInt(),
+                            isStraightLaying = isStraightLaying
                         )
                     )
                 }

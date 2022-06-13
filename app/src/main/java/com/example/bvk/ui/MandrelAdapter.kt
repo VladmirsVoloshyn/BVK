@@ -44,24 +44,34 @@ class MandrelAdapter(
             res.getString(R.string.name_prefix) + SPACE + mandrelsList[position].mandrelName
         binding.mandrelVertexDiameter.text =
             res.getText(R.string.vertex_prefix)
-                .toString() + SPACE + mandrelsList[position].vertexDiameter
+                .toString() + SPACE + mandrelsList[position].vertexDiameter + SPACE + res.getText(R.string.milimeter_postfix)
         binding.mandrelBaseDiameter.text =
             res.getText(R.string.base_prefix)
-                .toString() + SPACE + mandrelsList[position].baseDiameter
+                .toString() + SPACE + mandrelsList[position].baseDiameter + SPACE + res.getText(R.string.milimeter_postfix)
         binding.mandrelHeight.text =
-            res.getText(R.string.height_prefix).toString() + SPACE + mandrelsList[position].height
+            res.getText(R.string.height_prefix)
+                .toString() + SPACE + mandrelsList[position].height + SPACE + res.getText(R.string.milimeter_postfix)
+
         binding.adhesiveSleeveWeightTextView.text =
             res.getText(R.string.adhesive_sleeve_weight_prefix)
-                .toString() + SPACE + (DecimalFormat(DOUBLE_PATTERN).format(mandrelsList[position].adhesiveSleeveWeight))
+                .toString() + SPACE + (DecimalFormat(DOUBLE_PATTERN).format(mandrelsList[position].adhesiveSleeveWeight)) + SPACE + res.getText(
+                R.string.milimeter_postfix
+            )
+
         binding.membraneWightTextView.text = res.getText(R.string.membrane_weight_prefix)
-            .toString() + SPACE + (DecimalFormat(DOUBLE_PATTERN).format(mandrelsList[position].membraneWight))
+            .toString() + SPACE + (DecimalFormat(DOUBLE_PATTERN).format(mandrelsList[position].membraneWight)) + SPACE + res.getText(
+            R.string.milimeter_postfix
+        )
+
         binding.totalMembraneLengthTextView.text =
             res.getString(R.string.total_membrane_length) + SPACE + (DecimalFormat(DOUBLE_PATTERN).format(
                 (mandrelsList[position].totalMembraneLength)
-            ))
+            )) + SPACE + res.getText(R.string.meter_postfix)
+
         binding.mandrelInfelicity.text = res.getText(R.string.infelicity_prefix)
             .toString() + SPACE + mandrelsList[position].infelicityCoefficient
         res.getString(R.string.recommended_adhesive_sleeve_weight_hint)
+
         binding.recommendedAdhesiveSleeveWeightTextView.text =
             res.getString(R.string.recommended_adhesive_sleeve_weight_hint) + SPACE + mandrelsList[position].recommendedAdhesiveSleeveWeight
 
@@ -77,14 +87,17 @@ class MandrelAdapter(
             binding.boxTypeTextView.text =
                 context.getString(R.string.package_schema_box_type_label) + packageSchema.boxType
             binding.schemaSignsTextView.text =
-                context.getString(R.string.schema_format_label) + packageSchema.firstLineCount.toString() + res.getText(R.string.name_separator) + packageSchema.secondLineCount.toString()
+                context.getString(R.string.schema_format_label) + packageSchema.firstLineCount.toString() + res.getText(
+                    R.string.name_separator
+                ) + packageSchema.secondLineCount.toString()
             binding.totalCountInBoxTextView.text =
-                context.getString(R.string.schema_cup_in_box_label) + packageSchema.capAmountInBox.toString()
+                context.getString(R.string.schema_cup_in_box_label) + packageSchema.capAmountInBox.toString() + SPACE + res.getText(R.string.pcs_postfix)
             binding.totalCountInBundleTextView.text =
-                context.getString(R.string.schema_cap_in_bundle_label) + packageSchema.capAmountInBundle.toString()
+                context.getString(R.string.schema_cap_in_bundle_label) + packageSchema.capAmountInBundle.toString() + SPACE + res.getText(R.string.pcs_postfix)
             binding.schemaImage.setSchema(
                 packageSchema.firstLineCount,
-                packageSchema.secondLineCount
+                packageSchema.secondLineCount,
+                packageSchema.isStraightLaying
             )
         }
 

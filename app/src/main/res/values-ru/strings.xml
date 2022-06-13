@@ -81,7 +81,7 @@
     <string name="action_bar_settings_label">настройки</string>
 
     //schema adapter
-    <string name="package_schema_name_label">схема укладки :</string>
+    <string name="package_schema_name_label">Схема укладки :</string>
     <string name="package_schema_box_type_label">формат коробки :</string>
     <string name="schema_format_label">формат укладки :</string>
     <string name="schema_cup_in_box_label">соличество колпака в коробке :</string>
@@ -102,6 +102,7 @@
     <string name="add_dialog_cap_in_bundle_error_message">Пожалуйста, установите количество колпака в штанге</string>
     <string name="confirmation_dialog_delete_schema_label">Удалить схему упаковки :</string>
     <string name="confirmation_dialog_delete_mandrel_label">Удалить оправку :</string>
+    <string name="add_schema_doalog_is_straight_laying_check">прямая укладка</string>
 
     //settings activity
     <string name="settings_activity_password_group_label">установки пароля</string>
@@ -113,11 +114,26 @@
     <string name="settings_activity_membrane_depth_label">Толщина плёнки</string>
     <string name="settings_activity_membrane_depth_sublabel">Нажмите, что-бы установить толщину плёнки в микрометрах.</string>
 
+    <string name="settings_activity_restore_default_data_label">Восстановление данных по умолчанию</string>
+    <string name="settings_activity_restore_default_data_summary">Нажмите для восстановления данных по умолчанию, все введённые данные будут потеряны.</string>
+
+
     //change password dialog fragment
     <string name="dialog_fragment_change_password_label">смена пароля</string>
     <string name="dialog_fragment_change_password_old_password_hint">введите старый пароль</string>
     <string name="dialog_fragment_change_password_new_password_hint">введите новый пароль</string>
     <string name="dialog_fragment_change_password_change_button">изменить</string>
+
+    <string name="add_schema_layer_count_hint">количество рядов</string>
+    <string name="add_schema_dialog_layer_count_error_message">Пожалуйста, установите количество рядов</string>
+
+    //values format postfixes
+    <string name="meter_postfix">м.</string>
+    <string name="milimeter_postfix">мм.</string>
+    <string name="micrometer_postfix">млм.</string>
+    <string name="pcs_postfix">шт.</string>
+
+
 
 
 

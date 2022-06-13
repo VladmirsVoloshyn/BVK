@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentTransaction
 import com.example.bvk.R
 import com.example.bvk.databinding.ActivityMainBinding
@@ -33,8 +34,7 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        preferences =
+                preferences =
             application.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
         editor = preferences!!.edit()
         registerNewLaunch()

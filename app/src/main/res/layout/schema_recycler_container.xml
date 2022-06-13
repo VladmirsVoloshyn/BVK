@@ -32,11 +32,12 @@
 
         <TextView
             android:id="@+id/schema_name_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="schema name"
             android:textSize="21sp"
+            app:layout_constraintEnd_toStartOf="@+id/menu_button"
             app:layout_constraintStart_toEndOf="@id/schema_avatar_image_view"
             app:layout_constraintTop_toTopOf="parent" />
 

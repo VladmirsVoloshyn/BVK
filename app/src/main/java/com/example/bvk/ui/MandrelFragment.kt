@@ -104,23 +104,14 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.clearSampleButton.setOnClickListener {
             clearSample()
         }
-
-        binding.restoreDefaultButton.setOnClickListener {
-            val confirmationDialogFragment = ConfirmationDialogFragment(
-                RESTORE_DEFAULT_CONFIRMATION_CALL_KEY, listener = this
-            )
-            confirmationDialogFragment.show(
-                requireActivity().supportFragmentManager,
-                RESTORE_DEFAULT_CONFIRMATION_CALL_KEY
-            )
-        }
-
         binding.changeDataListFab.setOnClickListener {
             clearSample()
             if (viewModel.isMandrelViewMode) {
+                binding.changeDataListFab.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_sample_recycler_image))
                 setPackageSchemaDataView()
             } else {
                 setMandrelDataView()
+                binding.changeDataListFab.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_backpack_24))
             }
         }
 
@@ -133,7 +124,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.textViewLabel.text =
             activity?.resources?.getString(R.string.mandrel_list_label)
         binding.createSampleFab.visibility = Button.VISIBLE
-        binding.restoreDefaultButton.visibility = Button.VISIBLE
         viewModel.isMandrelViewMode = true
     }
 
@@ -143,7 +133,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.schemasList.visibility = RecyclerView.VISIBLE
         binding.textViewLabel.text = getString(R.string.package_schemas_list_label)
         binding.createSampleFab.visibility = Button.INVISIBLE
-        binding.restoreDefaultButton.visibility = Button.INVISIBLE
         viewModel.isMandrelViewMode = false
     }
 
@@ -151,7 +140,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     private fun setAdminMode() {
         viewModel.isDeveloperMode = true
         binding.addFab.visibility = Button.VISIBLE
-        binding.restoreDefaultButton.visibility = Button.VISIBLE
         binding.changeDataListFab.visibility = Button.VISIBLE
         binding.textViewLabel.text =
             activity?.resources?.getString(R.string.mandrel_list_label)
@@ -164,7 +152,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     private fun setOperatorMode() {
         viewModel.isDeveloperMode = false
         binding.addFab.visibility = Button.INVISIBLE
-        binding.restoreDefaultButton.visibility = Button.INVISIBLE
         binding.changeDataListFab.visibility = Button.INVISIBLE
         binding.textViewLabel.text =
             activity?.resources?.getString(R.string.mandrel_list_label)
@@ -205,6 +192,8 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.clearSampleButton.visibility = Button.INVISIBLE
         binding.nothingToShowTextView.visibility = TextView.INVISIBLE
         binding.mandrelsList.visibility = RecyclerView.VISIBLE
+        binding.addFab.visibility = Button.VISIBLE
+        binding.changeDataListFab.visibility = Button.VISIBLE
         inflateMandrelsList(null)
     }
 
@@ -271,6 +260,9 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.textViewLabel.text =
             activity?.resources?.getString(R.string.sample_param_label) + sampleCapParam.toString()
         binding.clearSampleButton.visibility = Button.VISIBLE
+        binding.addFab.visibility = Button.INVISIBLE
+        binding.changeDataListFab.visibility = Button.INVISIBLE
+
         viewModel.isSampleCreated = true
         inflateMandrelsList(viewModel.findPackageSchema(sampleCapParam))
     }
@@ -341,7 +333,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     override fun onRestoreDefaultConfirm() {
-        setInitializeData()
     }
 
     override fun onDestroyView() {
@@ -352,7 +343,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     companion object {
         const val APP_PREFERENCES = "settings"
         const val PREFERENCE_KEY_PASSWORD = "pass"
-        const val PREFERENCE_KEY_LAUNCH_COUNTER = "launch_counter"
         const val PREFERENCE_KEY_ADHESIVE_LINE = "kal"
         const val PREFERENCE_KEY_MEMBRANE_WEIGHT = "kmw"
         const val DEFAULT_PASSWORD = "123"
@@ -366,75 +356,5 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         const val DELETE_MANDREL_CONFIRMATION_CALL_KEY = "DELETE_MANDREL"
         const val DELETE_PACKAGE_SCHEMA_CONFIRMATION_CALL_KEY = "DELETE_PACKAGE_SCHEMA"
     }
-
-    private fun setInitializeData() {
-        viewModel.deleteAllMandrels()
-        viewModel.insertMandrel(
-            Mandrel(
-                mandrelName = "29x1",
-                vertexDiameter = 29.65,
-                baseDiameter = 32.9,
-                height = 75
-            )
-        )
-        viewModel.insertMandrel(
-            Mandrel(
-                mandrelName = "29x2",
-                vertexDiameter = 29.55,
-                baseDiameter = 33.16,
-                height = 75
-            )
-        )
-        viewModel.insertMandrel(
-            Mandrel(
-                mandrelName = "29x3",
-                vertexDiameter = 29.88,
-                baseDiameter = 33.81,
-                height = 75
-            )
-        )
-        viewModel.insertMandrel(
-            Mandrel(
-                mandrelName = "29x4",
-                vertexDiameter = 29.55,
-                baseDiameter = 32.79,
-                height = 75
-            )
-        )
-        viewModel.insertMandrel(
-            Mandrel(
-                mandrelName = "33x1",
-                vertexDiameter = 33.20,
-                baseDiameter = 36.38,
-                height = 75
-            )
-        )
-        viewModel.insertMandrel(
-            Mandrel(
-                mandrelName = "43x1",
-                vertexDiameter = 42.65,
-                baseDiameter = 44.56,
-                height = 75
-            )
-        )
-        viewModel.insertMandrel(
-            Mandrel(
-                mandrelName = "56x1",
-                vertexDiameter = 57.3,
-                baseDiameter = 60.62,
-                height = 75,
-            )
-        )
-        viewModel.insertMandrel(
-            Mandrel(
-                mandrelName = "61x1",
-                vertexDiameter = 60.6,
-                baseDiameter = 64.4,
-                height = 75,
-            )
-        )
-        requireActivity().finish()
-    }
-
 
 }

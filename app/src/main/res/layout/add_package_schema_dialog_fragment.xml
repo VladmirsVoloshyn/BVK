@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -29,7 +30,8 @@
             android:id="@+id/schema_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/add_dialog_schema_name" />
+            android:hint="@string/add_dialog_schema_name"
+            android:inputType="numberSigned|textCapCharacters" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,7 +88,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutCapAmountInBox"
+        android:id="@+id/textInputLayoutCapLayerCount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,10 +96,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaSecondLine">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/cap_amount_in_box"
+            android:id="@+id/layer_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/add_schema_dialog_cap_amount_in_box"
+            android:hint="@string/add_schema_layer_count_hint"
             android:inputType="numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -109,7 +111,7 @@
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCapAmountInBox">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCapLayerCount">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/cap_amount_in_bundle"
@@ -123,10 +125,10 @@
         android:id="@+id/button_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_button_label"
         android:layout_marginEnd="@dimen/button_margin"
+        android:text="@string/add_button_label"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCapAmountInBundle" />
+        app:layout_constraintTop_toBottomOf="@+id/is_straight_laying_checkBox" />
 
     <Button
         android:id="@+id/button_skip"
@@ -135,6 +137,16 @@
         android:layout_marginEnd="@dimen/button_margin"
         android:text="@string/skip_button_label"
         app:layout_constraintEnd_toStartOf="@+id/button_add"
+        app:layout_constraintTop_toBottomOf="@+id/is_straight_laying_checkBox" />
+
+    <CheckBox
+        android:id="@+id/is_straight_laying_checkBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="57dp"
+        android:text="@string/add_schema_doalog_is_straight_laying_check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCapAmountInBundle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

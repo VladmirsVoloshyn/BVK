@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 
 class SchemaDrawer @JvmOverloads constructor(
@@ -16,6 +15,7 @@ class SchemaDrawer @JvmOverloads constructor(
 
     var firstLineSchema = 1
     var secondLineSchema = 1
+    var isStraightLayer = false
 
     var startFX = 25f
     var startFY = 25f
@@ -23,9 +23,10 @@ class SchemaDrawer @JvmOverloads constructor(
 
     private val paint: Paint = Paint()
 
-    fun setSchema(firstLineAmount: Int, secondLineAmount: Int) {
+    fun setSchema(firstLineAmount: Int, secondLineAmount: Int, isStraightLayerSchema: Boolean) {
         firstLineSchema = firstLineAmount
         secondLineSchema = secondLineAmount
+        isStraightLayer = isStraightLayerSchema
         postInvalidate()
     }
 
@@ -42,8 +43,15 @@ class SchemaDrawer @JvmOverloads constructor(
             canvas?.drawCircle(startFX, startFY, circleRadius, paint)
             startFX += 40
         }
-        startFX = 45f
+
+        startFX = if (isStraightLayer) {
+            25f
+        } else {
+            45f
+        }
+
         startFY = 50f
+
         for (i in 1..secondLineSchema) {
             canvas?.drawCircle(startFX, startFY, circleRadius, paint)
             startFX += 40
