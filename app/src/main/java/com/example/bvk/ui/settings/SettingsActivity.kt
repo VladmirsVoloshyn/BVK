@@ -115,7 +115,7 @@ class SettingsActivity : AppCompatActivity(),
 
             mandrelRepository.insert(
                 Mandrel(
-                    mandrelName = "29x1",
+                    mandrelName = "29*1",
                     vertexDiameter = 29.65,
                     baseDiameter = 32.9,
                     height = 75
@@ -123,7 +123,7 @@ class SettingsActivity : AppCompatActivity(),
             )
             mandrelRepository.insert(
                 Mandrel(
-                    mandrelName = "29x2",
+                    mandrelName = "29*2",
                     vertexDiameter = 29.55,
                     baseDiameter = 33.16,
                     height = 75
@@ -131,7 +131,7 @@ class SettingsActivity : AppCompatActivity(),
             )
             mandrelRepository.insert(
                 Mandrel(
-                    mandrelName = "29x3",
+                    mandrelName = "29*3",
                     vertexDiameter = 29.88,
                     baseDiameter = 33.81,
                     height = 75
@@ -139,7 +139,7 @@ class SettingsActivity : AppCompatActivity(),
             )
             mandrelRepository.insert(
                 Mandrel(
-                    mandrelName = "29x4",
+                    mandrelName = "29*4",
                     vertexDiameter = 29.55,
                     baseDiameter = 32.79,
                     height = 75
@@ -147,7 +147,7 @@ class SettingsActivity : AppCompatActivity(),
             )
             mandrelRepository.insert(
                 Mandrel(
-                    mandrelName = "33x1",
+                    mandrelName = "33*1",
                     vertexDiameter = 33.20,
                     baseDiameter = 36.38,
                     height = 75
@@ -155,7 +155,7 @@ class SettingsActivity : AppCompatActivity(),
             )
             mandrelRepository.insert(
                 Mandrel(
-                    mandrelName = "43x1",
+                    mandrelName = "43*1",
                     vertexDiameter = 42.65,
                     baseDiameter = 44.56,
                     height = 75
@@ -163,7 +163,7 @@ class SettingsActivity : AppCompatActivity(),
             )
             mandrelRepository.insert(
                 Mandrel(
-                    mandrelName = "56x1",
+                    mandrelName = "56*1",
                     vertexDiameter = 57.3,
                     baseDiameter = 60.62,
                     height = 75,
@@ -171,10 +171,42 @@ class SettingsActivity : AppCompatActivity(),
             )
             mandrelRepository.insert(
                 Mandrel(
-                    mandrelName = "61x1",
+                    mandrelName = "61*1",
                     vertexDiameter = 60.6,
                     baseDiameter = 64.4,
                     height = 75,
+                )
+            )
+            mandrelRepository.insert(
+                Mandrel(
+                    mandrelName = "70*1",
+                    vertexDiameter = 70.4,
+                    baseDiameter = 73.9,
+                    height = 75,
+                )
+            )
+            mandrelRepository.insert(
+                Mandrel(
+                    mandrelName = "46*1",
+                    vertexDiameter = 46.45,
+                    baseDiameter = 49.5,
+                    height = 75,
+                )
+            )
+            mandrelRepository.insert(
+                Mandrel(
+                    mandrelName = "52*1",
+                    vertexDiameter = 51.85,
+                    baseDiameter = 53.85,
+                    height = 44,
+                )
+            )
+            mandrelRepository.insert(
+                Mandrel(
+                    mandrelName = "45*1",
+                    vertexDiameter = 46.0,
+                    baseDiameter = 48.0,
+                    height = 44,
                 )
             )
         }

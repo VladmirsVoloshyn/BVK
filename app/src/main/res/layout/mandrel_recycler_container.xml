@@ -178,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="schema name"
+            android:text="@string/schema_label"
             android:textSize="21sp"
             app:layout_constraintStart_toEndOf="@id/schema_avatar_image_view"
             app:layout_constraintTop_toTopOf="parent" />
@@ -188,7 +188,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="box type"
+            android:text="@string/schema_label"
             app:layout_constraintStart_toEndOf="@id/schema_avatar_image_view"
             app:layout_constraintTop_toBottomOf="@+id/schema_name_text_view" />
 
@@ -197,7 +197,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="schema signs"
+            android:text="@string/schema_label"
             app:layout_constraintStart_toEndOf="@id/schema_avatar_image_view"
             app:layout_constraintTop_toBottomOf="@id/box_type_text_view" />
 
@@ -206,7 +206,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="total cap count in box"
+            android:text="@string/schema_label"
             app:layout_constraintStart_toEndOf="@id/schema_avatar_image_view"
             app:layout_constraintTop_toBottomOf="@id/schema_signs_text_view" />
 
@@ -215,7 +215,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="total cap count in bundle"
+            android:text="@string/schema_label"
             app:layout_constraintStart_toEndOf="@id/schema_avatar_image_view"
             app:layout_constraintTop_toBottomOf="@id/total_count_in_box_text_view" />
 

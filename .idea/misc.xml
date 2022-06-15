@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/BVK/app/src/main/res/layout/dialog_fragment_change_password.xml" value="0.36666666666666664" />
+        <entry key="..\:/BVK/app/src/main/res/layout/fragment_confirmation_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/BVK/app/src/main/res/layout/fragment_import_export.xml" value="0.358695652173913" />
+        <entry key="..\:/BVK/app/src/main/res/layout/fragment_mandrel.xml" value="0.36666666666666664" />
+        <entry key="..\:/BVK/app/src/main/res/layout/mandrel_recycler_container.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.234" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/card_bg.xml" value="0.1285" />
         <entry key="..\:/Users/vovap/AndroidStudioProjects/BVK/app/src/main/res/drawable/card_bg_hinght.xml" value="0.2305" />

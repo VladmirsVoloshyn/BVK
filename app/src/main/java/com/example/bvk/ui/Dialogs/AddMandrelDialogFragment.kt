@@ -15,7 +15,7 @@ class AddMandrelDialogFragment(
     private val callKey: String,
     val mandrel: Mandrel,
     var iListener: OnAddOrEditMandrelListener,
-    val mandrelsUniqueNamesList : ArrayList<String>
+    private val mandrelsUniqueNamesList : ArrayList<String>
 ) : DialogFragment() {
     var mBinding: AddMandrelDialogFragmentBinding? = null
     private val binding get() = mBinding!!
@@ -100,6 +100,15 @@ class AddMandrelDialogFragment(
                         binding.textInputLayoutName.error = activity?.resources?.getString(R.string.add_dialog_unique_name_error_message)
                     }
                 } else {
+                    var pretindent : String? = null
+                    for (mandrelName in  mandrelsUniqueNamesList){
+                        if (mandrelName == mandrel.mandrelName){
+                            pretindent = mandrelName
+                        }
+                    }
+                    if (pretindent!=null){
+                        mandrelsUniqueNamesList.remove(pretindent)
+                    }
                     if (isUniqueName(binding.mandrelName.text.toString())) {
                         listener?.onMandrelEdit(
                             Mandrel(
@@ -117,8 +126,9 @@ class AddMandrelDialogFragment(
                             )
                         )
                         dialog?.dismiss()
-                    }else if (!isUniqueName(binding.mandrelName.text.toString())){
-                        binding.textInputLayoutName.error = activity?.resources?.getString(R.string.add_dialog_unique_name_error_message)
+                    }else if (!isUniqueName(binding.mandrelName.text.toString())) {
+                        binding.textInputLayoutName.error =
+                            activity?.resources?.getString(R.string.add_dialog_unique_name_error_message)
                     }
                 }
             }

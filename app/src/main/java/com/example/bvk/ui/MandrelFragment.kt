@@ -87,7 +87,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 addMandrelFragment.show(requireActivity().supportFragmentManager, ADD_FRAGMENT_TAG)
             } else {
                 val addSchemaFragment =
-                    AddPackageSchemaDialogFragment(CALL_KEY_NEW, PackageSchema(), this)
+                    AddPackageSchemaDialogFragment(CALL_KEY_NEW, PackageSchema(), this,viewModel.getSchemasUniqueNames())
                 addSchemaFragment.show(requireActivity().supportFragmentManager, ADD_FRAGMENT_TAG)
             }
         }
@@ -171,6 +171,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
             developerModeDialogFragment.show(activity?.supportFragmentManager!!, "PASSWORD")
         } else {
             setOperatorMode()
+            setMandrelDataView()
         }
     }
 
@@ -289,7 +290,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     override fun onSchemaEditClick(schema: PackageSchema) {
-        val addFragment = AddPackageSchemaDialogFragment(CALL_KEY_EDIT, schema, this)
+        val addFragment = AddPackageSchemaDialogFragment(CALL_KEY_EDIT, schema, this,viewModel.getSchemasUniqueNames())
         addFragment.show(activity?.supportFragmentManager!!, ADD_FRAGMENT_TAG)
     }
 

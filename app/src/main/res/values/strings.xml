@@ -132,6 +132,7 @@
 
     <string name="settings_activity_restore_default_data_label">Restore default data</string>
     <string name="settings_activity_restore_default_data_summary">Click to restore all databases and password to default.</string>
+    <string name="schema_label">schema</string>
 
 
 </resources>
