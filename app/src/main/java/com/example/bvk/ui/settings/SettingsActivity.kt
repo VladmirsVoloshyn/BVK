@@ -5,8 +5,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.bvk.BVKApplication
 import com.example.bvk.R
 import com.example.bvk.database.mandreldatabase.MandrelRepository
@@ -37,6 +39,9 @@ class SettingsActivity : AppCompatActivity(),
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val importExportFragment = ImportExportFragment()
+        supportFragmentManager.beginTransaction().replace(binding.importExportFragmentContainer.id, importExportFragment).commit()
+
         mandrelRepository = (application as BVKApplication).mandrelsRepository
         schemasRepository  = (application as BVKApplication).schemasRepository
 
@@ -46,6 +51,12 @@ class SettingsActivity : AppCompatActivity(),
         setUIMode()
 
         supportActionBar?.subtitle = getString(R.string.action_bar_settings_label)
+
+        binding.importExportContainer.setOnClickListener {
+            setImportExportUIMode()
+            binding.importExportFragmentContainer.visibility = ConstraintLayout.VISIBLE
+            Toast.makeText(this, "click!!", Toast.LENGTH_SHORT).show()
+        }
 
         binding.restoreDefaultSettingsContainer.setOnClickListener {
             val confirmationDialogFragment = ConfirmationDialogFragment(
@@ -94,6 +105,8 @@ class SettingsActivity : AppCompatActivity(),
                     getDrawable(R.drawable.card_bg_night)
                 binding.membraneDepthSettingsContainer.background =
                     getDrawable(R.drawable.card_bg_night)
+                binding.importExportContainer.background =
+                    getDrawable(R.drawable.card_bg_night)
             }
         }
 
@@ -102,6 +115,17 @@ class SettingsActivity : AppCompatActivity(),
     override fun onPasswordChanged(password: String) {
         editor.putString(PREFERENCE_KEY_PASSWORD, password).apply()
         Toast.makeText(this, "Password change successful", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setImportExportUIMode(){
+        binding.restoreDefaultSettingsContainer.visibility = View.INVISIBLE
+        binding.passwordSettingsContainer.visibility = View.INVISIBLE
+        binding.adhesiveSaveLineSettingsContainer.visibility = View.INVISIBLE
+        binding.membraneDepthSettingsContainer.visibility = View.INVISIBLE
+        binding.importExportContainer.visibility = View.INVISIBLE
+        binding.importExportLabel.visibility = View.INVISIBLE
+        binding.passwordSettingsLabel.visibility = View.INVISIBLE
+        binding.mainLabel.visibility = View.INVISIBLE
     }
 
     override fun onDeleteConfirm(position: Int, confirmationKey: String) {

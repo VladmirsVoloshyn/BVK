@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/BVK/app/src/main/res/layout/activity_settings.xml" value="0.36666666666666664" />
         <entry key="..\:/BVK/app/src/main/res/layout/add_mandrel_dialog_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/BVK/app/src/main/res/layout/add_package_schema_dialog_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/BVK/app/src/main/res/layout/developer_mode_dialog_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/BVK/app/src/main/res/layout/dialog_fragment_change_password.xml" value="0.36666666666666664" />
         <entry key="..\:/BVK/app/src/main/res/layout/fragment_confirmation_dialog.xml" value="0.36666666666666664" />
         <entry key="..\:/BVK/app/src/main/res/layout/fragment_import_export.xml" value="0.358695652173913" />
