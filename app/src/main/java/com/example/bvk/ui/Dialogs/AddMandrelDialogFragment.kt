@@ -2,6 +2,7 @@ package com.example.bvk.ui.Dialogs
 
 import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ class AddMandrelDialogFragment(
     private val callKey: String,
     val mandrel: Mandrel,
     var iListener: OnAddOrEditMandrelListener,
-    private val mandrelsUniqueNamesList : ArrayList<String>
+    private val mandrelsUniqueNamesList: ArrayList<String>
 ) : DialogFragment() {
     var mBinding: AddMandrelDialogFragmentBinding? = null
     private val binding get() = mBinding!!
@@ -25,6 +26,10 @@ class AddMandrelDialogFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        val window = dialog?.window
+        window?.setGravity(Gravity.TOP)
+
         mBinding = AddMandrelDialogFragmentBinding.inflate(layoutInflater, container, false)
         if (callKey == CALL_KEY_NEW) {
             binding.buttonAdd.text = activity?.resources?.getText(R.string.add_button_label)
@@ -96,17 +101,18 @@ class AddMandrelDialogFragment(
                             )
                         )
                         dialog?.dismiss()
-                    }else  if (!isUniqueName(binding.mandrelName.text.toString())){
-                        binding.textInputLayoutName.error = activity?.resources?.getString(R.string.add_dialog_unique_name_error_message)
+                    } else if (!isUniqueName(binding.mandrelName.text.toString())) {
+                        binding.textInputLayoutName.error =
+                            activity?.resources?.getString(R.string.add_dialog_unique_name_error_message)
                     }
                 } else {
-                    var pretindent : String? = null
-                    for (mandrelName in  mandrelsUniqueNamesList){
-                        if (mandrelName == mandrel.mandrelName){
+                    var pretindent: String? = null
+                    for (mandrelName in mandrelsUniqueNamesList) {
+                        if (mandrelName == mandrel.mandrelName) {
                             pretindent = mandrelName
                         }
                     }
-                    if (pretindent!=null){
+                    if (pretindent != null) {
                         mandrelsUniqueNamesList.remove(pretindent)
                     }
                     if (isUniqueName(binding.mandrelName.text.toString())) {
@@ -126,7 +132,7 @@ class AddMandrelDialogFragment(
                             )
                         )
                         dialog?.dismiss()
-                    }else if (!isUniqueName(binding.mandrelName.text.toString())) {
+                    } else if (!isUniqueName(binding.mandrelName.text.toString())) {
                         binding.textInputLayoutName.error =
                             activity?.resources?.getString(R.string.add_dialog_unique_name_error_message)
                     }
@@ -139,9 +145,9 @@ class AddMandrelDialogFragment(
 
     }
 
-    private fun isUniqueName(mandrelName : String): Boolean{
-        for (mandrelsName in mandrelsUniqueNamesList){
-            if (mandrelName == mandrelsName){
+    private fun isUniqueName(mandrelName: String): Boolean {
+        for (mandrelsName in mandrelsUniqueNamesList) {
+            if (mandrelName == mandrelsName) {
                 return false
             }
         }

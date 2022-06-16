@@ -28,4 +28,8 @@ class BVKApplication : Application() {
     val schemasRepository by lazy {
         PackageRepository(schemasDataBase.packageDao())
     }
+
+    fun finish(){
+        this.finish()
+    }
 }

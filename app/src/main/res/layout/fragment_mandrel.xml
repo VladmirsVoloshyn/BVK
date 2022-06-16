@@ -29,24 +29,22 @@
         android:id="@+id/schemas_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/all_items"
+        android:visibility="invisible"
+        android:layout_marginBottom="77dp"
         android:layout_marginStart="14dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="13dp"
-        android:layout_marginBottom="77dp"
-        android:contentDescription="@string/all_items"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLabel"
-        app:layout_constraintVertical_bias="0.0"
-        tools:itemCount="20"
+        tools:itemCount="11"
         tools:listitem="@layout/schema_recycler_container" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_fab"
+        android:id="@+id/add_item_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/button_margin"
@@ -86,8 +84,8 @@
         android:id="@+id/clearSampleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
         android:layout_marginEnd="12dp"
+        android:layout_marginBottom="14dp"
         android:clickable="true"
         android:contentDescription="@string/click_to_clear_sample"
         android:focusable="true"
@@ -102,23 +100,22 @@
         android:layout_height="wrap_content"
         android:text="@string/nothing_to_show_label"
         android:textSize="24sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/changeDataListFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:layout_marginStart="@dimen/button_margin"
         android:layout_marginBottom="@dimen/button_margin"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/add_fab"
-        app:srcCompat="@drawable/ic_baseline_backpack_24"
-        android:focusable="true" />
-
+        app:layout_constraintStart_toEndOf="@+id/add_item_fab"
+        app:srcCompat="@drawable/ic_baseline_backpack_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

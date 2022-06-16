@@ -30,8 +30,40 @@
             android:id="@+id/schema_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/add_dialog_schema_name"
-            android:inputType="numberSigned|textCapCharacters" />
+            android:hint="@string/add_dialog_schema_name" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutSchemaCapVertex"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/schema_cap_vertex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/sample_dialog_set_cap_vertex_diameter_hint" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutSchemaCapHeight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaCapVertex">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/schema_cap_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/sample_dialog_set_cap_height_hint"
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -41,7 +73,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaName">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaCapHeight">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/box_type"

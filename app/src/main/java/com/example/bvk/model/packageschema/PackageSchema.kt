@@ -14,6 +14,8 @@ data class PackageSchema(
     @ColumnInfo(name = "is_straight_laying") val isStraightLaying: Boolean = false,
     @ColumnInfo(name = "cap_amount_in_bundle") val capAmountInBundle: Int = 0,
     @ColumnInfo(name = "layer_count") val layerCount: Int = 0,
+    @ColumnInfo(name = "cap_vertex_diameter") val capVertexDiameter: Int = 0,
+    @ColumnInfo(name = "cap_height") val capHeight: Int = 0,
     var capAmountInBox: Int = 0
 ) {
     init {

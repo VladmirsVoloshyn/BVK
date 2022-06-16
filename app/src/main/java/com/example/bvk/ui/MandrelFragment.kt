@@ -75,19 +75,29 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
             actionBar?.subtitle =
                 activity?.resources?.getString(R.string.action_bar_subtitle_operator_mode)
         }
-        if (!viewModel.isDeveloperMode) {
+        if (!viewModel.isAdministratorMode) {
             setOperatorMode()
         } else {
-            setAdminMode()
+            setAdministratorMode()
         }
 
-        binding.addFab.setOnClickListener {
+        binding.addItemFab.setOnClickListener {
             if (viewModel.isMandrelViewMode) {
-                val addMandrelFragment = AddMandrelDialogFragment(CALL_KEY_NEW, Mandrel(), this, viewModel.getMandrelUniqueNames())
+                val addMandrelFragment = AddMandrelDialogFragment(
+                    CALL_KEY_NEW,
+                    Mandrel(),
+                    this,
+                    viewModel.getMandrelUniqueNames()
+                )
                 addMandrelFragment.show(requireActivity().supportFragmentManager, ADD_FRAGMENT_TAG)
             } else {
                 val addSchemaFragment =
-                    AddPackageSchemaDialogFragment(CALL_KEY_NEW, PackageSchema(), this,viewModel.getSchemasUniqueNames())
+                    AddPackageSchemaDialogFragment(
+                        CALL_KEY_NEW,
+                        PackageSchema(),
+                        this,
+                        viewModel.getSchemasUniqueNames()
+                    )
                 addSchemaFragment.show(requireActivity().supportFragmentManager, ADD_FRAGMENT_TAG)
             }
         }
@@ -110,14 +120,14 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 binding.changeDataListFab.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_sample_recycler_image))
                 setPackageSchemaDataView()
             } else {
-                setMandrelDataView()
                 binding.changeDataListFab.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_backpack_24))
+                setMandrelDataView()
             }
         }
 
     }
 
-    //ui mode
+    //ui modes
     private fun setMandrelDataView() {
         binding.mandrelsList.visibility = RecyclerView.VISIBLE
         binding.schemasList.visibility = RecyclerView.INVISIBLE
@@ -137,9 +147,9 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun setAdminMode() {
-        viewModel.isDeveloperMode = true
-        binding.addFab.visibility = Button.VISIBLE
+    private fun setAdministratorMode() {
+        viewModel.isAdministratorMode = true
+        binding.addItemFab.visibility = Button.VISIBLE
         binding.changeDataListFab.visibility = Button.VISIBLE
         binding.textViewLabel.text =
             activity?.resources?.getString(R.string.mandrel_list_label)
@@ -150,8 +160,8 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun setOperatorMode() {
-        viewModel.isDeveloperMode = false
-        binding.addFab.visibility = Button.INVISIBLE
+        viewModel.isAdministratorMode = false
+        binding.addItemFab.visibility = Button.INVISIBLE
         binding.changeDataListFab.visibility = Button.INVISIBLE
         binding.textViewLabel.text =
             activity?.resources?.getString(R.string.mandrel_list_label)
@@ -161,7 +171,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     override fun onUpdateModeClicked() {
-        if (!viewModel.isDeveloperMode) {
+        if (!viewModel.isAdministratorMode) {
             val developerModeDialogFragment = DeveloperModeDialogFragment(
                 preferences?.getString(
                     PREFERENCE_KEY_PASSWORD,
@@ -179,11 +189,13 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     fun clearSample() {
         viewModel.isSampleCreated = false
         viewModel.mandrelsSampleList = MutableLiveData()
-        if (viewModel.isDeveloperMode) {
+        if (viewModel.isAdministratorMode) {
             binding.textViewLabel.text =
                 activity?.resources?.getString(R.string.mandrel_list_label)
             actionBar?.subtitle =
                 activity?.resources?.getString(R.string.action_bar_subtitle_administrator_mode)
+            binding.addItemFab.visibility = Button.VISIBLE
+            binding.changeDataListFab.visibility = Button.VISIBLE
         } else {
             binding.textViewLabel.text =
                 activity?.resources?.getString(R.string.mandrel_list_label)
@@ -193,8 +205,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.clearSampleButton.visibility = Button.INVISIBLE
         binding.nothingToShowTextView.visibility = TextView.INVISIBLE
         binding.mandrelsList.visibility = RecyclerView.VISIBLE
-        binding.addFab.visibility = Button.VISIBLE
-        binding.changeDataListFab.visibility = Button.VISIBLE
         inflateMandrelsList(null)
     }
 
@@ -239,7 +249,12 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     override fun onMandrelEditClick(mandrel: Mandrel) {
-        val addFragment = AddMandrelDialogFragment(CALL_KEY_EDIT, mandrel, this, viewModel.getMandrelUniqueNames())
+        val addFragment = AddMandrelDialogFragment(
+            CALL_KEY_EDIT,
+            mandrel,
+            this,
+            viewModel.getMandrelUniqueNames()
+        )
         addFragment.show(activity?.supportFragmentManager!!, ADD_FRAGMENT_TAG)
     }
 
@@ -261,9 +276,8 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.textViewLabel.text =
             activity?.resources?.getString(R.string.sample_param_label) + sampleCapParam.toString()
         binding.clearSampleButton.visibility = Button.VISIBLE
-        binding.addFab.visibility = Button.INVISIBLE
+        binding.addItemFab.visibility = Button.INVISIBLE
         binding.changeDataListFab.visibility = Button.INVISIBLE
-
         viewModel.isSampleCreated = true
         inflateMandrelsList(viewModel.findPackageSchema(sampleCapParam))
     }
@@ -290,7 +304,12 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     override fun onSchemaEditClick(schema: PackageSchema) {
-        val addFragment = AddPackageSchemaDialogFragment(CALL_KEY_EDIT, schema, this,viewModel.getSchemasUniqueNames())
+        val addFragment = AddPackageSchemaDialogFragment(
+            CALL_KEY_EDIT,
+            schema,
+            this,
+            viewModel.getSchemasUniqueNames()
+        )
         addFragment.show(activity?.supportFragmentManager!!, ADD_FRAGMENT_TAG)
     }
 
@@ -321,7 +340,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 this,
                 packageSchema,
                 viewModel.isSampleCreated,
-                viewModel.isDeveloperMode
+                viewModel.isAdministratorMode
             )
             binding.mandrelsList.adapter = mandrelAdapter
             binding.mandrelsList.layoutManager =
@@ -330,7 +349,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     }
 
     override fun onPasswordEnter() {
-        setAdminMode()
+        setAdministratorMode()
     }
 
     override fun onRestoreDefaultConfirm() {

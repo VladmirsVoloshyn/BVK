@@ -3,6 +3,7 @@ package com.example.bvk.ui.Dialogs
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,10 +31,15 @@ class AddPackageSchemaDialogFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val window = dialog?.window
+        window?.setGravity(Gravity.TOP)
+
         mBinding = AddPackageSchemaDialogFragmentBinding.inflate(layoutInflater, container, false)
         if (callKey == CALL_KEY_NEW) {
             binding.buttonAdd.text = activity?.resources?.getText(R.string.add_button_label)
         } else {
+            binding.schemaCapVertex.setText(packageSchema.capVertexDiameter.toString())
+            binding.schemaCapHeight.setText(packageSchema.capHeight.toString())
             binding.buttonAdd.text = resources.getText(R.string.update_button_label)
             binding.schemaName.setText(packageSchema.schemaName)
             binding.boxType.setText(packageSchema.boxType)
@@ -83,11 +89,18 @@ class AddPackageSchemaDialogFragment(
                     getString(R.string.add_dialog_cap_in_bundle_error_message),
                     binding.textInputLayoutCapAmountInBundle
                 )
+                && !binding.schemaCapVertex.shouldShowError(
+                    getString(R.string.add_schema_dialog_layer_count_error_message),
+                    binding.textInputLayoutSchemaCapVertex
+                )
+                && !binding.schemaCapHeight.shouldShowError(
+                    getString(R.string.add_dialog_cap_in_bundle_error_message),
+                    binding.textInputLayoutSchemaCapHeight
+                )
             ) {
                 if (callKey == CALL_KEY_NEW) {
 
                     if (isUniqueName(binding.schemaName.text.toString())) {
-
                         val isStraightLaying = binding.isStraightLayingCheckBox.isChecked
                         listener?.onSchemaAdd(
                             PackageSchema(
@@ -98,7 +111,9 @@ class AddPackageSchemaDialogFragment(
                                 layerCount = binding.layerCount.text.toString().toInt(),
                                 capAmountInBundle = binding.capAmountInBundle.text.toString()
                                     .toInt(),
-                                isStraightLaying = isStraightLaying
+                                isStraightLaying = isStraightLaying,
+                                capVertexDiameter = binding.schemaCapVertex.text.toString().toInt(),
+                                capHeight = binding.schemaCapHeight.text.toString().toInt()
                             )
                         )
                         dialog?.dismiss()
@@ -129,7 +144,9 @@ class AddPackageSchemaDialogFragment(
                                 layerCount = binding.layerCount.text.toString().toInt(),
                                 capAmountInBundle = binding.capAmountInBundle.text.toString()
                                     .toInt(),
-                                isStraightLaying = isStraightLaying
+                                isStraightLaying = isStraightLaying,
+                                capVertexDiameter = binding.schemaCapVertex.text.toString().toInt(),
+                                capHeight = binding.schemaCapHeight.text.toString().toInt()
                             )
                         )
                         dialog?.dismiss()

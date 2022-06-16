@@ -23,7 +23,7 @@ class MandrelViewModel(
         mandrelRepository.allMandrels.asLiveData()
     var mandrelsSampleList: MutableLiveData<List<Mandrel>> = MutableLiveData()
     var isSampleCreated = false
-    var isDeveloperMode = false
+    var isAdministratorMode = false
     var isMandrelViewMode = true
     var sampleCapParameters = SampleCapParameters()
 
@@ -33,13 +33,20 @@ class MandrelViewModel(
     }
 
     fun findPackageSchema(sampleCapParameters: SampleCapParameters): PackageSchema? {
-        val schemaName =
-            sampleCapParameters.capVertexDiameter.toString() + "*" + sampleCapParameters.capHeight.toString()
         for (schemas in schemasRoomList.value as ArrayList<PackageSchema>) {
-            if (schemas.schemaName == schemaName)
+            if (schemas.capVertexDiameter == sampleCapParameters.capVertexDiameter && schemas.capHeight == sampleCapParameters.capHeight)
                 return schemas
         }
         return null
+    }
+
+    fun findPackageSchemaList(sampleCapParameters: SampleCapParameters): List<PackageSchema>? {
+        val listSchemas = ArrayList<PackageSchema>()
+        for (schemas in schemasRoomList.value as ArrayList<PackageSchema>) {
+            if (schemas.capVertexDiameter == sampleCapParameters.capVertexDiameter)
+                listSchemas.add(schemas)
+        }
+        return listSchemas
     }
 
     //mandrel impl
@@ -61,17 +68,17 @@ class MandrelViewModel(
         return mandrelsRoomList
     }
 
-    fun getMandrelUniqueNames() : ArrayList<String>{
+    fun getMandrelUniqueNames(): ArrayList<String> {
         val mandrelsUniqueNamesList = ArrayList<String>()
-        for (mandrel in mandrelsRoomList.value as ArrayList){
+        for (mandrel in mandrelsRoomList.value as ArrayList) {
             mandrelsUniqueNamesList.add(mandrel.mandrelName)
         }
         return mandrelsUniqueNamesList
     }
 
-    fun getSchemasUniqueNames(): ArrayList<String>{
+    fun getSchemasUniqueNames(): ArrayList<String> {
         val schemasUniqueNamesList = ArrayList<String>()
-        for (schema in schemasRoomList.value as ArrayList){
+        for (schema in schemasRoomList.value as ArrayList) {
             schemasUniqueNamesList.add(schema.schemaName)
         }
         return schemasUniqueNamesList

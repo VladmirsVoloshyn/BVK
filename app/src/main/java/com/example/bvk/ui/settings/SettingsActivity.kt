@@ -210,7 +210,7 @@ class SettingsActivity : AppCompatActivity(),
                 )
             )
         }
-        finish()
+        finishAffinity()
     }
 
 }

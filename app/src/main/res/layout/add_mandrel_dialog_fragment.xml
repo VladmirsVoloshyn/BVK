@@ -29,8 +29,7 @@
             android:id="@+id/mandrel_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/add_dialog_set_mandrel_name_hint"
-            android:inputType="numberSigned|number|textCapCharacters" />
+            android:hint="@string/add_dialog_set_mandrel_name_hint" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
