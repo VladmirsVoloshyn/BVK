@@ -6,7 +6,9 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bvk.R
 import com.example.bvk.databinding.SchemaRecyclerContainerBinding
@@ -16,7 +18,8 @@ import com.example.bvk.model.packageschema.PackageSchema
 class PackageSchemaAdapter(
     private val schemasList: List<PackageSchema>,
     val context: Context,
-    val listener: OnSchemaListButtonClickListener?
+    val listener: OnSchemaListButtonClickListener?,
+    var isSamPleCreated : Boolean = false
 ) : RecyclerView.Adapter<PackageSchemaAdapter.PackageSchemaViewHolder>() {
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
@@ -45,6 +48,10 @@ class PackageSchemaAdapter(
             context.getString(R.string.schema_cup_in_box_label) + SPACE + schemasList[position].capAmountInBox + SPACE + res.getText(R.string.pcs_postfix)
         binding.totalCountInBundleTextView.text =
             context.getString(R.string.schema_cap_in_bundle_label) + SPACE + schemasList[position].capAmountInBundle + SPACE + res.getText(R.string.pcs_postfix)
+
+        if (isSamPleCreated){
+            binding.listNumberLabel.text = ((position+1).toString() + "/" + schemasList.count().toString())
+        }
 
         binding.schemaImage.setSchema(
             schemasList[position].firstLineCount,
@@ -97,6 +104,12 @@ class PackageSchemaAdapter(
         private lateinit var popupMenu: PopupMenu
 
         init {
+
+            if (isSamPleCreated){
+                binding.menuButton.visibility = Button.GONE
+                binding.listNumberLabel.visibility = TextView.VISIBLE
+            }
+
             binding.menuButton.setOnClickListener {
                 popupMenu = PopupMenu(context, it)
                 popupMenu.inflate(R.menu.recycler_container_menu)

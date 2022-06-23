@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/BVK/app/src/main/res/drawable/card_bg_night.xml" value="0.3105" />
+        <entry key="..\:/BVK/app/src/main/res/drawable/ic_baseline_archive_24.xml" value="0.3105" />
+        <entry key="..\:/BVK/app/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.3105" />
+        <entry key="..\:/BVK/app/src/main/res/drawable/ic_baseline_import_export_24.xml" value="0.3105" />
+        <entry key="..\:/BVK/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/BVK/app/src/main/res/layout/activity_settings.xml" value="0.36666666666666664" />
         <entry key="..\:/BVK/app/src/main/res/layout/add_mandrel_dialog_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/BVK/app/src/main/res/layout/add_package_schema_dialog_fragment.xml" value="0.36666666666666664" />

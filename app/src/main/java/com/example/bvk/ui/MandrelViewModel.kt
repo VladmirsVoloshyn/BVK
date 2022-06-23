@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.example.bvk.database.mandreldatabase.MandrelRepository
 import com.example.bvk.database.packagedatabase.PackageRepository
 import com.example.bvk.model.Mandrel
+import com.example.bvk.model.databaseimportexport.ExportListManager
 import com.example.bvk.model.packageschema.PackageSchema
 import com.example.bvk.model.sample.SampleCapParameters
 import com.example.bvk.model.sample.SampleCreator
@@ -43,8 +44,15 @@ class MandrelViewModel(
     fun findPackageSchemaList(sampleCapParameters: SampleCapParameters): List<PackageSchema>? {
         val listSchemas = ArrayList<PackageSchema>()
         for (schemas in schemasRoomList.value as ArrayList<PackageSchema>) {
-            if (schemas.capVertexDiameter == sampleCapParameters.capVertexDiameter)
+            if (schemas.capVertexDiameter == sampleCapParameters.capVertexDiameter && schemas.capHeight == sampleCapParameters.capHeight)
                 listSchemas.add(schemas)
+        }
+        if(listSchemas.isEmpty()){
+            for (schemas in schemasRoomList.value as ArrayList<PackageSchema>) {
+                if (schemas.capVertexDiameter == sampleCapParameters.capVertexDiameter)
+                    listSchemas.add(schemas)
+            }
+
         }
         return listSchemas
     }

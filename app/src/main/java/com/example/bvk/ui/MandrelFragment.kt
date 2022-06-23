@@ -18,6 +18,7 @@ import com.example.bvk.BVKApplication
 import com.example.bvk.R
 import com.example.bvk.databinding.FragmentMandrelBinding
 import com.example.bvk.model.Mandrel
+import com.example.bvk.model.databaseimportexport.ExportListManager
 import com.example.bvk.model.packageschema.PackageSchema
 import com.example.bvk.model.sample.SampleCapParameters
 import com.example.bvk.ui.Dialogs.*
@@ -60,7 +61,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        inflateMandrelsList(null)
+        inflateMandrelsList()
         inflateSchemasList()
 
         requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
@@ -155,7 +156,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
             activity?.resources?.getString(R.string.mandrel_list_label)
         actionBar?.subtitle =
             activity?.resources?.getString(R.string.action_bar_subtitle_administrator_mode)
-        inflateMandrelsList(null)
+        inflateMandrelsList()
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -167,7 +168,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
             activity?.resources?.getString(R.string.mandrel_list_label)
         actionBar?.subtitle =
             activity?.resources?.getString(R.string.action_bar_subtitle_operator_mode)
-        inflateMandrelsList(null)
+        inflateMandrelsList()
     }
 
     override fun onUpdateModeClicked() {
@@ -205,7 +206,10 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.clearSampleButton.visibility = Button.INVISIBLE
         binding.nothingToShowTextView.visibility = TextView.INVISIBLE
         binding.mandrelsList.visibility = RecyclerView.VISIBLE
-        inflateMandrelsList(null)
+        binding.schemasSampleList.visibility = RecyclerView.GONE
+        binding.mandrelsSampleList.visibility = RecyclerView.GONE
+        binding.mandrelsList.visibility = RecyclerView.VISIBLE
+        inflateMandrelsList()
     }
 
     private val backPressedCallback = object : OnBackPressedCallback(true) {
@@ -279,7 +283,11 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.addItemFab.visibility = Button.INVISIBLE
         binding.changeDataListFab.visibility = Button.INVISIBLE
         viewModel.isSampleCreated = true
-        inflateMandrelsList(viewModel.findPackageSchema(sampleCapParam))
+        inflateMandrelsSampleList()
+        inflateSchemasSampleList(sampleCapParam)
+        binding.schemasSampleList.visibility = View.VISIBLE
+        binding.mandrelsList.visibility = View.GONE
+        binding.mandrelsSampleList.visibility = View.VISIBLE
     }
 
 
@@ -317,6 +325,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     //inflate recyclers methods
     private fun inflateSchemasList() {
         viewModel.getSchemasData().observe(viewLifecycleOwner) {
+            ExportListManager.setSchemasExportList(it.toCollection(ArrayList()))
             val schemasAdapter = PackageSchemaAdapter(
                 it.toCollection(ArrayList()),
                 requireActivity().applicationContext,
@@ -328,7 +337,27 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         }
     }
 
-    private fun inflateMandrelsList(packageSchema: PackageSchema?) {
+    private fun inflateMandrelsList() {
+        viewModel.getMandrelsData().observe(viewLifecycleOwner) {
+            ExportListManager.setMandrelsExportList(it.toCollection(ArrayList()))
+            if (it.isNullOrEmpty()) {
+                binding.nothingToShowTextView.visibility = TextView.VISIBLE
+                binding.mandrelsList.visibility = RecyclerView.INVISIBLE
+            }
+            val mandrelAdapter = MandrelAdapter(
+                it.toCollection(ArrayList()),
+                requireActivity().applicationContext,
+                this,
+                viewModel.isSampleCreated,
+                viewModel.isAdministratorMode
+            )
+            binding.mandrelsList.adapter = mandrelAdapter
+            binding.mandrelsList.layoutManager =
+                LinearLayoutManager(requireActivity().applicationContext)
+        }
+    }
+
+    private fun inflateMandrelsSampleList() {
         viewModel.getMandrelsData().observe(viewLifecycleOwner) {
             if (it.isNullOrEmpty()) {
                 binding.nothingToShowTextView.visibility = TextView.VISIBLE
@@ -338,14 +367,30 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 it.toCollection(ArrayList()),
                 requireActivity().applicationContext,
                 this,
-                packageSchema,
                 viewModel.isSampleCreated,
                 viewModel.isAdministratorMode
             )
-            binding.mandrelsList.adapter = mandrelAdapter
-            binding.mandrelsList.layoutManager =
+            binding.mandrelsSampleList.adapter = mandrelAdapter
+            binding.mandrelsSampleList.layoutManager =
                 LinearLayoutManager(requireActivity().applicationContext)
         }
+    }
+
+    private fun inflateSchemasSampleList(sampleCapParam: SampleCapParameters) {
+        val schemasAdapter = PackageSchemaAdapter(
+            viewModel.findPackageSchemaList(sampleCapParam)!!,
+            requireActivity().applicationContext,
+            this,
+            viewModel.isSampleCreated
+        )
+        binding.schemasSampleList.adapter = schemasAdapter
+        binding.schemasSampleList.layoutManager =
+            LinearLayoutManager(
+                requireActivity().applicationContext,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+
     }
 
     override fun onPasswordEnter() {

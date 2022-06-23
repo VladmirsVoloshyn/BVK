@@ -12,7 +12,7 @@
         android:layout_marginStart="14dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="13dp"
-        android:layout_marginBottom="77dp"
+        android:layout_marginBottom="70dp"
         android:contentDescription="@string/all_items"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +31,7 @@
         android:layout_height="0dp"
         android:contentDescription="@string/all_items"
         android:visibility="invisible"
-        android:layout_marginBottom="77dp"
+        android:layout_marginBottom="70dp"
         android:layout_marginStart="14dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="13dp"
@@ -42,6 +42,43 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewLabel"
         tools:itemCount="11"
         tools:listitem="@layout/schema_recycler_container" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mandrels_sample_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="13dp"
+        android:contentDescription="@string/all_items"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/schemas_sample_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLabel"
+        app:layout_constraintVertical_bias="0.0"
+        tools:itemCount="20"
+        tools:listitem="@layout/mandrel_recycler_container"
+        tools:spanCount="5" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/schemas_sample_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/all_items"
+        android:layout_marginBottom="65dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="13dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:itemCount="1"
+        tools:listitem="@layout/schema_recycler_container" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_item_fab"
@@ -76,7 +113,7 @@
         android:layout_marginStart="14dp"
         android:layout_marginTop="3dp"
         android:text="@string/mandrel_list_label"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -21,7 +21,6 @@ class MandrelAdapter(
     private var mandrelsList: List<Mandrel>,
     val context: Context,
     private val listener: OnMandrelListButtonClickListener? = null,
-    private val packageSchema: PackageSchema? = null,
     var isSampleCreate: Boolean = false,
     var isDeveloperMode: Boolean = false
 ) : RecyclerView.Adapter<MandrelAdapter.MandrelListViewHolder>() {
@@ -81,26 +80,6 @@ class MandrelAdapter(
         if (mandrelsList[position].recommendedAdhesiveSleeveWeight == 0.00) {
             binding.recommendedAdhesiveSleeveWeightTextView.visibility = TextView.GONE
         }
-        if (packageSchema != null) {
-            binding.schemaNameTextView.text =
-                context.getString(R.string.package_schema_name_label) + packageSchema.schemaName
-            binding.boxTypeTextView.text =
-                context.getString(R.string.package_schema_box_type_label) + packageSchema.boxType
-            binding.schemaSignsTextView.text =
-                context.getString(R.string.schema_format_label) + packageSchema.firstLineCount.toString() + res.getText(
-                    R.string.name_separator
-                ) + packageSchema.secondLineCount.toString()
-            binding.totalCountInBoxTextView.text =
-                context.getString(R.string.schema_cup_in_box_label) + packageSchema.capAmountInBox.toString() + SPACE + res.getText(R.string.pcs_postfix)
-            binding.totalCountInBundleTextView.text =
-                context.getString(R.string.schema_cap_in_bundle_label) + packageSchema.capAmountInBundle.toString() + SPACE + res.getText(R.string.pcs_postfix)
-            binding.schemaImage.setSchema(
-                packageSchema.firstLineCount,
-                packageSchema.secondLineCount,
-                packageSchema.isStraightLaying
-            )
-        }
-
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -110,7 +89,6 @@ class MandrelAdapter(
                 binding.mandrelSimpleDataLayout.background = res.getDrawable(R.drawable.card_bg)
                 binding.mandrelSampleDataLayout.background = res.getDrawable(R.drawable.card_bg)
                 binding.menuButton.background = res.getDrawable(R.drawable.card_bg)
-                binding.schemaDataLayout.background = res.getDrawable(R.drawable.card_bg)
                 binding.menuButton.background = res.getDrawable(R.drawable.card_bg)
 
 
@@ -129,15 +107,6 @@ class MandrelAdapter(
                 binding.adhesiveSleeveWeightTextView.setTextColor(res.getColor(R.color.text_mode_night))
                 binding.totalMembraneLengthTextView.setTextColor(res.getColor(R.color.text_mode_night))
                 binding.mandrelHeight.setTextColor(res.getColor(R.color.text_mode_night))
-
-                binding.schemaDataLayout.background =
-                    res.getDrawable(R.drawable.card_bg_night)
-                binding.menuButton.background = res.getDrawable(R.drawable.card_bg_night)
-                binding.schemaNameTextView.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.boxTypeTextView.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.schemaSignsTextView.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.totalCountInBoxTextView.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.totalCountInBundleTextView.setTextColor(res.getColor(R.color.text_mode_night))
             }
         }
     }
@@ -158,10 +127,6 @@ class MandrelAdapter(
         private lateinit var popupMenu: PopupMenu
 
         init {
-            if (packageSchema == null) {
-                binding.schemaDataLayout.visibility = ConstraintLayout.GONE
-            }
-
             itemView.setOnClickListener {
                 listener?.onMandrelItemClick(adapterPosition)
             }

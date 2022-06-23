@@ -2,48 +2,68 @@ package com.example.bvk.ui.settings
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.asLiveData
+import com.bumptech.glide.Glide
 import com.example.bvk.BVKApplication
 import com.example.bvk.R
 import com.example.bvk.database.mandreldatabase.MandrelRepository
 import com.example.bvk.database.packagedatabase.PackageRepository
 import com.example.bvk.databinding.ActivitySettingsBinding
 import com.example.bvk.model.Mandrel
+import com.example.bvk.model.databaseimportexport.ExportListManager
+import com.example.bvk.model.databaseimportexport.ImportDataListCreator
+import com.example.bvk.model.databaseimportexport.export.ExportDataBaseWriter
+import com.example.bvk.model.databaseimportexport.import.ImportDataBaseReader
+import com.example.bvk.model.packageschema.PackageSchema
 import com.example.bvk.ui.Dialogs.ConfirmationDialogFragment
 import com.example.bvk.ui.MandrelFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.io.File
+import javax.xml.validation.Schema
 
 class SettingsActivity : AppCompatActivity(),
     ChangePasswordDialogFragment.OnPasswordChangeListener,
-     ConfirmationDialogFragment.OnConfirmationListener{
+    ConfirmationDialogFragment.OnConfirmationListener {
 
     private lateinit var binding: ActivitySettingsBinding
 
     private var preferences: SharedPreferences? = null
     private lateinit var editor: SharedPreferences.Editor
 
-    private lateinit var mandrelRepository : MandrelRepository
-    private lateinit var schemasRepository : PackageRepository
+    private lateinit var importListCreator: ImportDataListCreator
+
+    private lateinit var mandrelRepository: MandrelRepository
+    private lateinit var schemasRepository: PackageRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val importExportFragment = ImportExportFragment()
-        supportFragmentManager.beginTransaction().replace(binding.importExportFragmentContainer.id, importExportFragment).commit()
-
         mandrelRepository = (application as BVKApplication).mandrelsRepository
-        schemasRepository  = (application as BVKApplication).schemasRepository
+        schemasRepository = (application as BVKApplication).schemasRepository
+
+        val exportDataBaseWriter = ExportDataBaseWriter(
+            ExportListManager.exportMandrelsList,
+            ExportListManager.exportSchemasList
+        )
 
         preferences = application.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
         editor = preferences!!.edit()
@@ -52,10 +72,18 @@ class SettingsActivity : AppCompatActivity(),
 
         supportActionBar?.subtitle = getString(R.string.action_bar_settings_label)
 
-        binding.importExportContainer.setOnClickListener {
-            setImportExportUIMode()
-            binding.importExportFragmentContainer.visibility = ConstraintLayout.VISIBLE
-            Toast.makeText(this, "click!!", Toast.LENGTH_SHORT).show()
+        binding.adhesiveSaveLineSettingsContainer.setOnClickListener {
+        }
+
+        binding.exportContainer.setOnClickListener {
+            requestStorageAccessPermission()
+            exportDataBaseWriter.createDataBaseExportFile()
+        }
+        binding.importContainer.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "text/*"
+            startActivityForResult(Intent.createChooser(intent, "select txt"), 123)
         }
 
         binding.restoreDefaultSettingsContainer.setOnClickListener {
@@ -80,6 +108,44 @@ class SettingsActivity : AppCompatActivity(),
 
     }
 
+    private fun prepareImportData(inputPath: String) {
+        val importDataBaseReader = ImportDataBaseReader(inputPath)
+        println(importDataBaseReader.read())
+        importListCreator = ImportDataListCreator(importDataBaseReader.read())
+        // println(importListCreator.getMandrelsImportList().toString())
+        // println(importListCreator.getSchemasList().toString())
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun importData() {
+        GlobalScope.launch {
+            mandrelRepository.deleteAll()
+            schemasRepository.deleteAll()
+
+            for (mandrel in importListCreator.getMandrelsImportList()) {
+                mandrelRepository.insert(mandrel)
+            }
+            for (schema in importListCreator.getSchemasList()) {
+                schemasRepository.insert(schema)
+            }
+
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 123 && resultCode == RESULT_OK) {
+            if (data != null) {
+                val uri = data.data
+                val path = uri?.path?.substringAfter(':')
+                println(path)
+                prepareImportData(path!!)
+                Toast.makeText(this, "File is chosen", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     companion object {
         const val APP_PREFERENCES = "settings"
         const val PREFERENCE_KEY_PASSWORD = "pass"
@@ -99,17 +165,31 @@ class SettingsActivity : AppCompatActivity(),
                 binding.membraneDepthSettingsContainer.background = getDrawable(R.drawable.card_bg)
             }
             Configuration.UI_MODE_NIGHT_YES -> {
-                binding.restoreDefaultSettingsContainer.background = getDrawable(R.drawable.card_bg_night)
+                binding.restoreDefaultSettingsContainer.background =
+                    getDrawable(R.drawable.card_bg_night)
                 binding.passwordSettingsContainer.background = getDrawable(R.drawable.card_bg_night)
                 binding.adhesiveSaveLineSettingsContainer.background =
                     getDrawable(R.drawable.card_bg_night)
                 binding.membraneDepthSettingsContainer.background =
                     getDrawable(R.drawable.card_bg_night)
-                binding.importExportContainer.background =
+                binding.importContainer.background =
+                    getDrawable(R.drawable.card_bg_night)
+                binding.exportContainer.background =
                     getDrawable(R.drawable.card_bg_night)
             }
         }
 
+    }
+
+    private fun requestStorageAccessPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                intent.addCategory("android.intent.category.DEFAULT")
+                intent.data = Uri.parse("package:${applicationContext.packageName}")
+                ContextCompat.startActivity(this, intent, null)
+            }
+        }
     }
 
     override fun onPasswordChanged(password: String) {
@@ -117,22 +197,11 @@ class SettingsActivity : AppCompatActivity(),
         Toast.makeText(this, "Password change successful", Toast.LENGTH_SHORT).show()
     }
 
-    private fun setImportExportUIMode(){
-        binding.restoreDefaultSettingsContainer.visibility = View.INVISIBLE
-        binding.passwordSettingsContainer.visibility = View.INVISIBLE
-        binding.adhesiveSaveLineSettingsContainer.visibility = View.INVISIBLE
-        binding.membraneDepthSettingsContainer.visibility = View.INVISIBLE
-        binding.importExportContainer.visibility = View.INVISIBLE
-        binding.importExportLabel.visibility = View.INVISIBLE
-        binding.passwordSettingsLabel.visibility = View.INVISIBLE
-        binding.mainLabel.visibility = View.INVISIBLE
-    }
-
     override fun onDeleteConfirm(position: Int, confirmationKey: String) {
     }
 
     @OptIn(DelicateCoroutinesApi::class)
-    override fun onRestoreDefaultConfirm(){
+    override fun onRestoreDefaultConfirm() {
         GlobalScope.launch {
             mandrelRepository.deleteAll()
             schemasRepository.deleteAll()

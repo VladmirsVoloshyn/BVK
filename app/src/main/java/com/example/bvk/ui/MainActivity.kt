@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -34,7 +36,16 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-                preferences =
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M &&
+            checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+        ) {
+            val writePerm =
+                Array(1) { android.Manifest.permission.WRITE_EXTERNAL_STORAGE }
+            requestPermissions(writePerm, 1000)
+        }
+
+        preferences =
             application.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
         editor = preferences!!.edit()
         registerNewLaunch()
@@ -59,7 +70,7 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
 
     private fun setDefaultPreferences() {
         if (launchCounter == 1) {
-            Toast.makeText(this,launchCounter.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, launchCounter.toString(), Toast.LENGTH_SHORT).show()
             editor.putString(PREFERENCE_KEY_PASSWORD, DEFAULT_PASSWORD).apply()
             editor.putInt(PREFERENCE_KEY_ADHESIVE_LINE, 5).apply()
             editor.putFloat(PREFERENCE_KEY_MEMBRANE_WEIGHT, 0.060f).apply()
@@ -94,6 +105,23 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
 
     interface IfUpdateButtonClickedListener {
         fun onUpdateModeClicked()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            1000 -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "доступ разрешен", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "доступ запрещен", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     companion object {

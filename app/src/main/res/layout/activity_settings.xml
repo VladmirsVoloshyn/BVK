@@ -21,9 +21,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/card_bg"
         android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_settings_label">
+        app:layout_constraintTop_toBottomOf="@+id/password_settings_label"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/password_icon_image_view"
@@ -38,9 +41,9 @@
             android:id="@+id/password_label_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:text="@string/settings_activity_password_label"
             android:textSize="25sp"
-            android:layout_marginStart="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/password_icon_image_view"
             app:layout_constraintTop_toTopOf="parent" />
@@ -49,9 +52,9 @@
             android:id="@+id/password_summary_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:text="@string/settings_activity_password_sublabel"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="5dp"
             app:layout_constraintStart_toEndOf="@+id/password_icon_image_view"
             app:layout_constraintTop_toBottomOf="@+id/password_label_text_view" />
 
@@ -201,20 +204,73 @@
         app:layout_constraintTop_toBottomOf="@+id/restore_default_settings_container" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/import_export_container"
+        android:id="@+id/export_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_bg"
+        android:padding="4dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/import_export_label">
+
+        <ImageView
+            android:id="@+id/export_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_import_export_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/export_label_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="Export"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/export_image_view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/export_summary_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="Click to create database export file."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/export_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/export_label_text_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/import_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/import_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/card_bg"
         android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/import_export_label">
+        app:layout_constraintTop_toBottomOf="@+id/export_container">
 
         <ImageView
-            android:id="@+id/import_export_image_view"
+            android:id="@+id/import_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_vpn_key_24"
+            android:src="@drawable/ic_baseline_import_export_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -224,34 +280,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="Import/Export"
+            android:text="Import"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/import_export_image_view"
+            app:layout_constraintStart_toEndOf="@+id/import_image_view"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/import_export_summary_text_view"
+            android:id="@+id/import_summary_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="Click to open the databases import or export tool."
+            android:text="Click to chose database import file on your device."
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/import_export_image_view"
+            app:layout_constraintStart_toEndOf="@+id/import_image_view"
             app:layout_constraintTop_toBottomOf="@+id/import_export_label_text_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/import_export_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

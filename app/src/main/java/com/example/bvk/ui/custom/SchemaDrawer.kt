@@ -35,7 +35,7 @@ class SchemaDrawer @JvmOverloads constructor(
         super.onDraw(canvas)
         paint.apply {
             isAntiAlias = true
-            color = Color.BLACK
+            color = Color.GRAY
         }
         startFX = 25f
         startFY = 25f
