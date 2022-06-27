@@ -1,10 +1,12 @@
 package com.example.bvk.ui
 
+import android.annotation.SuppressLint
+import android.app.Application
+import android.content.Context
 import androidx.lifecycle.*
 import com.example.bvk.database.mandreldatabase.MandrelRepository
 import com.example.bvk.database.packagedatabase.PackageRepository
 import com.example.bvk.model.Mandrel
-import com.example.bvk.model.databaseimportexport.ExportListManager
 import com.example.bvk.model.packageschema.PackageSchema
 import com.example.bvk.model.sample.SampleCapParameters
 import com.example.bvk.model.sample.SampleCreator
@@ -12,7 +14,8 @@ import kotlinx.coroutines.launch
 
 class MandrelViewModel(
     private val mandrelRepository: MandrelRepository,
-    private val schemasRepository: PackageRepository
+    private val schemasRepository: PackageRepository,
+    @SuppressLint("StaticFieldLeak") private val context : Context
 ) : ViewModel() {
 
     //schema values
@@ -27,6 +30,8 @@ class MandrelViewModel(
     var isAdministratorMode = false
     var isMandrelViewMode = true
     var sampleCapParameters = SampleCapParameters()
+
+    private val sampleCreator = SampleCreator(context)
 
     //schemas impl
     fun getSchemasData(): LiveData<List<PackageSchema>> {
@@ -60,7 +65,7 @@ class MandrelViewModel(
     //mandrel impl
     fun createSample(inputSampleCapParameters: SampleCapParameters) = viewModelScope.launch {
         sampleCapParameters = inputSampleCapParameters
-        mandrelsSampleList.value = SampleCreator.crate(
+        mandrelsSampleList.value = sampleCreator.crate(
             mandrelsRoomList.value as ArrayList<Mandrel>,
             inputSampleCapParameters
         )

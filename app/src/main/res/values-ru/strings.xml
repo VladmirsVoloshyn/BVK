@@ -107,15 +107,22 @@
     //settings activity
     <string name="settings_activity_password_group_label">установки пароля</string>
     <string name="settings_activity_password_label">Пароль</string>
-    <string name="settings_activity_password_sublabel">Нажмите, что-бы сменить пароль администратора</string>
+    <string name="settings_activity_password_sublabel">Нажмите, что бы сменить пароль администратора</string>
     <string name="settings_activity_main_label">основные настройки</string>
     <string name="settings_activity_adhesive_safe_line_label">Ширина клеевого шва</string>
-    <string name="settings_activity_adhesive_safe_line_sublabel">Нажмите, что-бы установить размер зоны клеевого шва в миллиметрах.</string>
+    <string name="settings_activity_adhesive_safe_line_sublabel">Нажмите, что бы установить размер зоны клеевого шва в миллиметрах.</string>
     <string name="settings_activity_membrane_depth_label">Толщина плёнки</string>
-    <string name="settings_activity_membrane_depth_sublabel">Нажмите, что-бы установить толщину плёнки в микрометрах.</string>
+    <string name="settings_activity_membrane_depth_sublabel">Нажмите, что бы установить толщину плёнки в микрометрах.</string>
 
     <string name="settings_activity_restore_default_data_label">Восстановление данных по умолчанию</string>
     <string name="settings_activity_restore_default_data_summary">Нажмите для восстановления данных по умолчанию, все введённые данные будут потеряны.</string>
+
+    <string name="settings_activity_import_export_group_label">импорт/экспорт</string>
+    <string name="settings_activity_export_label">Экспорт</string>
+    <string name="settings_activity_export_file_hint">Нажмите для создания файла экспорта. Файл будет создан в корневом каталоге вашего устройства.</string>
+    <string name="settings_activity_import_label">Импорт</string>
+    <string name="settings_activity_import_file_hint">Нажмите что бы выбрать файл импорта данных.</string>
+
 
 
     //change password dialog fragment
@@ -132,6 +139,8 @@
     <string name="milimeter_postfix">мм.</string>
     <string name="micrometer_postfix">млм.</string>
     <string name="pcs_postfix">шт.</string>
+
+    <string name="schema_label">схема</string>
 
 
 

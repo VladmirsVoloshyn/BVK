@@ -21,7 +21,7 @@ import com.example.bvk.model.Mandrel
 import com.example.bvk.model.databaseimportexport.ExportListManager
 import com.example.bvk.model.packageschema.PackageSchema
 import com.example.bvk.model.sample.SampleCapParameters
-import com.example.bvk.ui.Dialogs.*
+import com.example.bvk.ui.dialogs.*
 import com.example.bvk.ui.packageschema.PackageSchemaAdapter
 
 class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelListener,
@@ -42,7 +42,8 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     private val viewModel: MandrelViewModel by viewModels {
         MandrelViewModelFactory(
             (requireActivity().application as BVKApplication).mandrelsRepository,
-            (requireActivity().application as BVKApplication).schemasRepository
+            (requireActivity().application as BVKApplication).schemasRepository,
+            requireActivity().applicationContext
         )
     }
 
@@ -345,7 +346,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 binding.mandrelsList.visibility = RecyclerView.INVISIBLE
             }
             val mandrelAdapter = MandrelAdapter(
-                it.toCollection(ArrayList()),
+               it.toCollection(ArrayList()),
                 requireActivity().applicationContext,
                 this,
                 viewModel.isSampleCreated,

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class MandrelRepository(private val mandrelDao: MandrelDao) {
 
-    val allMandrels: Flow<List<Mandrel>> = mandrelDao.getAlphabetizedWords()
+    val allMandrels: Flow<List<Mandrel>> = mandrelDao.getAllMandrels()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

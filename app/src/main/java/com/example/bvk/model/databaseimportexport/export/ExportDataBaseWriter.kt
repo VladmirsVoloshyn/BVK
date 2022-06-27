@@ -1,11 +1,13 @@
 package com.example.bvk.model.databaseimportexport.export
 
+import android.annotation.SuppressLint
 import android.os.Environment
 import com.example.bvk.model.Mandrel
 import com.example.bvk.model.packageschema.PackageSchema
 import com.fasterxml.jackson.module.kotlin.jsonMapper
 import java.io.File
 import java.io.FileOutputStream
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -14,8 +16,9 @@ class ExportDataBaseWriter(
     private val schemasList: ArrayList<PackageSchema>
 ) {
 
-    private var date = Date()
-    val simpleDateFormatDate = ("dd/M/yyyy")
+    private val date = Date()
+    @SuppressLint("SimpleDateFormat")
+    val simpleDateFormat = SimpleDateFormat("ddMMyyyy-HHmm")
     private val mapper = jsonMapper()
 
 
@@ -28,7 +31,7 @@ class ExportDataBaseWriter(
     fun createDataBaseExportFile() {
         val file = File(
             Environment.getExternalStorageDirectory().absoluteFile,
-            FILE_NAME_PREFIX + FILE_FORMAT
+            FILE_NAME_PREFIX + simpleDateFormat.format(date) + FILE_FORMAT
         )
         val fos = FileOutputStream(file)
 

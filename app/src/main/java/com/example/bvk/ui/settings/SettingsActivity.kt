@@ -10,14 +10,9 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
-import androidx.lifecycle.asLiveData
-import com.bumptech.glide.Glide
 import com.example.bvk.BVKApplication
 import com.example.bvk.R
 import com.example.bvk.database.mandreldatabase.MandrelRepository
@@ -28,19 +23,15 @@ import com.example.bvk.model.databaseimportexport.ExportListManager
 import com.example.bvk.model.databaseimportexport.ImportDataListCreator
 import com.example.bvk.model.databaseimportexport.export.ExportDataBaseWriter
 import com.example.bvk.model.databaseimportexport.import.ImportDataBaseReader
-import com.example.bvk.model.packageschema.PackageSchema
-import com.example.bvk.ui.Dialogs.ConfirmationDialogFragment
+import com.example.bvk.ui.dialogs.ConfirmationDialogFragment
 import com.example.bvk.ui.MandrelFragment
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.io.File
-import javax.xml.validation.Schema
 
 class SettingsActivity : AppCompatActivity(),
     ChangePasswordDialogFragment.OnPasswordChangeListener,
-    ConfirmationDialogFragment.OnConfirmationListener {
+    ConfirmationDialogFragment.OnConfirmationListener, SetValueDialogFragment.OnValueSetListener {
 
     private lateinit var binding: ActivitySettingsBinding
 
@@ -73,13 +64,27 @@ class SettingsActivity : AppCompatActivity(),
         supportActionBar?.subtitle = getString(R.string.action_bar_settings_label)
 
         binding.adhesiveSaveLineSettingsContainer.setOnClickListener {
+            val setValueDialogFragment = SetValueDialogFragment(CALL_KEY_ADHESIVE,
+                preferences!!.getInt(
+                PREFERENCE_KEY_ADHESIVE_LINE,5),this)
+            setValueDialogFragment.show(supportFragmentManager, "NEW_VALUE")
+        }
+
+        binding.membraneDepthSettingsContainer.setOnClickListener {
+            val setValueDialogFragment = SetValueDialogFragment(
+                CALL_KEY_MEMBRANE_DEPTH,
+                preferences!!.getInt(
+                    PREFERENCE_KEY_MEMBRANE_WEIGHT,60),this)
+            setValueDialogFragment.show(supportFragmentManager, "NEW_VALUE")
         }
 
         binding.exportContainer.setOnClickListener {
             requestStorageAccessPermission()
             exportDataBaseWriter.createDataBaseExportFile()
+            Toast.makeText(this, "export file created", Toast.LENGTH_SHORT).show()
         }
         binding.importContainer.setOnClickListener {
+            requestStorageAccessPermission()
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
             intent.type = "text/*"
@@ -112,8 +117,8 @@ class SettingsActivity : AppCompatActivity(),
         val importDataBaseReader = ImportDataBaseReader(inputPath)
         println(importDataBaseReader.read())
         importListCreator = ImportDataListCreator(importDataBaseReader.read())
-        // println(importListCreator.getMandrelsImportList().toString())
-        // println(importListCreator.getSchemasList().toString())
+        importData()
+        finishAffinity()
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -153,6 +158,8 @@ class SettingsActivity : AppCompatActivity(),
         const val PREFERENCE_KEY_MEMBRANE_WEIGHT = "kmw"
         const val DEFAULT_PASSWORD = "123"
         const val RESTORE_DEFAULT_CONFIRMATION_CALL_KEY = "RESTORE"
+        private const val CALL_KEY_ADHESIVE = "adhesive"
+        private const val CALL_KEY_MEMBRANE_DEPTH = "depth"
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -200,110 +207,17 @@ class SettingsActivity : AppCompatActivity(),
     override fun onDeleteConfirm(position: Int, confirmationKey: String) {
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onRestoreDefaultConfirm() {
-        GlobalScope.launch {
-            mandrelRepository.deleteAll()
-            schemasRepository.deleteAll()
+       println("do nothing")
+    }
 
-            mandrelRepository.insert(
-                Mandrel(
-                    mandrelName = "29*1",
-                    vertexDiameter = 29.65,
-                    baseDiameter = 32.9,
-                    height = 75
-                )
-            )
-            mandrelRepository.insert(
-                Mandrel(
-                    mandrelName = "29*2",
-                    vertexDiameter = 29.55,
-                    baseDiameter = 33.16,
-                    height = 75
-                )
-            )
-            mandrelRepository.insert(
-                Mandrel(
-                    mandrelName = "29*3",
-                    vertexDiameter = 29.88,
-                    baseDiameter = 33.81,
-                    height = 75
-                )
-            )
-            mandrelRepository.insert(
-                Mandrel(
-                    mandrelName = "29*4",
-                    vertexDiameter = 29.55,
-                    baseDiameter = 32.79,
-                    height = 75
-                )
-            )
-            mandrelRepository.insert(
-                Mandrel(
-                    mandrelName = "33*1",
-                    vertexDiameter = 33.20,
-                    baseDiameter = 36.38,
-                    height = 75
-                )
-            )
-            mandrelRepository.insert(
-                Mandrel(
-                    mandrelName = "43*1",
-                    vertexDiameter = 42.65,
-                    baseDiameter = 44.56,
-                    height = 75
-                )
-            )
-            mandrelRepository.insert(
-                Mandrel(
-                    mandrelName = "56*1",
-                    vertexDiameter = 57.3,
-                    baseDiameter = 60.62,
-                    height = 75,
-                )
-            )
-            mandrelRepository.insert(
-                Mandrel(
-                    mandrelName = "61*1",
-                    vertexDiameter = 60.6,
-                    baseDiameter = 64.4,
-                    height = 75,
-                )
-            )
-            mandrelRepository.insert(
-                Mandrel(
-                    mandrelName = "70*1",
-                    vertexDiameter = 70.4,
-                    baseDiameter = 73.9,
-                    height = 75,
-                )
-            )
-            mandrelRepository.insert(
-                Mandrel(
-                    mandrelName = "46*1",
-                    vertexDiameter = 46.45,
-                    baseDiameter = 49.5,
-                    height = 75,
-                )
-            )
-            mandrelRepository.insert(
-                Mandrel(
-                    mandrelName = "52*1",
-                    vertexDiameter = 51.85,
-                    baseDiameter = 53.85,
-                    height = 44,
-                )
-            )
-            mandrelRepository.insert(
-                Mandrel(
-                    mandrelName = "45*1",
-                    vertexDiameter = 46.0,
-                    baseDiameter = 48.0,
-                    height = 44,
-                )
-            )
+    override fun onValueSet(newValue: Int, callKey: String) {
+        if (callKey == CALL_KEY_ADHESIVE){
+            editor.putInt(PREFERENCE_KEY_ADHESIVE_LINE, newValue).apply()
         }
-        finishAffinity()
+        if (callKey == CALL_KEY_MEMBRANE_DEPTH){
+            editor.putInt(PREFERENCE_KEY_MEMBRANE_WEIGHT, newValue).apply()
+        }
     }
 
 }

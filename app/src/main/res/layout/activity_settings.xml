@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBaseline_toBottomOf="parent"
     android:padding="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/password_settings_label"
@@ -75,9 +83,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/card_bg"
         android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_label">
+        app:layout_constraintTop_toBottomOf="@+id/main_label"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/safe_zone_icon_image_view"
@@ -92,9 +102,9 @@
             android:id="@+id/safe_zone_label_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:text="@string/settings_activity_adhesive_safe_line_label"
             android:textSize="25sp"
-            android:layout_marginStart="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/safe_zone_icon_image_view"
             app:layout_constraintTop_toTopOf="parent" />
@@ -103,8 +113,8 @@
             android:id="@+id/safe_zone_summary_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/settings_activity_adhesive_safe_line_sublabel"
             android:layout_marginStart="5dp"
+            android:text="@string/settings_activity_adhesive_safe_line_sublabel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/safe_zone_icon_image_view"
             app:layout_constraintTop_toBottomOf="@+id/safe_zone_label_text_view" />
@@ -116,11 +126,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:background="@drawable/card_bg"
         android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/card_bg"
-        app:layout_constraintTop_toBottomOf="@+id/adhesive_save_line_settings_container" >
+        app:layout_constraintTop_toBottomOf="@+id/adhesive_save_line_settings_container"
+        app:layout_constraintVertical_bias="0.0">
+
         <ImageView
             android:id="@+id/membrane_depth_icon_image_view"
             android:layout_width="wrap_content"
@@ -134,9 +147,9 @@
             android:id="@+id/membrane_depth_label_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:text="@string/settings_activity_membrane_depth_label"
             android:textSize="25sp"
-            android:layout_marginStart="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/membrane_depth_icon_image_view"
             app:layout_constraintTop_toTopOf="parent" />
@@ -145,8 +158,8 @@
             android:id="@+id/membrane_weight_summary_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/settings_activity_membrane_depth_sublabel"
             android:layout_marginStart="5dp"
+            android:text="@string/settings_activity_membrane_depth_sublabel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/membrane_depth_icon_image_view"
             app:layout_constraintTop_toBottomOf="@+id/membrane_depth_label_text_view" />
@@ -156,12 +169,15 @@
         android:id="@+id/restore_default_settings_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:background="@drawable/card_bg"
         android:padding="4dp"
-        android:layout_marginTop="4dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/membrane_depth_settings_container">
+        app:layout_constraintTop_toBottomOf="@+id/membrane_depth_settings_container"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/restore_default_icon_image_view"
@@ -198,21 +214,26 @@
         android:id="@+id/import_export_label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="import/export"
+        android:text="@string/settings_activity_import_export_group_label"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restore_default_settings_container" />
+        app:layout_constraintTop_toBottomOf="@+id/restore_default_settings_container"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/export_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:background="@drawable/card_bg"
         android:padding="4dp"
-        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/import_export_label">
+        app:layout_constraintTop_toBottomOf="@+id/import_export_label"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/export_image_view"
@@ -228,7 +249,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="Export"
+            android:text="@string/settings_activity_export_label"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/export_image_view"
@@ -239,7 +260,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="Click to create database export file."
+            android:text="@string/settings_activity_export_file_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/export_image_view"
             app:layout_constraintTop_toBottomOf="@+id/export_label_text_view" />
@@ -262,9 +283,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/card_bg"
         android:padding="4dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/export_container">
+        app:layout_constraintTop_toBottomOf="@+id/export_container"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/import_image_view"
@@ -280,7 +304,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="Import"
+            android:text="@string/settings_activity_import_label"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/import_image_view"
@@ -291,11 +315,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="Click to chose database import file on your device."
+            android:text="@string/settings_activity_import_file_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/import_image_view"
             app:layout_constraintTop_toBottomOf="@+id/import_export_label_text_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

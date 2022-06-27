@@ -1,4 +1,4 @@
-package com.example.bvk.ui.Dialogs
+package com.example.bvk.ui.dialogs
 
 import android.os.Bundle
 import android.view.LayoutInflater

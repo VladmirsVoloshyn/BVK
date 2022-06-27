@@ -115,6 +115,12 @@
     <string name="settings_activity_membrane_depth_label">Membrane depth</string>
     <string name="settings_activity_membrane_depth_sublabel">Set membrane depth in mkm.</string>
 
+    <string name="settings_activity_import_export_group_label">import/export</string>
+    <string name="settings_activity_export_label">Export</string>
+    <string name="settings_activity_export_file_hint">Click to create database export file.</string>
+    <string name="settings_activity_import_label">Import</string>
+    <string name="settings_activity_import_file_hint">Click to chose database import file on your device.</string>
+
     //change password dialog fragment
     <string name="dialog_fragment_change_password_label">change password</string>
     <string name="dialog_fragment_change_password_old_password_hint">set old password</string>
@@ -132,7 +138,9 @@
 
     <string name="settings_activity_restore_default_data_label">Restore default data</string>
     <string name="settings_activity_restore_default_data_summary">Click to restore all databases and password to default.</string>
+
     <string name="schema_label">schema</string>
+
 
 
 </resources>

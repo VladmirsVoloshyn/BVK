@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MandrelDao {
 
-    @Query("SELECT * FROM table_mandrel")
-    fun getAlphabetizedWords(): Flow<List<Mandrel>>
+    @Query("SELECT * FROM table_mandrel ORDER BY vertexDiameter ASC")
+    fun getAllMandrels(): Flow<List<Mandrel>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(mandrel: Mandrel)

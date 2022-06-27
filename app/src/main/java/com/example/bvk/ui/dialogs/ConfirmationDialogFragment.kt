@@ -1,4 +1,4 @@
-package com.example.bvk.ui.Dialogs
+package com.example.bvk.ui.dialogs
 
 import android.annotation.SuppressLint
 import android.os.Bundle

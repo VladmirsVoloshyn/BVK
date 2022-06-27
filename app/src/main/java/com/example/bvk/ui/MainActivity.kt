@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentTransaction
 import com.example.bvk.R
 import com.example.bvk.databinding.ActivityMainBinding
@@ -73,7 +72,7 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
             Toast.makeText(this, launchCounter.toString(), Toast.LENGTH_SHORT).show()
             editor.putString(PREFERENCE_KEY_PASSWORD, DEFAULT_PASSWORD).apply()
             editor.putInt(PREFERENCE_KEY_ADHESIVE_LINE, 5).apply()
-            editor.putFloat(PREFERENCE_KEY_MEMBRANE_WEIGHT, 0.060f).apply()
+            editor.putInt(PREFERENCE_KEY_MEMBRANE_WEIGHT, 60).apply()
         }
     }
 

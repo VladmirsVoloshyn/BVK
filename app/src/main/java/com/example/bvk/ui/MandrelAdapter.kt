@@ -14,11 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bvk.R
 import com.example.bvk.databinding.MandrelRecyclerContainerBinding
 import com.example.bvk.model.Mandrel
-import com.example.bvk.model.packageschema.PackageSchema
 import java.text.DecimalFormat
 
 class MandrelAdapter(
-    private var mandrelsList: List<Mandrel>,
+    private var mandrelsList: ArrayList<Mandrel>,
     val context: Context,
     private val listener: OnMandrelListButtonClickListener? = null,
     var isSampleCreate: Boolean = false,
@@ -85,14 +84,6 @@ class MandrelAdapter(
     @SuppressLint("UseCompatLoadingForDrawables")
     fun setUIMode() {
         when (res.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> {
-                binding.mandrelSimpleDataLayout.background = res.getDrawable(R.drawable.card_bg)
-                binding.mandrelSampleDataLayout.background = res.getDrawable(R.drawable.card_bg)
-                binding.menuButton.background = res.getDrawable(R.drawable.card_bg)
-                binding.menuButton.background = res.getDrawable(R.drawable.card_bg)
-
-
-            }
             Configuration.UI_MODE_NIGHT_YES -> {
                 binding.mandrelSimpleDataLayout.background =
                     res.getDrawable(R.drawable.card_bg_night)

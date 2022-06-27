@@ -1,4 +1,4 @@
-package com.example.bvk.ui.Dialogs
+package com.example.bvk.ui.dialogs
 
 import android.content.Context
 import android.os.Bundle
