@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.example.bvk.R
 import com.example.bvk.databinding.DialogFragmentChangePasswordBinding
 import com.example.bvk.shouldShowError
 
@@ -30,15 +31,15 @@ class ChangePasswordDialogFragment(
 
         binding.buttonChange.setOnClickListener {
             if (!binding.oldPasswordTextEdit.shouldShowError(
-                    "Please, set old password",
+                    getString(R.string.change_password_dialog_old_password_error),
                     binding.oldPasswordLayout
                 ) && !binding.newPasswordTextEdit.shouldShowError(
-                    "please, Set new password",
+                    getString(R.string.change_password_dialog_new_password_error),
                     binding.newPasswordLayout
                 )
             ) {
                 if (binding.oldPasswordTextEdit.text.toString() != oldPassword) {
-                    binding.oldPasswordLayout.error = "Incorrect old password"
+                    binding.oldPasswordLayout.error = getString(R.string.change_password_dialog_incorrect_old_password_error)
                 }else if (binding.oldPasswordTextEdit.text.toString() == oldPassword){
                     listener?.onPasswordChanged(binding.newPasswordTextEdit.text.toString())
                     dialog?.dismiss()

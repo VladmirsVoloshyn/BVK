@@ -132,7 +132,7 @@
 
     //values format postfixes
     <string name="meter_postfix">m</string>
-    <string name="milimeter_postfix">mm</string>
+    <string name="millimeter_postfix">mm</string>
     <string name="micrometer_postfix">mkm</string>
     <string name="pcs_postfix">pcs</string>
 
@@ -140,7 +140,17 @@
     <string name="settings_activity_restore_default_data_summary">Click to restore all databases and password to default.</string>
 
     <string name="schema_label">schema</string>
+    <string name="set_value_dialog_label">set value</string>
+    <string name="set_value_dialog_hint">set value</string>
+    <string name="set_value_dialog_adhesive_line_label">adhesive save line</string>
+    <string name="set_value_dialog_membrane_length_label">membrane length</string>
 
+    <string name="change_password_dialog_old_password_error">Please, set old password</string>
+    <string name="change_password_dialog_new_password_error">please, Set new password</string>
+    <string name="change_password_dialog_incorrect_old_password_error">Incorrect old password</string>
+
+    <string name="add_mandrel_fragment_forbidden_symbol_warning">Warning : \'~\' is forbidden symbol</string>
+    <string name="add_dialog_incorrect_name_error_message">Error : the first two characters should indicate the size</string>
 
 
 </resources>

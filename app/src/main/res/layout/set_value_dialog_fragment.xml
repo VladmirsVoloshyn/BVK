@@ -9,7 +9,7 @@
         android:id="@+id/label_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="set value"
+        android:text="@string/set_value_dialog_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
             android:id="@+id/value_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="set value"
+            android:hint="@string/set_value_dialog_hint"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -36,7 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/enter_button_label"
-        android:layout_marginEnd="@dimen/button_margin"
+        app:layout_constraintStart_toEndOf="@id/button_skip"
+        android:layout_marginStart="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutValue" />
 
@@ -44,9 +45,10 @@
         android:id="@+id/button_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/button_margin"
         android:text="@string/skip_button_label"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/button_enter"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutValue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

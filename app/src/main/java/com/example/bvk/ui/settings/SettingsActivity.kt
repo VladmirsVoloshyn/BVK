@@ -25,13 +25,15 @@ import com.example.bvk.model.databaseimportexport.export.ExportDataBaseWriter
 import com.example.bvk.model.databaseimportexport.import.ImportDataBaseReader
 import com.example.bvk.ui.dialogs.ConfirmationDialogFragment
 import com.example.bvk.ui.MandrelFragment
+import com.example.bvk.ui.dialogs.EnterPasswordDialogFragment
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class SettingsActivity : AppCompatActivity(),
     ChangePasswordDialogFragment.OnPasswordChangeListener,
-    ConfirmationDialogFragment.OnConfirmationListener, SetValueDialogFragment.OnValueSetListener {
+    ConfirmationDialogFragment.OnConfirmationListener, SetValueDialogFragment.OnValueSetListener,
+    EnterPasswordDialogFragment.OnPasswordEnterListener {
 
     private lateinit var binding: ActivitySettingsBinding
 
@@ -43,6 +45,8 @@ class SettingsActivity : AppCompatActivity(),
     private lateinit var mandrelRepository: MandrelRepository
     private lateinit var schemasRepository: PackageRepository
 
+    private lateinit var exportDataBaseWriter : ExportDataBaseWriter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
@@ -51,7 +55,7 @@ class SettingsActivity : AppCompatActivity(),
         mandrelRepository = (application as BVKApplication).mandrelsRepository
         schemasRepository = (application as BVKApplication).schemasRepository
 
-        val exportDataBaseWriter = ExportDataBaseWriter(
+        exportDataBaseWriter = ExportDataBaseWriter(
             ExportListManager.exportMandrelsList,
             ExportListManager.exportSchemasList
         )
@@ -64,9 +68,12 @@ class SettingsActivity : AppCompatActivity(),
         supportActionBar?.subtitle = getString(R.string.action_bar_settings_label)
 
         binding.adhesiveSaveLineSettingsContainer.setOnClickListener {
-            val setValueDialogFragment = SetValueDialogFragment(CALL_KEY_ADHESIVE,
+            val setValueDialogFragment = SetValueDialogFragment(
+                CALL_KEY_ADHESIVE,
                 preferences!!.getInt(
-                PREFERENCE_KEY_ADHESIVE_LINE,5),this)
+                    PREFERENCE_KEY_ADHESIVE_LINE, 5
+                ), this
+            )
             setValueDialogFragment.show(supportFragmentManager, "NEW_VALUE")
         }
 
@@ -74,14 +81,19 @@ class SettingsActivity : AppCompatActivity(),
             val setValueDialogFragment = SetValueDialogFragment(
                 CALL_KEY_MEMBRANE_DEPTH,
                 preferences!!.getInt(
-                    PREFERENCE_KEY_MEMBRANE_WEIGHT,60),this)
+                    PREFERENCE_KEY_MEMBRANE_WEIGHT, 60
+                ), this
+            )
             setValueDialogFragment.show(supportFragmentManager, "NEW_VALUE")
         }
 
         binding.exportContainer.setOnClickListener {
-            requestStorageAccessPermission()
-            exportDataBaseWriter.createDataBaseExportFile()
-            Toast.makeText(this, "export file created", Toast.LENGTH_SHORT).show()
+            val enterPasswordDialogFragment = EnterPasswordDialogFragment(
+                preferences!!.getString(
+                    PREFERENCE_KEY_PASSWORD, "123"
+                ), this
+            )
+            enterPasswordDialogFragment.show(supportFragmentManager, "SET_PASSWORD")
         }
         binding.importContainer.setOnClickListener {
             requestStorageAccessPermission()
@@ -208,16 +220,22 @@ class SettingsActivity : AppCompatActivity(),
     }
 
     override fun onRestoreDefaultConfirm() {
-       println("do nothing")
+        println("do nothing")
     }
 
     override fun onValueSet(newValue: Int, callKey: String) {
-        if (callKey == CALL_KEY_ADHESIVE){
+        if (callKey == CALL_KEY_ADHESIVE) {
             editor.putInt(PREFERENCE_KEY_ADHESIVE_LINE, newValue).apply()
         }
-        if (callKey == CALL_KEY_MEMBRANE_DEPTH){
+        if (callKey == CALL_KEY_MEMBRANE_DEPTH) {
             editor.putInt(PREFERENCE_KEY_MEMBRANE_WEIGHT, newValue).apply()
         }
+    }
+
+    override fun onPasswordEnter() {
+        requestStorageAccessPermission()
+        exportDataBaseWriter.createDataBaseExportFile()
+        Toast.makeText(this, "export file created", Toast.LENGTH_SHORT).show()
     }
 
 }

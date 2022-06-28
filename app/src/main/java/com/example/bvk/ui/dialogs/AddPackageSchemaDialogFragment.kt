@@ -64,16 +64,26 @@ class AddPackageSchemaDialogFragment(
 
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonAdd.setOnClickListener {
             if (!binding.schemaName.shouldShowError(
                     getString(R.string.add_dialog_set_name_error_message),
                     binding.textInputLayoutSchemaName
-                ) && !binding.boxType.shouldShowError(
+                ) && !binding.schemaCapVertex.shouldShowError(
+                    getString(R.string.add_schema_dialog_layer_count_error_message),
+                    binding.textInputLayoutSchemaCapVertex
+
+                ) && !binding.schemaCapHeight.shouldShowError(
+                    getString(R.string.add_dialog_height_error_message),
+                    binding.textInputLayoutSchemaCapHeight
+                )
+                && !binding.boxType.shouldShowError(
                     getString(R.string.add_dialog_box_type_error_message),
                     binding.textInputLayoutBoxType
-                ) && !binding.firstLineCount.shouldShowError(
+                )
+                && !binding.firstLineCount.shouldShowError(
                     getString(R.string.add_dialog_first_line_count_error_message),
                     binding.textInputLayoutSchemaParameters
                 )
@@ -88,14 +98,6 @@ class AddPackageSchemaDialogFragment(
                 && !binding.capAmountInBundle.shouldShowError(
                     getString(R.string.add_dialog_cap_in_bundle_error_message),
                     binding.textInputLayoutCapAmountInBundle
-                )
-                && !binding.schemaCapVertex.shouldShowError(
-                    getString(R.string.add_schema_dialog_layer_count_error_message),
-                    binding.textInputLayoutSchemaCapVertex
-                )
-                && !binding.schemaCapHeight.shouldShowError(
-                    getString(R.string.add_dialog_cap_in_bundle_error_message),
-                    binding.textInputLayoutSchemaCapHeight
                 )
             ) {
                 if (callKey == CALL_KEY_NEW) {

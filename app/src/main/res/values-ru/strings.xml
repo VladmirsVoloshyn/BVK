@@ -44,7 +44,7 @@
     <string name="add_dialog_set_mandrel_height_hint">высота оправки</string>
     <string name="add_dialog_set_mandrel_name_hint">имя оправки</string>
     <string name="add_dialog_name_error_message">Пожалуйста, установите имя</string>
-    <string name="add_mandrel_dialog_infelicity_hint">максимальный коэфицент погрешности</string>
+    <string name="add_mandrel_dialog_infelicity_hint">коэфицент погрешности</string>
     <string name="add_dialog_max_infelicity_height">максимальная высота погрешности</string>
     <string name="add_dialog_unique_name_error_message">Имя не уникально, измените имя</string>
 
@@ -136,11 +136,25 @@
 
     //values format postfixes
     <string name="meter_postfix">м.</string>
-    <string name="milimeter_postfix">мм.</string>
-    <string name="micrometer_postfix">млм.</string>
+    <string name="millimeter_postfix">мм.</string>
+    <string name="micrometer_postfix">мkм.</string>
     <string name="pcs_postfix">шт.</string>
 
     <string name="schema_label">схема</string>
+
+    <string name="set_value_dialog_label">установка пареметра</string>
+    <string name="set_value_dialog_hint">введите значение</string>
+
+    <string name="set_value_dialog_adhesive_line_label">ширины клеевой зоны</string>
+    <string name="set_value_dialog_membrane_length_label">толщины плёнки</string>
+
+    <string name="change_password_dialog_old_password_error">Пожалуйста, введите старый пароль</string>
+    <string name="change_password_dialog_new_password_error">Пожалуйста, введите новый пароль</string>
+    <string name="change_password_dialog_incorrect_old_password_error">Неверный старый пароль</string>
+
+    <string name="add_mandrel_fragment_forbidden_symbol_warning">Предупреждение : \'~\' запрещенный символ</string>
+    <string name="add_dialog_incorrect_name_error_message">Ошибка : первые два символа имени должны содержать индикатор размера</string>
+
 
 
 

@@ -27,7 +27,7 @@ import com.example.bvk.ui.packageschema.PackageSchemaAdapter
 class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelListener,
     MandrelAdapter.OnMandrelListButtonClickListener,
     SampleCreateDialogFragment.OnSampleCreatedListener,
-    DeveloperModeDialogFragment.OnPasswordEnterListener,
+    EnterPasswordDialogFragment.OnPasswordEnterListener,
     ConfirmationDialogFragment.OnConfirmationListener,
     MainActivity.IfUpdateButtonClickedListener,
     AddPackageSchemaDialogFragment.OnAddOrEditPackageSchemaListener,
@@ -119,10 +119,8 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         binding.changeDataListFab.setOnClickListener {
             clearSample()
             if (viewModel.isMandrelViewMode) {
-                binding.changeDataListFab.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_sample_recycler_image))
                 setPackageSchemaDataView()
             } else {
-                binding.changeDataListFab.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_backpack_24))
                 setMandrelDataView()
             }
         }
@@ -131,6 +129,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
     //ui modes
     private fun setMandrelDataView() {
+        binding.changeDataListFab.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_backpack_24))
         binding.mandrelsList.visibility = RecyclerView.VISIBLE
         binding.schemasList.visibility = RecyclerView.INVISIBLE
         binding.textViewLabel.text =
@@ -141,6 +140,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
     private fun setPackageSchemaDataView() {
         inflateSchemasList()
+        binding.changeDataListFab.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_sample_recycler_image))
         binding.mandrelsList.visibility = RecyclerView.INVISIBLE
         binding.schemasList.visibility = RecyclerView.VISIBLE
         binding.textViewLabel.text = getString(R.string.package_schemas_list_label)
@@ -174,13 +174,13 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
     override fun onUpdateModeClicked() {
         if (!viewModel.isAdministratorMode) {
-            val developerModeDialogFragment = DeveloperModeDialogFragment(
+            val enterPasswordDialogFragment = EnterPasswordDialogFragment(
                 preferences?.getString(
                     PREFERENCE_KEY_PASSWORD,
                     DEFAULT_PASSWORD
                 ), this
             )
-            developerModeDialogFragment.show(activity?.supportFragmentManager!!, "PASSWORD")
+            enterPasswordDialogFragment.show(activity?.supportFragmentManager!!, "PASSWORD")
         } else {
             setOperatorMode()
             setMandrelDataView()
@@ -346,7 +346,7 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
                 binding.mandrelsList.visibility = RecyclerView.INVISIBLE
             }
             val mandrelAdapter = MandrelAdapter(
-               it.toCollection(ArrayList()),
+                it.toCollection(ArrayList()),
                 requireActivity().applicationContext,
                 this,
                 viewModel.isSampleCreated,
@@ -409,8 +409,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
     companion object {
         const val APP_PREFERENCES = "settings"
         const val PREFERENCE_KEY_PASSWORD = "pass"
-        const val PREFERENCE_KEY_ADHESIVE_LINE = "kal"
-        const val PREFERENCE_KEY_MEMBRANE_WEIGHT = "kmw"
         const val DEFAULT_PASSWORD = "123"
 
         const val CALL_KEY_NEW = "new"

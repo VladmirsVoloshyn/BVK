@@ -20,7 +20,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutSchemaName"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/big_container_layout_weight"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,6 +29,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/schema_name"
             android:layout_width="match_parent"
+            android:textSize="@dimen/bic_containers_text_size"
             android:layout_height="wrap_content"
             android:hint="@string/add_dialog_schema_name" />
 
@@ -37,7 +38,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutSchemaCapVertex"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/big_container_layout_weight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaName">
@@ -46,6 +47,7 @@
             android:id="@+id/schema_cap_vertex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/bic_containers_text_size"
             android:hint="@string/sample_dialog_set_cap_vertex_diameter_hint"
             android:inputType="number" />
 
@@ -54,7 +56,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutSchemaCapHeight"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/big_container_layout_weight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaCapVertex">
@@ -63,6 +65,7 @@
             android:id="@+id/schema_cap_height"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/bic_containers_text_size"
             android:hint="@string/sample_dialog_set_cap_height_hint"
             android:inputType="number" />
 
@@ -71,7 +74,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutBoxType"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/big_container_layout_weight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaCapHeight">
@@ -79,6 +82,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/box_type"
             android:layout_width="match_parent"
+            android:textSize="@dimen/bic_containers_text_size"
             android:layout_height="wrap_content"
             android:hint="@string/add_dialog_box_type"
             android:inputType="number" />
@@ -88,7 +92,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutSchemaParameters"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/big_container_layout_weight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutBoxType">
@@ -97,6 +101,7 @@
             android:id="@+id/first_line_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/bic_containers_text_size"
             android:hint="@string/add_dialog_first_package_line_label"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -104,8 +109,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutSchemaSecondLine"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-
+        android:layout_height="@dimen/big_container_layout_weight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaParameters">
@@ -113,6 +117,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/schema_second_line"
             android:layout_width="match_parent"
+            android:textSize="@dimen/bic_containers_text_size"
             android:layout_height="wrap_content"
             android:hint="@string/add_schema_dialog_second_package_line"
             android:inputType="number" />
@@ -122,7 +127,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutCapLayerCount"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/big_container_layout_weight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSchemaSecondLine">
@@ -130,6 +135,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/layer_count"
             android:layout_width="match_parent"
+            android:textSize="@dimen/bic_containers_text_size"
             android:layout_height="wrap_content"
             android:hint="@string/add_schema_layer_count_hint"
             android:inputType="number" />
@@ -139,7 +145,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutCapAmountInBundle"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/big_container_layout_weight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCapLayerCount">
@@ -147,6 +153,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/cap_amount_in_bundle"
             android:layout_width="match_parent"
+            android:textSize="@dimen/bic_containers_text_size"
             android:layout_height="wrap_content"
             android:hint="@string/add_schema_dialog_cap_amount_in_bundle"
             android:inputType="number" />
@@ -157,16 +164,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_button_label"
+        android:layout_marginStart="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/button_skip"
         app:layout_constraintTop_toBottomOf="@+id/is_straight_laying_checkBox" />
 
     <Button
         android:id="@+id/button_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/button_margin"
         android:text="@string/skip_button_label"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/button_add"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/is_straight_laying_checkBox" />
 
     <CheckBox

@@ -9,7 +9,7 @@ import com.example.bvk.R
 import com.example.bvk.databinding.DeveloperModeDialogFragmentBinding
 import com.example.bvk.shouldShowError
 
-class DeveloperModeDialogFragment(
+class EnterPasswordDialogFragment(
     private val password: String?,
     private var passwordEnterListener: OnPasswordEnterListener?
 ) : DialogFragment() {

@@ -1,5 +1,6 @@
 package com.example.bvk.ui.settings
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,8 @@ import com.example.bvk.shouldShowError
 
 class SetValueDialogFragment(
     private val callKey: String,
-    val oldValue: Int,
-    private val onValueSetListener: OnValueSetListener? = null
+    private val oldValue: Int,
+    private var onValueSetListener: OnValueSetListener? = null
 ) : DialogFragment() {
 
     private var mBinding: SetValueDialogFragmentBinding? = null
@@ -25,6 +26,12 @@ class SetValueDialogFragment(
     ): View {
         mBinding = SetValueDialogFragmentBinding.inflate(inflater, container, false)
         binding.valueField.setText(oldValue.toString())
+        if (callKey == CALL_KEY_ADHESIVE) {
+            binding.labelDialog.append(SPACE +getString(R.string.set_value_dialog_adhesive_line_label) + SPACE + getString(R.string.millimeter_postfix))
+        }
+        if (callKey == CALL_KEY_MEMBRANE_DEPTH){
+            binding.labelDialog.append(SPACE + getString(R.string.set_value_dialog_membrane_length_label)+ SPACE + getString(R.string.micrometer_postfix))
+        }
         return binding.root
     }
 
@@ -33,7 +40,7 @@ class SetValueDialogFragment(
 
         binding.buttonEnter.setOnClickListener {
             if (!binding.valueField.shouldShowError(
-                    activity?.resources?.getString(R.string.add_dialog_vertex_error_message),
+                    "Please, set value",
                     binding.textInputLayoutValue
                 )
             ) {
@@ -53,6 +60,9 @@ class SetValueDialogFragment(
             }
 
         }
+        binding.buttonSkip.setOnClickListener {
+            dialog?.dismiss()
+        }
 
     }
 
@@ -61,7 +71,17 @@ class SetValueDialogFragment(
     }
 
 
+
+    override fun onDestroyView() {
+        mBinding = null
+        onValueSetListener = null
+        super.onDestroyView()
+
+    }
+
+
     companion object {
+        private const val SPACE = " "
         private const val CALL_KEY_ADHESIVE = "adhesive"
         private const val CALL_KEY_MEMBRANE_DEPTH = "depth"
     }

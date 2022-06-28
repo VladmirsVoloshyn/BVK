@@ -42,23 +42,23 @@ class MandrelAdapter(
             res.getString(R.string.name_prefix) + SPACE + mandrelsList[position].mandrelName
         binding.mandrelVertexDiameter.text =
             res.getText(R.string.vertex_prefix)
-                .toString() + SPACE + mandrelsList[position].vertexDiameter + SPACE + res.getText(R.string.milimeter_postfix)
+                .toString() + SPACE + mandrelsList[position].vertexDiameter + SPACE + res.getText(R.string.millimeter_postfix)
         binding.mandrelBaseDiameter.text =
             res.getText(R.string.base_prefix)
-                .toString() + SPACE + mandrelsList[position].baseDiameter + SPACE + res.getText(R.string.milimeter_postfix)
+                .toString() + SPACE + mandrelsList[position].baseDiameter + SPACE + res.getText(R.string.millimeter_postfix)
         binding.mandrelHeight.text =
             res.getText(R.string.height_prefix)
-                .toString() + SPACE + mandrelsList[position].height + SPACE + res.getText(R.string.milimeter_postfix)
+                .toString() + SPACE + mandrelsList[position].height + SPACE + res.getText(R.string.millimeter_postfix)
 
         binding.adhesiveSleeveWeightTextView.text =
             res.getText(R.string.adhesive_sleeve_weight_prefix)
                 .toString() + SPACE + (DecimalFormat(DOUBLE_PATTERN).format(mandrelsList[position].adhesiveSleeveWeight)) + SPACE + res.getText(
-                R.string.milimeter_postfix
+                R.string.millimeter_postfix
             )
 
         binding.membraneWightTextView.text = res.getText(R.string.membrane_weight_prefix)
             .toString() + SPACE + (DecimalFormat(DOUBLE_PATTERN).format(mandrelsList[position].membraneWight)) + SPACE + res.getText(
-            R.string.milimeter_postfix
+            R.string.millimeter_postfix
         )
 
         binding.totalMembraneLengthTextView.text =

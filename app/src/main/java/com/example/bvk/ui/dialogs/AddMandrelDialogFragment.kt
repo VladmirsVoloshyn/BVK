@@ -11,6 +11,7 @@ import com.example.bvk.R
 import com.example.bvk.databinding.AddMandrelDialogFragmentBinding
 import com.example.bvk.model.Mandrel
 import com.example.bvk.shouldShowError
+import java.lang.Exception
 
 class AddMandrelDialogFragment(
     private val callKey: String,
@@ -30,9 +31,12 @@ class AddMandrelDialogFragment(
         val window = dialog?.window
         window?.setGravity(Gravity.TOP)
 
+
         mBinding = AddMandrelDialogFragmentBinding.inflate(layoutInflater, container, false)
         if (callKey == CALL_KEY_NEW) {
             binding.buttonAdd.text = activity?.resources?.getText(R.string.add_button_label)
+            binding.mandrelInfelicity.setText(MANDREL_DEFAULT_INFELICITY.toString())
+            binding.mandrelMaxInfelicityHeight.setText(MANDREL_INFELICITY_MAX_HEIGHT.toString())
         } else {
             binding.buttonAdd.text = activity?.resources?.getText(R.string.update_button_label)
             binding.mandrelName.setText(mandrel.mandrelName)
@@ -61,18 +65,21 @@ class AddMandrelDialogFragment(
         super.onViewCreated(view, savedInstanceState)
         binding.buttonAdd.setOnClickListener {
 
-            if (!binding.mandrelVertexDiameter.shouldShowError(
+
+            if (!binding.mandrelName.shouldShowError(
+                    activity?.resources?.getString(R.string.add_dialog_name_error_message),
+                    binding.textInputLayoutName
+
+                ) && !binding.mandrelVertexDiameter.shouldShowError(
                     activity?.resources?.getString(R.string.add_dialog_vertex_error_message),
                     binding.textInputLayoutVertex
+
                 ) && !binding.mandrelBaseDiameter.shouldShowError(
                     activity?.resources?.getString(R.string.add_dialog_base_error_message),
                     binding.textInputLayoutBase
-                ) && !binding.mandrelHeight.shouldShowError(
-                    activity?.resources?.getString(R.string.add_dialog_height_error_message),
-                    binding.textInputLayoutHeight
                 )
-                && !binding.mandrelName.shouldShowError(
-                    activity?.resources?.getString(R.string.add_dialog_name_error_message),
+                && !binding.mandrelHeight.shouldShowError(
+                    activity?.resources?.getString(R.string.add_dialog_height_error_message),
                     binding.textInputLayoutHeight
                 )
                 && !binding.mandrelInfelicity.shouldShowError(
@@ -80,61 +87,65 @@ class AddMandrelDialogFragment(
                     binding.textInputLayoutInfelicity
                 )
                 && !binding.mandrelMaxInfelicityHeight.shouldShowError(
-                    getString(R.string.add_dialog_infelicity_error_message),
+                    getString(R.string.add_dialog_max_infelicity_height_error_message),
                     binding.textInputLayoutMaxInfelicityHeight
                 )
             ) {
                 if (callKey == CALL_KEY_NEW) {
-                    if (isUniqueName(binding.mandrelName.text.toString())) {
-                        listener?.onMandrelAdd(
-                            Mandrel(
-                                mandrelName = binding.mandrelName.text.toString(),
-                                vertexDiameter = binding.mandrelVertexDiameter.text.toString()
-                                    .toDouble(),
-                                baseDiameter = binding.mandrelBaseDiameter.text.toString()
-                                    .toDouble(),
-                                height = binding.mandrelHeight.text.toString().toInt(),
-                                infelicityCoefficient = binding.mandrelInfelicity.text.toString()
-                                    .toDouble(),
-                                maxInfelicityHeight = binding.mandrelMaxInfelicityHeight.text.toString()
-                                    .toInt()
+                    if (isCorrectName()) {
+                        if (isUniqueName(binding.mandrelName.text.toString())) {
+                            listener?.onMandrelAdd(
+                                Mandrel(
+                                    mandrelName = binding.mandrelName.text.toString(),
+                                    vertexDiameter = binding.mandrelVertexDiameter.text.toString()
+                                        .toDouble(),
+                                    baseDiameter = binding.mandrelBaseDiameter.text.toString()
+                                        .toDouble(),
+                                    height = binding.mandrelHeight.text.toString().toInt(),
+                                    infelicityCoefficient = binding.mandrelInfelicity.text.toString()
+                                        .toDouble(),
+                                    maxInfelicityHeight = binding.mandrelMaxInfelicityHeight.text.toString()
+                                        .toInt()
+                                )
                             )
-                        )
-                        dialog?.dismiss()
-                    } else if (!isUniqueName(binding.mandrelName.text.toString())) {
-                        binding.textInputLayoutName.error =
-                            activity?.resources?.getString(R.string.add_dialog_unique_name_error_message)
-                    }
-                } else {
-                    var pretindent: String? = null
-                    for (mandrelName in mandrelsUniqueNamesList) {
-                        if (mandrelName == mandrel.mandrelName) {
-                            pretindent = mandrelName
+                            dialog?.dismiss()
+                        } else if (!isUniqueName(binding.mandrelName.text.toString())) {
+                            binding.textInputLayoutName.error =
+                                activity?.resources?.getString(R.string.add_dialog_unique_name_error_message)
                         }
                     }
-                    if (pretindent != null) {
-                        mandrelsUniqueNamesList.remove(pretindent)
+                } else {
+                    var currentName: String? = null
+                    for (mandrelName in mandrelsUniqueNamesList) {
+                        if (mandrelName == mandrel.mandrelName) {
+                            currentName = mandrelName
+                        }
                     }
-                    if (isUniqueName(binding.mandrelName.text.toString())) {
-                        listener?.onMandrelEdit(
-                            Mandrel(
-                                mandrelName = binding.mandrelName.text.toString(),
-                                id = mandrel.id,
-                                vertexDiameter = binding.mandrelVertexDiameter.text.toString()
-                                    .toDouble(),
-                                baseDiameter = binding.mandrelBaseDiameter.text.toString()
-                                    .toDouble(),
-                                height = binding.mandrelHeight.text.toString().toInt(),
-                                infelicityCoefficient = binding.mandrelInfelicity.text.toString()
-                                    .toDouble(),
-                                maxInfelicityHeight = binding.mandrelMaxInfelicityHeight.text.toString()
-                                    .toInt()
+                    if (currentName != null) {
+                        mandrelsUniqueNamesList.remove(currentName)
+                    }
+                    if (isCorrectName()) {
+                        if (isUniqueName(binding.mandrelName.text.toString())) {
+                            listener?.onMandrelEdit(
+                                Mandrel(
+                                    mandrelName = binding.mandrelName.text.toString(),
+                                    id = mandrel.id,
+                                    vertexDiameter = binding.mandrelVertexDiameter.text.toString()
+                                        .toDouble(),
+                                    baseDiameter = binding.mandrelBaseDiameter.text.toString()
+                                        .toDouble(),
+                                    height = binding.mandrelHeight.text.toString().toInt(),
+                                    infelicityCoefficient = binding.mandrelInfelicity.text.toString()
+                                        .toDouble(),
+                                    maxInfelicityHeight = binding.mandrelMaxInfelicityHeight.text.toString()
+                                        .toInt()
+                                )
                             )
-                        )
-                        dialog?.dismiss()
-                    } else if (!isUniqueName(binding.mandrelName.text.toString())) {
-                        binding.textInputLayoutName.error =
-                            activity?.resources?.getString(R.string.add_dialog_unique_name_error_message)
+                            dialog?.dismiss()
+                        } else if (!isUniqueName(binding.mandrelName.text.toString())) {
+                            binding.textInputLayoutName.error =
+                                activity?.resources?.getString(R.string.add_dialog_unique_name_error_message)
+                        }
                     }
                 }
             }
@@ -142,7 +153,22 @@ class AddMandrelDialogFragment(
         binding.buttonSkip.setOnClickListener {
             dialog?.dismiss()
         }
+    }
 
+    private fun isCorrectName(): Boolean {
+        if (binding.mandrelName.text.toString().contains(JSON_SEPARATOR)) {
+            binding.textInputLayoutName.error =
+                getString(R.string.add_mandrel_fragment_forbidden_symbol_warning)
+            return false
+        }
+        return try {
+            (binding.mandrelName.text.toString()).substring(0..1).toInt()
+            true
+        } catch (e: Exception) {
+            binding.textInputLayoutName.error =
+                getString(R.string.add_dialog_incorrect_name_error_message)
+            false
+        }
     }
 
     private fun isUniqueName(mandrelName: String): Boolean {
@@ -161,5 +187,9 @@ class AddMandrelDialogFragment(
 
     companion object {
         const val CALL_KEY_NEW = "new"
+        const val MANDREL_INFELICITY_MAX_HEIGHT = 30
+        const val MANDREL_DEFAULT_INFELICITY = 1.012
+        const val JSON_SEPARATOR = '~'
+
     }
 }
