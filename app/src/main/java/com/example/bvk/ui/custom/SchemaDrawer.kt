@@ -21,7 +21,10 @@ class SchemaDrawer @JvmOverloads constructor(
     var startFY = 25f
     private var circleRadius = 10f
 
-    private val paint: Paint = Paint()
+    private val paint = Paint().apply {
+        isAntiAlias = true
+        color = Color.GRAY
+    }
 
     fun setSchema(firstLineAmount: Int, secondLineAmount: Int, isStraightLayerSchema: Boolean) {
         firstLineSchema = firstLineAmount
@@ -33,10 +36,6 @@ class SchemaDrawer @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        paint.apply {
-            isAntiAlias = true
-            color = Color.GRAY
-        }
         startFX = 25f
         startFY = 25f
         for (i in 1..firstLineSchema) {

@@ -26,9 +26,7 @@ import com.example.bvk.model.databaseimportexport.import.ImportDataBaseReader
 import com.example.bvk.ui.dialogs.ConfirmationDialogFragment
 import com.example.bvk.ui.MandrelFragment
 import com.example.bvk.ui.dialogs.EnterPasswordDialogFragment
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class SettingsActivity : AppCompatActivity(),
     ChangePasswordDialogFragment.OnPasswordChangeListener,
@@ -45,7 +43,7 @@ class SettingsActivity : AppCompatActivity(),
     private lateinit var mandrelRepository: MandrelRepository
     private lateinit var schemasRepository: PackageRepository
 
-    private lateinit var exportDataBaseWriter : ExportDataBaseWriter
+    private lateinit var exportDataBaseWriter: ExportDataBaseWriter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -129,13 +127,12 @@ class SettingsActivity : AppCompatActivity(),
         val importDataBaseReader = ImportDataBaseReader(inputPath)
         println(importDataBaseReader.read())
         importListCreator = ImportDataListCreator(importDataBaseReader.read())
-        importData()
+        CoroutineScope(CoroutineName("my coroutine")).launch { importData() }
         finishAffinity()
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
-    private fun importData() {
-        GlobalScope.launch {
+    private suspend fun importData() = coroutineScope {
+        launch {
             mandrelRepository.deleteAll()
             schemasRepository.deleteAll()
 
@@ -148,6 +145,7 @@ class SettingsActivity : AppCompatActivity(),
 
         }
     }
+
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

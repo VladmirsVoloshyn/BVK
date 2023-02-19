@@ -19,6 +19,7 @@ class AddMandrelDialogFragment(
     var iListener: OnAddOrEditMandrelListener,
     private val mandrelsUniqueNamesList: ArrayList<String>
 ) : DialogFragment() {
+
     var mBinding: AddMandrelDialogFragmentBinding? = null
     private val binding get() = mBinding!!
     private var listener: OnAddOrEditMandrelListener? = null

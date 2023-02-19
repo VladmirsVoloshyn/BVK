@@ -45,6 +45,7 @@ class MandrelParametersCalculator(context : Context) {
         if (sampleCapParameters.capHeight <= mandrel.maxInfelicityHeight){
             val differenceCoefficient = mandrel.infelicityCoefficient - (infelicityDecayFactor*(sampleCapParameters.capHeight - pusherHeight))
             mandrel.adhesiveSleeveWeight = mandrel.adhesiveSleeveWeight * differenceCoefficient
+            mandrel.membraneWight = (mandrel.adhesiveSleeveWeight*2) + 5
         }
 
         mandrel.totalMembraneLength = MembraneLengthCounter.count(
