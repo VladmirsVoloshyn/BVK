@@ -22,13 +22,19 @@ data class PackageSchema(
 ) {
     init {
         if (firstLineCount == secondLineCount) {
-            capAmountInBox = (firstLineCount*capAmountInBundle) * layerCount
-        }else if(firstLineCount!=secondLineCount){
-            if (layerCount % 2 == 0){
-                capAmountInBox = ((firstLineCount*capAmountInBundle) * layerCount) - ((layerCount/2) * capAmountInBundle)
-            } else if(layerCount % 2 == 1) {
-                capAmountInBox = ((firstLineCount*capAmountInBundle) * layerCount) - (((layerCount - 1)/2) * capAmountInBundle)
+            capAmountInBox = (firstLineCount * capAmountInBundle) * layerCount
+        } else if (firstLineCount != secondLineCount) {
+            if (layerCount % 2 == 0) {
+                capAmountInBox =
+                    ((firstLineCount * capAmountInBundle) * layerCount) - ((layerCount / 2) * capAmountInBundle)
+            } else if (layerCount % 2 == 1) {
+                capAmountInBox =
+                    ((firstLineCount * capAmountInBundle) * layerCount) - (((layerCount - 1) / 2) * capAmountInBundle)
             }
         }
+    }
+
+    override fun hashCode(): Int {
+        return ((capAmountInBundle / secondLineCount) * (capHeight + capVertexDiameter) / firstLineCount)
     }
 }

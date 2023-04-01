@@ -1,6 +1,7 @@
 package com.example.bvk.ui.settings
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -11,18 +12,20 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.asLiveData
 import com.example.bvk.BVKApplication
 import com.example.bvk.R
 import com.example.bvk.database.mandreldatabase.MandrelRepository
 import com.example.bvk.database.packagedatabase.PackageRepository
 import com.example.bvk.databinding.ActivitySettingsBinding
-import com.example.bvk.model.Mandrel
 import com.example.bvk.model.databaseimportexport.ExportListManager
 import com.example.bvk.model.databaseimportexport.ImportDataListCreator
 import com.example.bvk.model.databaseimportexport.export.ExportDataBaseWriter
 import com.example.bvk.model.databaseimportexport.import.ImportDataBaseReader
+import com.example.bvk.ui.MainActivity
 import com.example.bvk.ui.dialogs.ConfirmationDialogFragment
 import com.example.bvk.ui.MandrelFragment
 import com.example.bvk.ui.dialogs.EnterPasswordDialogFragment
@@ -120,30 +123,58 @@ class SettingsActivity : AppCompatActivity(),
             )
             changePasswordDialogFragment.show(supportFragmentManager, "PASSWORD")
         }
+        onBackPressedDispatcher.addCallback(getBackPressedCallBack())
 
+    }
+
+
+    private fun getBackPressedCallBack(): OnBackPressedCallback {
+        return object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finishAffinity()
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+            }
+
+        }
     }
 
     private fun prepareImportData(inputPath: String) {
         val importDataBaseReader = ImportDataBaseReader(inputPath)
-        println(importDataBaseReader.read())
         importListCreator = ImportDataListCreator(importDataBaseReader.read())
         CoroutineScope(CoroutineName("my coroutine")).launch { importData() }
-        finishAffinity()
+
     }
 
     private suspend fun importData() = coroutineScope {
         launch {
-            mandrelRepository.deleteAll()
-            schemasRepository.deleteAll()
+            val listMandrels = mandrelRepository.getAllMandrels.asLiveData().value
+            val listSchemas = schemasRepository.getAllSchemas.asLiveData().value
 
-            for (mandrel in importListCreator.getMandrelsImportList()) {
-                mandrelRepository.insert(mandrel)
+            for (mandel in importListCreator.getMandrelsImportList()) {
+                if (!isContains(mandel, listMandrels.orEmpty())) {
+                    mandrelRepository.insert(mandel)
+                }
             }
+
             for (schema in importListCreator.getSchemasList()) {
-                schemasRepository.insert(schema)
+                if (!isContains(schema, listSchemas.orEmpty())) {
+                    schemasRepository.insert(schema)
+                }
             }
-
+            finishAffinity()
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
         }
+    }
+
+    private fun isContains(inputElement: Any, existList: List<Any>): Boolean {
+        for (elements in existList) {
+            if (elements.hashCode() == inputElement.hashCode()) {
+                return true
+            }
+        }
+        return false
     }
 
 
@@ -154,12 +185,38 @@ class SettingsActivity : AppCompatActivity(),
             if (data != null) {
                 val uri = data.data
                 val path = uri?.path?.substringAfter(':')
-                println(path)
-                prepareImportData(path!!)
-                Toast.makeText(this, "File is chosen", Toast.LENGTH_SHORT).show()
+                try {
+                    prepareImportData(path ?: "null or empty string")
+                    Toast.makeText(
+                        this,
+                        getString(R.string.succecfull_file_choose),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } catch (e: Exception) {
+                    printExceptionDialog(e, path.toString(), data.data.toString()).show()
+                }
             }
         }
     }
+
+    private fun printExceptionDialog(
+        e: Exception,
+        incorrectPath: String,
+        fullPath: String
+    ): AlertDialog {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder
+            .setMessage(
+                "ERROR : $e\n" +
+                        "INCORRECT PATH : $incorrectPath\n" +
+                        "FULL PATH : $fullPath"
+            )
+            .setPositiveButton("cancel") { dialog, _ ->
+                dialog.cancel()
+            }
+        return dialogBuilder.create()
+    }
+
 
     companion object {
         const val APP_PREFERENCES = "settings"

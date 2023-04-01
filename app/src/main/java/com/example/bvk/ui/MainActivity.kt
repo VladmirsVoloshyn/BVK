@@ -96,6 +96,7 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
         if (item.itemId == R.id.updateModeItem) {
             onUpdateModeListener?.onUpdateModeClicked()
         } else if (item.itemId == R.id.openSettingsItem) {
+            finish()
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }

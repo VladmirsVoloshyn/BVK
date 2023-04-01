@@ -155,6 +155,8 @@
     <string name="add_mandrel_fragment_forbidden_symbol_warning">Предупреждение : \'~\' запрещенный символ</string>
     <string name="add_dialog_incorrect_name_error_message">Ошибка : первые два символа имени должны содержать индикатор размера</string>
 
+    <string name="succecfull_file_choose">Файл успешно выбран</string>
+
 
 
 
