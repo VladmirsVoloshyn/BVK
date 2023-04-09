@@ -4,4 +4,5 @@
     <dimen name="container_main_padding">4dp</dimen>
     <dimen name="bic_containers_text_size">12sp</dimen>
     <dimen name="big_container_layout_weight">60dp</dimen>
+    <dimen name="schema_text_size">12sp</dimen>
 </resources>

@@ -10,9 +10,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.DocumentsContract
 import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.asLiveData
@@ -30,6 +32,7 @@ import com.example.bvk.ui.dialogs.ConfirmationDialogFragment
 import com.example.bvk.ui.MandrelFragment
 import com.example.bvk.ui.dialogs.EnterPasswordDialogFragment
 import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
 
 class SettingsActivity : AppCompatActivity(),
     ChangePasswordDialogFragment.OnPasswordChangeListener,
@@ -48,6 +51,7 @@ class SettingsActivity : AppCompatActivity(),
 
     private lateinit var exportDataBaseWriter: ExportDataBaseWriter
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
@@ -101,7 +105,11 @@ class SettingsActivity : AppCompatActivity(),
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
             intent.type = "text/*"
-            startActivityForResult(Intent.createChooser(intent, "select txt"), 123)
+            intent.putExtra(
+                DocumentsContract.EXTRA_INITIAL_URI,
+                Environment.getExternalStorageDirectory()
+            )
+            startActivityForResult(intent, 123)
         }
 
         binding.restoreDefaultSettingsContainer.setOnClickListener {
@@ -124,7 +132,6 @@ class SettingsActivity : AppCompatActivity(),
             changePasswordDialogFragment.show(supportFragmentManager, "PASSWORD")
         }
         onBackPressedDispatcher.addCallback(getBackPressedCallBack())
-
     }
 
 
@@ -142,31 +149,34 @@ class SettingsActivity : AppCompatActivity(),
     private fun prepareImportData(inputPath: String) {
         val importDataBaseReader = ImportDataBaseReader(inputPath)
         importListCreator = ImportDataListCreator(importDataBaseReader.read())
-        CoroutineScope(CoroutineName("my coroutine")).launch { importData() }
+        importData()
 
     }
 
-    private suspend fun importData() = coroutineScope {
-        launch {
-            val listMandrels = mandrelRepository.getAllMandrels.asLiveData().value
-            val listSchemas = schemasRepository.getAllSchemas.asLiveData().value
+    private fun importData() {
+        val listMandrels = mandrelRepository.getAllMandrels.asLiveData().value
+        val listSchemas = schemasRepository.getAllSchemas.asLiveData().value
 
-            for (mandel in importListCreator.getMandrelsImportList()) {
-                if (!isContains(mandel, listMandrels.orEmpty())) {
-                    mandrelRepository.insert(mandel)
+        if (importListCreator.getMandrelsImportList()
+                .isEmpty() || importListCreator.getSchemasList().isEmpty()
+        ) {
+            printWrongFileDialog()
+        } else {
+            CoroutineScope(IO).launch {
+                for (mandel in importListCreator.getMandrelsImportList()) {
+                    if (!isContains(mandel, listMandrels.orEmpty())) {
+                        mandrelRepository.insert(mandel)
+                    }
+                }
+                for (schema in importListCreator.getSchemasList()) {
+                    if (!isContains(schema, listSchemas.orEmpty())) {
+                        schemasRepository.insert(schema)
+                    }
                 }
             }
-
-            for (schema in importListCreator.getSchemasList()) {
-                if (!isContains(schema, listSchemas.orEmpty())) {
-                    schemasRepository.insert(schema)
-                }
-            }
-            finishAffinity()
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            startActivity(intent)
         }
     }
+
 
     private fun isContains(inputElement: Any, existList: List<Any>): Boolean {
         for (elements in existList) {
@@ -186,17 +196,50 @@ class SettingsActivity : AppCompatActivity(),
                 val uri = data.data
                 val path = uri?.path?.substringAfter(':')
                 try {
-                    prepareImportData(path ?: "null or empty string")
-                    Toast.makeText(
-                        this,
-                        getString(R.string.succecfull_file_choose),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    prepareImportData(path ?: "wrong")
+                    printImportDialog(path.toString(), data.data?.path.toString()).show()
                 } catch (e: Exception) {
-                    printExceptionDialog(e, path.toString(), data.data.toString()).show()
+                    printExceptionDialog(e, path.toString(), data.data?.path.toString()).show()
                 }
             }
         }
+    }
+
+    private fun printWrongFileDialog(
+
+    ): AlertDialog {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder
+            .setMessage(
+                "IncorrectFile"
+            )
+            .setPositiveButton("cancel") { dialog, _ ->
+                dialog.cancel()
+                finishAffinity()
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+            }
+        return dialogBuilder.create()
+    }
+
+    private fun printImportDialog(
+        correctPath: String,
+        fullPath: String
+    ): AlertDialog {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder
+            .setMessage(
+                "SUCCESS\n" +
+                        "PATH : $correctPath\n" +
+                        "FULL PATH : $fullPath"
+            )
+            .setPositiveButton("cancel") { dialog, _ ->
+                dialog.cancel()
+                finishAffinity()
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+            }
+        return dialogBuilder.create()
     }
 
     private fun printExceptionDialog(
@@ -207,7 +250,7 @@ class SettingsActivity : AppCompatActivity(),
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder
             .setMessage(
-                "ERROR : $e\n" +
+                "ERROR : ${e.message}\n" +
                         "INCORRECT PATH : $incorrectPath\n" +
                         "FULL PATH : $fullPath"
             )
