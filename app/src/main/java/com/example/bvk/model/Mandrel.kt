@@ -24,4 +24,8 @@ data class Mandrel(
     fun getSizeIdentifier(): String {
         return this.mandrelName.substring(0..1)
     }
+
+    override fun hashCode(): Int {
+        return ((vertexDiameter*1000.0) + (baseDiameter*1000) / height).toInt()
+    }
 }

@@ -151,6 +151,7 @@
 
     <string name="add_mandrel_fragment_forbidden_symbol_warning">Warning : \'~\' is forbidden symbol</string>
     <string name="add_dialog_incorrect_name_error_message">Error : the first two characters should indicate the size</string>
+    <string name="succecfull_file_choose">File is chosen</string>
 
 
 </resources>

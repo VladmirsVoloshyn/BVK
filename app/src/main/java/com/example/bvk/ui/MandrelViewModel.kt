@@ -1,7 +1,6 @@
 package com.example.bvk.ui
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.*
 import com.example.bvk.database.mandreldatabase.MandrelRepository
@@ -20,11 +19,11 @@ class MandrelViewModel(
 
     //schema values
     private val schemasRoomList: LiveData<List<PackageSchema>> =
-        schemasRepository.allSchemas.asLiveData()
+        schemasRepository.getAllSchemas.asLiveData()
 
     //mandrel values
     private val mandrelsRoomList: LiveData<List<Mandrel>> =
-        mandrelRepository.allMandrels.asLiveData()
+        mandrelRepository.getAllMandrels.asLiveData()
     var mandrelsSampleList: MutableLiveData<List<Mandrel>> = MutableLiveData()
     var isSampleCreated = false
     var isAdministratorMode = false

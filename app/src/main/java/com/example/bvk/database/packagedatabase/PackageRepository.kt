@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class PackageRepository(private val packageDao: PackageDao) {
 
-    val allSchemas: Flow<List<PackageSchema>> = packageDao.getAlphabetizedWords()
+    val getAllSchemas: Flow<List<PackageSchema>> = packageDao.getAlphabetizedWords()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
