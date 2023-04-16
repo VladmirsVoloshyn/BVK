@@ -153,6 +153,8 @@
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/add_item_fab"
-        app:srcCompat="@drawable/ic_baseline_backpack_24" />
+        app:srcCompat="@drawable/ic_baseline_backpack_24"
+        android:contentDescription="change list view mode"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

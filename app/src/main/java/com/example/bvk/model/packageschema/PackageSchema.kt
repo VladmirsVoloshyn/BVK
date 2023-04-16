@@ -37,4 +37,25 @@ data class PackageSchema(
     override fun hashCode(): Int {
         return ((capAmountInBundle / secondLineCount) * (capHeight + capVertexDiameter) / firstLineCount)
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as PackageSchema
+
+        if (id != other.id) return false
+        if (schemaName != other.schemaName) return false
+        if (boxType != other.boxType) return false
+        if (firstLineCount != other.firstLineCount) return false
+        if (secondLineCount != other.secondLineCount) return false
+        if (isStraightLaying != other.isStraightLaying) return false
+        if (capAmountInBundle != other.capAmountInBundle) return false
+        if (layerCount != other.layerCount) return false
+        if (capVertexDiameter != other.capVertexDiameter) return false
+        if (capHeight != other.capHeight) return false
+        if (capAmountInBox != other.capAmountInBox) return false
+
+        return true
+    }
 }

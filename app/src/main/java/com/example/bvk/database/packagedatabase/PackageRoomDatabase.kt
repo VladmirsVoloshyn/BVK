@@ -17,7 +17,7 @@ abstract class PackageRoomDatabase : RoomDatabase() {
 
     private class SchemasDataBaseCallBack(
         private val scope: CoroutineScope
-    ) : RoomDatabase.Callback() {
+    ) : Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             INSTANCE?.let {dataBase ->

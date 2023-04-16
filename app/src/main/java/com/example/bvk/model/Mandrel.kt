@@ -28,4 +28,26 @@ data class Mandrel(
     override fun hashCode(): Int {
         return ((vertexDiameter*1000.0) + (baseDiameter*1000) / height).toInt()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Mandrel
+
+        if (id != other.id) return false
+        if (mandrelName != other.mandrelName) return false
+        if (vertexDiameter != other.vertexDiameter) return false
+        if (baseDiameter != other.baseDiameter) return false
+        if (height != other.height) return false
+        if (infelicityCoefficient != other.infelicityCoefficient) return false
+        if (maxInfelicityHeight != other.maxInfelicityHeight) return false
+        if (tapper != other.tapper) return false
+        if (membraneWight != other.membraneWight) return false
+        if (adhesiveSleeveWeight != other.adhesiveSleeveWeight) return false
+        if (totalMembraneLength != other.totalMembraneLength) return false
+        if (recommendedAdhesiveSleeveWeight != other.recommendedAdhesiveSleeveWeight) return false
+
+        return true
+    }
 }

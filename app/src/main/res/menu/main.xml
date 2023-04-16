@@ -5,12 +5,12 @@
     <item
         android:id="@+id/updateModeItem"
         android:icon="@drawable/ic_baseline_arrow_circle_up_24"
-        android:title="item"
+        android:title="@string/meni_item_update_title"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/openSettingsItem"
-        android:title="settings"
+        android:title="@string/menu_item_settings_title"
         android:icon="@drawable/ic_baseline_settings_24"
         app:showAsAction="always"
         />
