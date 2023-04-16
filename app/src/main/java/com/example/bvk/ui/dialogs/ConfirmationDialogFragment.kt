@@ -14,13 +14,14 @@ import com.example.bvk.model.packageschema.PackageSchema
 class ConfirmationDialogFragment(
     private val callKeyEvent: String,
     val mandrel: Mandrel = Mandrel(),
-    val packageSchema: PackageSchema = PackageSchema(),
+    private val packageSchema: PackageSchema = PackageSchema(),
     var listener: OnConfirmationListener,
     var position: Int = 0
 ) : DialogFragment() {
 
     private var mBinding: FragmentConfirmationDialogBinding? = null
     private val binding get() = mBinding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,17 +46,6 @@ class ConfirmationDialogFragment(
             }
         }
 
-        if (callKeyEvent == RESTORE_DEFAULT_CONFIRMATION_CALL_KEY) {
-
-            binding.deleteConfirmLabel.text =
-                activity?.resources?.getText(R.string.confirmation_dialog_restore_default_label)
-            binding.confirmDialogSubmitButton.text = activity?.resources?.getText(R.string.confirm_restore_default_button_label)
-            binding.confirmDialogSubmitButton.setOnClickListener {
-                listener.onRestoreDefaultConfirm()
-                dialog?.dismiss()
-            }
-        }
-
         if (callKeyEvent == DELETE_PACKAGE_SCHEMA_CONFIRMATION_CALL_KEY) {
 
             binding.deleteConfirmLabel.text = getString(R.string.confirmation_dialog_delete_schema_label) + SPACE + packageSchema.schemaName+ QST
@@ -74,7 +64,6 @@ class ConfirmationDialogFragment(
     companion object {
         const val DELETE_MANDREL_CONFIRMATION_CALL_KEY = "DELETE_MANDREL"
         const val DELETE_PACKAGE_SCHEMA_CONFIRMATION_CALL_KEY = "DELETE_PACKAGE_SCHEMA"
-        const val RESTORE_DEFAULT_CONFIRMATION_CALL_KEY = "RESTORE"
         const val SPACE = " "
         const val QST = "?"
     }
@@ -82,6 +71,5 @@ class ConfirmationDialogFragment(
 
     interface OnConfirmationListener {
         fun onDeleteConfirm(position: Int, confirmationKey : String)
-        fun onRestoreDefaultConfirm()
     }
 }

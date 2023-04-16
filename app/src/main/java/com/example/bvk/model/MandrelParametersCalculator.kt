@@ -1,6 +1,9 @@
 package com.example.bvk.model
 
 import android.content.Context
+import com.example.bvk.APP_PREFERENCES
+import com.example.bvk.PREFERENCE_KEY_ADHESIVE_LINE
+import com.example.bvk.PREFERENCE_KEY_MEMBRANE_WEIGHT
 import com.example.bvk.model.amount.MembraneLengthCounter
 import com.example.bvk.model.sample.SampleCapParameters
 
@@ -14,9 +17,6 @@ class MandrelParametersCalculator(context : Context) {
 
     companion object{
         const val PUSHER_HEIGHT: Int = 5
-        const val APP_PREFERENCES = "settings"
-        const val PREFERENCE_KEY_ADHESIVE_LINE = "kal"
-        const val PREFERENCE_KEY_MEMBRANE_WEIGHT = "kmw"
     }
 
     private fun getCircumferenceSoughtFor(mandrel: Mandrel, heightSoughtFor: Int): Double {

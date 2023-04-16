@@ -12,7 +12,7 @@ import com.example.bvk.model.sample.SampleCapParameters
 import com.example.bvk.shouldShowError
 
 class SampleCreateDialogFragment(
-    var onSampleCreatedListener: OnSampleCreatedListener? = null,
+    private var onSampleCreatedListener: OnSampleCreatedListener? = null,
     var name : String? = null
 ) : DialogFragment() {
 

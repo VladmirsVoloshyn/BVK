@@ -5,7 +5,7 @@ import java.io.File
 
 class ImportDataBaseReader(inputUti : String) {
 
-    private var file : File = File(Environment.getExternalStorageDirectory().absolutePath, inputUti)
+    private val file : File = File(inputUti)
 
     fun read(): String {
         return file.bufferedReader().use { it.readText() }

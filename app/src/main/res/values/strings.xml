@@ -11,6 +11,8 @@
     <string name="press_if_edit_item">press if edit item</string>
     <string name="press_if_delete_item">press if delete item</string>
     <string name="create_button_label">create</string>
+    <string name="access_denied">access denied</string>
+    <string name="access_completed">access completed</string>
 
     //mandrel fragment
     <string name="mandrel_list_label">Mandrel List</string>
@@ -78,8 +80,8 @@
     <string name="confirmation_dialog_restore_default_label"> Are you sure about restore default? All data will be lost and app will restarted.</string>
 
     //actionbar
-    <string name="action_bar_subtitle_operator_mode">operator mode</string>
-    <string name="action_bar_subtitle_administrator_mode">administrator mode</string>
+    <string name="action_bar_subtitle_operator_mode">main : operator mode</string>
+    <string name="action_bar_subtitle_administrator_mode">main : administrator mode</string>
     <string name="action_bar_settings_label">settings</string>
 
     //schema adapter
@@ -135,6 +137,7 @@
     <string name="millimeter_postfix">mm</string>
     <string name="micrometer_postfix">mkm</string>
     <string name="pcs_postfix">pcs</string>
+    <string name="rows_postfix">rows</string>
 
     <string name="settings_activity_restore_default_data_label">Restore default data</string>
     <string name="settings_activity_restore_default_data_summary">Click to restore all databases and password to default.</string>
@@ -152,6 +155,22 @@
     <string name="add_mandrel_fragment_forbidden_symbol_warning">Warning : \'~\' is forbidden symbol</string>
     <string name="add_dialog_incorrect_name_error_message">Error : the first two characters should indicate the size</string>
     <string name="succecfull_file_choose">File is chosen</string>
+
+    //import messages
+    <string name="success_import_title">SUCCESS</string>
+
+
+    <string name="settings_ui_label">UI</string>
+    <string name="settings_theme_container_label">Theme</string>
+    <string name="settings_theme_container_desc">Click to change application theme</string>
+    <string name="theme_dialog_label">theme will be displayed here</string>
+    <string name="dark_theme">dark theme</string>
+    <string name="light_theme">light theme</string>
+    <string name="green_theme">green theme</string>
+    <string name="brown_theme">brown theme</string>
+    <string name="ok_btn">OK</string>
+    <string name="meni_item_update_title" tools:ignore="MissingTranslation">update</string>
+    <string name="menu_item_settings_title" tools:ignore="MissingTranslation">settings</string>
 
 
 </resources>

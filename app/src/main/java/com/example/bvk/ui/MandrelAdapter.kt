@@ -2,13 +2,13 @@ package com.example.bvk.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Configuration
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bvk.R
@@ -83,22 +83,35 @@ class MandrelAdapter(
 
     @SuppressLint("UseCompatLoadingForDrawables")
     fun setUIMode() {
-        when (res.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_YES -> {
-                binding.mandrelSimpleDataLayout.background =
-                    res.getDrawable(R.drawable.card_bg_night)
-                binding.mandrelSampleDataLayout.background =
-                    res.getDrawable(R.drawable.card_bg_night)
-                binding.menuButton.background = res.getDrawable(R.drawable.card_bg_night)
-                binding.mandrelName.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.mandrelVertexDiameter.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.mandrelBaseDiameter.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.mandrelInfelicity.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.membraneWightTextView.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.adhesiveSleeveWeightTextView.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.totalMembraneLengthTextView.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.mandrelHeight.setTextColor(res.getColor(R.color.text_mode_night))
-            }
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            binding.mandrelSimpleDataLayout.background =
+                res.getDrawable(R.drawable.card_bg_night)
+            binding.mandrelSampleDataLayout.background =
+                res.getDrawable(R.drawable.card_bg_night)
+            binding.menuButton.background = res.getDrawable(R.drawable.card_bg_night)
+
+            binding.mandrelName.setTextColor(res.getColor(R.color.text_mode_night))
+            binding.mandrelVertexDiameter.setTextColor(res.getColor(R.color.text_mode_night))
+            binding.mandrelBaseDiameter.setTextColor(res.getColor(R.color.text_mode_night))
+            binding.mandrelInfelicity.setTextColor(res.getColor(R.color.text_mode_night))
+            binding.membraneWightTextView.setTextColor(res.getColor(R.color.text_mode_night))
+            binding.adhesiveSleeveWeightTextView.setTextColor(res.getColor(R.color.text_mode_night))
+            binding.totalMembraneLengthTextView.setTextColor(res.getColor(R.color.text_mode_night))
+            binding.mandrelHeight.setTextColor(res.getColor(R.color.text_mode_night))
+        } else {
+            binding.mandrelSimpleDataLayout.background =
+                res.getDrawable(R.drawable.card_bg)
+            binding.mandrelSampleDataLayout.background =
+                res.getDrawable(R.drawable.card_bg)
+            binding.menuButton.background = res.getDrawable(R.drawable.card_bg)
+            binding.mandrelName.setTextColor(res.getColor(R.color.black))
+            binding.mandrelVertexDiameter.setTextColor(res.getColor(R.color.black))
+            binding.mandrelBaseDiameter.setTextColor(res.getColor(R.color.black))
+            binding.mandrelInfelicity.setTextColor(res.getColor(R.color.black))
+            binding.membraneWightTextView.setTextColor(res.getColor(R.color.black))
+            binding.adhesiveSleeveWeightTextView.setTextColor(res.getColor(R.color.black))
+            binding.totalMembraneLengthTextView.setTextColor(res.getColor(R.color.black))
+            binding.mandrelHeight.setTextColor(res.getColor(R.color.black))
         }
     }
 

@@ -7,10 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.example.bvk.R
+import com.example.bvk.*
 import com.example.bvk.databinding.AddMandrelDialogFragmentBinding
 import com.example.bvk.model.Mandrel
-import com.example.bvk.shouldShowError
 import java.lang.Exception
 
 class AddMandrelDialogFragment(
@@ -65,7 +64,6 @@ class AddMandrelDialogFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonAdd.setOnClickListener {
-
 
             if (!binding.mandrelName.shouldShowError(
                     activity?.resources?.getString(R.string.add_dialog_name_error_message),
@@ -187,10 +185,6 @@ class AddMandrelDialogFragment(
     }
 
     companion object {
-        const val CALL_KEY_NEW = "new"
-        const val MANDREL_INFELICITY_MAX_HEIGHT = 30
-        const val MANDREL_DEFAULT_INFELICITY = 1.012
         const val JSON_SEPARATOR = '~'
-
     }
 }

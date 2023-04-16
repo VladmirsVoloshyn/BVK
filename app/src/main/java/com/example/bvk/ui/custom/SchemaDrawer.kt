@@ -17,6 +17,7 @@ class SchemaDrawer @JvmOverloads constructor(
     private var firstLineSchema = 1
     private var secondLineSchema = 1
     private var isStraightLayer = false
+    private var rows = 1
 
     private var startFX = 25f
     private var startFY = 25f
@@ -28,7 +29,8 @@ class SchemaDrawer @JvmOverloads constructor(
         textSize = resources.getDimension(R.dimen.schema_text_size)
     }
 
-    fun setSchema(firstLineAmount: Int, secondLineAmount: Int, isStraightLayerSchema: Boolean) {
+    fun setSchema(firstLineAmount: Int, secondLineAmount: Int, isStraightLayerSchema: Boolean, rowsAmount : Int) {
+        rows = rowsAmount
         firstLineSchema = firstLineAmount
         secondLineSchema = secondLineAmount
         isStraightLayer = isStraightLayerSchema
@@ -58,6 +60,7 @@ class SchemaDrawer @JvmOverloads constructor(
         //second line text
         startFX = 15f
         startFY = 85f
+        val letter = startFY
         canvas?.drawText(secondLineSchema.toString(), startFX, startFY, paint)
         //check if straight layer
         if (isStraightLayer) {
@@ -91,5 +94,17 @@ class SchemaDrawer @JvmOverloads constructor(
             canvas?.drawCircle(startFX, startFY, circleRadius, paint)
             startFX += 40
         }
+
+        startFX+=13
+        startFY-=5
+
+        canvas?.drawLine(startFX, startFY + 10, startFX, 35f, paint)
+        canvas?.drawLine(startFX, 35f, startFX - 5, 55f, paint)
+        canvas?.drawLine(startFX, 35f, startFX + 5, 55f, paint)
+        startFX+=15
+        startFY = letter
+
+        canvas?.drawText("$rows ${resources.getText(R.string.rows_postfix)}",startFX, startFY,paint)
+
     }
 }

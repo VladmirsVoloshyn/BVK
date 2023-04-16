@@ -1,7 +1,6 @@
 package com.example.bvk.ui.settings
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,16 +9,15 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.provider.DocumentsContract
 import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.asLiveData
-import com.example.bvk.BVKApplication
-import com.example.bvk.R
+import com.example.bvk.*
 import com.example.bvk.database.mandreldatabase.MandrelRepository
 import com.example.bvk.database.packagedatabase.PackageRepository
 import com.example.bvk.databinding.ActivitySettingsBinding
@@ -28,16 +26,18 @@ import com.example.bvk.model.databaseimportexport.ImportDataListCreator
 import com.example.bvk.model.databaseimportexport.export.ExportDataBaseWriter
 import com.example.bvk.model.databaseimportexport.import.ImportDataBaseReader
 import com.example.bvk.ui.MainActivity
-import com.example.bvk.ui.dialogs.ConfirmationDialogFragment
-import com.example.bvk.ui.MandrelFragment
 import com.example.bvk.ui.dialogs.EnterPasswordDialogFragment
+import com.nbsp.materialfilepicker.MaterialFilePicker
+import com.nbsp.materialfilepicker.ui.FilePickerActivity
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
+import java.util.regex.Pattern
 
 class SettingsActivity : AppCompatActivity(),
     ChangePasswordDialogFragment.OnPasswordChangeListener,
-    ConfirmationDialogFragment.OnConfirmationListener, SetValueDialogFragment.OnValueSetListener,
-    EnterPasswordDialogFragment.OnPasswordEnterListener {
+    SetValueDialogFragment.OnValueSetListener,
+    EnterPasswordDialogFragment.OnPasswordEnterListener,
+    ChangeThemeDialogFragment.OnThemeChangeListener {
 
     private lateinit var binding: ActivitySettingsBinding
 
@@ -51,26 +51,25 @@ class SettingsActivity : AppCompatActivity(),
 
     private lateinit var exportDataBaseWriter: ExportDataBaseWriter
 
+    private val dialogManager = SettingsDialogManager(this)
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        mandrelRepository = (application as BVKApplication).mandrelsRepository
-        schemasRepository = (application as BVKApplication).schemasRepository
-
-        exportDataBaseWriter = ExportDataBaseWriter(
-            ExportListManager.exportMandrelsList,
-            ExportListManager.exportSchemasList
-        )
-
-        preferences = application.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
-        editor = preferences!!.edit()
-
+        prepareSystem()
         setUIMode()
+        if (preferences?.getString(THEME_KEY, null) != Theme.DARK.desc) {
+            setUpTheme()
+        }
 
-        supportActionBar?.subtitle = getString(R.string.action_bar_settings_label)
+        binding.themeContainer.setOnClickListener {
+            val changeThemeDialog =
+                ChangeThemeDialogFragment(this, preferences?.getString(THEME_KEY, null) ?: "light")
+            changeThemeDialog.show(supportFragmentManager, "NEW_THEME")
+        }
 
         binding.adhesiveSaveLineSettingsContainer.setOnClickListener {
             val setValueDialogFragment = SetValueDialogFragment(
@@ -93,6 +92,7 @@ class SettingsActivity : AppCompatActivity(),
         }
 
         binding.exportContainer.setOnClickListener {
+            requestStorageAccessPermission()
             val enterPasswordDialogFragment = EnterPasswordDialogFragment(
                 preferences!!.getString(
                     PREFERENCE_KEY_PASSWORD, "123"
@@ -102,24 +102,7 @@ class SettingsActivity : AppCompatActivity(),
         }
         binding.importContainer.setOnClickListener {
             requestStorageAccessPermission()
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = "text/*"
-            intent.putExtra(
-                DocumentsContract.EXTRA_INITIAL_URI,
-                Environment.getExternalStorageDirectory()
-            )
-            startActivityForResult(intent, 123)
-        }
-
-        binding.restoreDefaultSettingsContainer.setOnClickListener {
-            val confirmationDialogFragment = ConfirmationDialogFragment(
-                MandrelFragment.RESTORE_DEFAULT_CONFIRMATION_CALL_KEY, listener = this
-            )
-            confirmationDialogFragment.show(
-                supportFragmentManager,
-                MandrelFragment.RESTORE_DEFAULT_CONFIRMATION_CALL_KEY
-            )
+            prepareFilePicker()
         }
 
         binding.passwordSettingsContainer.setOnClickListener {
@@ -131,7 +114,6 @@ class SettingsActivity : AppCompatActivity(),
             )
             changePasswordDialogFragment.show(supportFragmentManager, "PASSWORD")
         }
-        onBackPressedDispatcher.addCallback(getBackPressedCallBack())
     }
 
 
@@ -146,21 +128,27 @@ class SettingsActivity : AppCompatActivity(),
         }
     }
 
-    private fun prepareImportData(inputPath: String) {
-        val importDataBaseReader = ImportDataBaseReader(inputPath)
-        importListCreator = ImportDataListCreator(importDataBaseReader.read())
-        importData()
-
+    private fun prepareFilePicker() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        MaterialFilePicker()
+            .withActivity(this)
+            .withRequestCode(REQUEST_CODE)
+            .withFilter(Pattern.compile(".*\\.$EXPORT_FILE_FORMAT$"))
+            .withFilterDirectories(false)
+            .withHiddenFiles(true)
+            .withTitle("Choose file")
+            .withActivity(this)
+            .start()
     }
 
-    private fun importData() {
+    private fun importData(inputPath: String) {
+        val importDataBaseReader = ImportDataBaseReader(inputPath)
+        importListCreator = ImportDataListCreator(importDataBaseReader.read())
         val listMandrels = mandrelRepository.getAllMandrels.asLiveData().value
         val listSchemas = schemasRepository.getAllSchemas.asLiveData().value
 
-        if (importListCreator.getMandrelsImportList()
-                .isEmpty() || importListCreator.getSchemasList().isEmpty()
-        ) {
-            printWrongFileDialog()
+        if (importListCreator.getMandrelsImportList().isEmpty()) {
+            Toast.makeText(this, "wrong file", Toast.LENGTH_SHORT).show()
         } else {
             CoroutineScope(IO).launch {
                 for (mandel in importListCreator.getMandrelsImportList()) {
@@ -177,99 +165,49 @@ class SettingsActivity : AppCompatActivity(),
         }
     }
 
-
-    private fun isContains(inputElement: Any, existList: List<Any>): Boolean {
-        for (elements in existList) {
-            if (elements.hashCode() == inputElement.hashCode()) {
-                return true
+    private fun setUpTheme() {
+        when (preferences?.getString(THEME_KEY, MainActivity.DEFAULT_THEME)) {
+            Theme.LIGHT.desc -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            Theme.DARK.desc -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            Theme.GREEN.desc -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                setTheme(R.style.Theme_BVK_Green)
+                changeStatusBarColor(this, R.color.greenThemeStatusBarColor)
+                supportActionBar?.setBackgroundDrawable(resources.getDrawable(R.drawable.card_bg_green))
+            }
+            Theme.BROWN.desc -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                setTheme(R.style.Theme_BVK_Brown)
+                changeStatusBarColor(this, R.color.brownThemeStatusBarColor)
+                supportActionBar?.setBackgroundDrawable(resources.getDrawable(R.drawable.card_bg_brown))
             }
         }
-        return false
     }
 
-
-    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        setUpTheme()
+        val theme = AppCompatDelegate.getDefaultNightMode()
+        AppCompatDelegate.setDefaultNightMode(theme)
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 123 && resultCode == RESULT_OK) {
-            if (data != null) {
-                val uri = data.data
-                val path = uri?.path?.substringAfter(':')
-                try {
-                    prepareImportData(path ?: "wrong")
-                    printImportDialog(path.toString(), data.data?.path.toString()).show()
-                } catch (e: Exception) {
-                    printExceptionDialog(e, path.toString(), data.data?.path.toString()).show()
-                }
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            val filePath = data?.getStringExtra(FilePickerActivity.RESULT_FILE_PATH)
+            try {
+                importData(filePath ?: "wrong")
+                dialogManager.printImportDialog().show()
+            } catch (e: Exception) {
+                dialogManager.printExceptionDialog(
+                    e,
+                    filePath.toString(),
+                    data?.data?.path.toString()
+                ).show()
             }
         }
+
     }
-
-    private fun printWrongFileDialog(
-
-    ): AlertDialog {
-        val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder
-            .setMessage(
-                "IncorrectFile"
-            )
-            .setPositiveButton("cancel") { dialog, _ ->
-                dialog.cancel()
-                finishAffinity()
-                val intent = Intent(applicationContext, MainActivity::class.java)
-                startActivity(intent)
-            }
-        return dialogBuilder.create()
-    }
-
-    private fun printImportDialog(
-        correctPath: String,
-        fullPath: String
-    ): AlertDialog {
-        val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder
-            .setMessage(
-                "SUCCESS\n" +
-                        "PATH : $correctPath\n" +
-                        "FULL PATH : $fullPath"
-            )
-            .setPositiveButton("cancel") { dialog, _ ->
-                dialog.cancel()
-                finishAffinity()
-                val intent = Intent(applicationContext, MainActivity::class.java)
-                startActivity(intent)
-            }
-        return dialogBuilder.create()
-    }
-
-    private fun printExceptionDialog(
-        e: Exception,
-        incorrectPath: String,
-        fullPath: String
-    ): AlertDialog {
-        val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder
-            .setMessage(
-                "ERROR : ${e.message}\n" +
-                        "INCORRECT PATH : $incorrectPath\n" +
-                        "FULL PATH : $fullPath"
-            )
-            .setPositiveButton("cancel") { dialog, _ ->
-                dialog.cancel()
-            }
-        return dialogBuilder.create()
-    }
-
 
     companion object {
-        const val APP_PREFERENCES = "settings"
-        const val PREFERENCE_KEY_PASSWORD = "pass"
-        const val PREFERENCE_KEY_ADHESIVE_LINE = "kal"
-        const val PREFERENCE_KEY_MEMBRANE_WEIGHT = "kmw"
-        const val DEFAULT_PASSWORD = "123"
-        const val RESTORE_DEFAULT_CONFIRMATION_CALL_KEY = "RESTORE"
-        private const val CALL_KEY_ADHESIVE = "adhesive"
-        private const val CALL_KEY_MEMBRANE_DEPTH = "depth"
+
+        private const val REQUEST_CODE = 989
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -279,12 +217,14 @@ class SettingsActivity : AppCompatActivity(),
                 binding.passwordSettingsContainer.background = getDrawable(R.drawable.card_bg)
                 binding.adhesiveSaveLineSettingsContainer.background =
                     getDrawable(R.drawable.card_bg)
-                binding.membraneDepthSettingsContainer.background = getDrawable(R.drawable.card_bg)
+                binding.membraneDepthSettingsContainer.background =
+                    getDrawable(R.drawable.card_bg)
             }
             Configuration.UI_MODE_NIGHT_YES -> {
                 binding.restoreDefaultSettingsContainer.background =
                     getDrawable(R.drawable.card_bg_night)
-                binding.passwordSettingsContainer.background = getDrawable(R.drawable.card_bg_night)
+                binding.passwordSettingsContainer.background =
+                    getDrawable(R.drawable.card_bg_night)
                 binding.adhesiveSaveLineSettingsContainer.background =
                     getDrawable(R.drawable.card_bg_night)
                 binding.membraneDepthSettingsContainer.background =
@@ -292,6 +232,8 @@ class SettingsActivity : AppCompatActivity(),
                 binding.importContainer.background =
                     getDrawable(R.drawable.card_bg_night)
                 binding.exportContainer.background =
+                    getDrawable(R.drawable.card_bg_night)
+                binding.themeContainer.background =
                     getDrawable(R.drawable.card_bg_night)
             }
         }
@@ -314,13 +256,6 @@ class SettingsActivity : AppCompatActivity(),
         Toast.makeText(this, "Password change successful", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onDeleteConfirm(position: Int, confirmationKey: String) {
-    }
-
-    override fun onRestoreDefaultConfirm() {
-        println("do nothing")
-    }
-
     override fun onValueSet(newValue: Int, callKey: String) {
         if (callKey == CALL_KEY_ADHESIVE) {
             editor.putInt(PREFERENCE_KEY_ADHESIVE_LINE, newValue).apply()
@@ -336,4 +271,25 @@ class SettingsActivity : AppCompatActivity(),
         Toast.makeText(this, "export file created", Toast.LENGTH_SHORT).show()
     }
 
+    private fun prepareSystem() {
+        supportActionBar?.subtitle = getString(R.string.action_bar_settings_label)
+        mandrelRepository = (application as BVKApplication).mandrelsRepository
+        schemasRepository = (application as BVKApplication).schemasRepository
+
+        exportDataBaseWriter = ExportDataBaseWriter(
+            ExportListManager.exportMandrelsList,
+            ExportListManager.exportSchemasList
+        )
+
+        onBackPressedDispatcher.addCallback(getBackPressedCallBack())
+        preferences = application.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
+        editor = preferences!!.edit()
+    }
+
+    override fun onThemeChanged(theme: String) {
+        editor.putString(THEME_KEY, theme).apply()
+        finishAffinity()
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intent)
+    }
 }

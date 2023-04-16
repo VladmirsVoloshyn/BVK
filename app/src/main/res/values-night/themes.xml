@@ -1,15 +1,16 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
     <style name="Theme.BVK" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">#939393</item>
+        <item name="colorPrimary">#000000</item>
         <item name="colorPrimaryVariant">#575757</item>
-        <item name="colorOnPrimary">#E6E6E6</item>
-        <!-- Secondary brand color. -->
+        <item name="colorOnPrimary">#424242</item>
         <item name="colorSecondary">#506866</item>
         <item name="colorSecondaryVariant">#243A3A</item>
-        <item name="colorOnSecondary">#000000</item>
-        <!-- Customize your theme here. -->
+        <item name="colorOnSecondary">#959595</item>
+        <item name="android:textColorPrimary">#ADADAD</item>
+        <item name="colorPrimaryDark">#595959</item>
+        <item name="colorAccent">#575757</item>
+        <item name="android:colorAccent">#818181</item>
+        <item name="colorControlHighlight">#506866</item>
+        <item name="android:colorBackground">#232323</item>
     </style>
 </resources>

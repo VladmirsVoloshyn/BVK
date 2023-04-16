@@ -16,7 +16,7 @@ abstract class MandrelRoomDataBase : RoomDatabase() {
 
         private class MandrelsDataBaseCallBack(
             private val scope: CoroutineScope
-        ) : RoomDatabase.Callback() {
+        ) : Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 INSTANCE?.let { dataBase ->

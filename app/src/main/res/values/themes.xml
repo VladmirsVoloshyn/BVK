@@ -1,14 +1,46 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
     <style name="Theme.BVK" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
         <item name="colorPrimary">#939393</item>
         <item name="colorPrimaryVariant">#575757</item>
         <item name="colorOnPrimary">#E6E6E6</item>
-        <!-- Secondary brand color. -->
         <item name="colorSecondary">#506866</item>
         <item name="colorSecondaryVariant">#243A3A</item>
         <item name="colorOnSecondary">#000000</item>
-        <!-- Customize your theme here. -->
+        <item name="android:textColorPrimary">#181818</item>
+        <item name="colorPrimaryDark">#939393</item>
+        <item name="colorAccent">#575757</item>
+        <item name="android:colorAccent">#E6E6E6</item>
+        <item name="colorControlHighlight">#506866</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+    </style>
+
+    <style name="Theme.BVK.Green" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">#6B986D</item>
+        <item name="colorPrimaryVariant">#465E47</item>
+        <item name="colorOnPrimary">#E6E6E6</item>
+        <item name="colorSecondary">#A6D3A8</item>
+        <item name="colorSecondaryVariant">#233524</item>
+        <item name="colorOnSecondary">#1F4320</item>
+        <item name="android:textColorPrimary">#628C64</item>
+        <item name="colorPrimaryDark">#819882</item>
+        <item name="colorAccent">#567C57</item>
+        <item name="android:colorAccent">#E6E6E6</item>
+        <item name="colorControlHighlight">#819E82</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+    </style>
+
+    <style name="Theme.BVK.Brown" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">#98794B</item>
+        <item name="colorPrimaryVariant">#957E5B</item>
+        <item name="colorOnPrimary">#E6E6E6</item>
+        <item name="colorSecondary">#D1B388</item>
+        <item name="colorSecondaryVariant">#6A4001</item>
+        <item name="colorOnSecondary">#98651A</item>
+        <item name="android:textColorPrimary">#B8873F</item>
+        <item name="colorPrimaryDark">#B89663</item>
+        <item name="colorAccent">#A87933</item>
+        <item name="android:colorAccent">#E6E6E6</item>
+        <item name="colorControlHighlight">#C39D65</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
     </style>
 </resources>

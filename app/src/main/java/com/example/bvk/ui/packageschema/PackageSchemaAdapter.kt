@@ -2,24 +2,23 @@ package com.example.bvk.ui.packageschema
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Configuration
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bvk.R
 import com.example.bvk.databinding.SchemaRecyclerContainerBinding
-import com.example.bvk.model.Mandrel
 import com.example.bvk.model.packageschema.PackageSchema
 
 class PackageSchemaAdapter(
     private val schemasList: List<PackageSchema>,
     val context: Context,
     val listener: OnSchemaListButtonClickListener?,
-    var isSamPleCreated : Boolean = false
+    var isSamPleCreated: Boolean = false
 ) : RecyclerView.Adapter<PackageSchemaAdapter.PackageSchemaViewHolder>() {
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
@@ -40,48 +39,50 @@ class PackageSchemaAdapter(
             context.getString(R.string.package_schema_name_label) + SPACE + schemasList[position].schemaName
         binding.boxTypeTextView.text =
             context.getString(R.string.package_schema_box_type_label) + SPACE + schemasList[position].boxType
-        binding.schemaSignsTextView.text =
-            context.getString(R.string.schema_format_label) + SPACE + schemasList[position].firstLineCount.toString() + context.getString(
-                R.string.name_separator
-            ) + schemasList[position].secondLineCount.toString()
         binding.totalCountInBoxTextView.text =
-            context.getString(R.string.schema_cup_in_box_label) + SPACE + schemasList[position].capAmountInBox + SPACE + res.getText(R.string.pcs_postfix)
+            context.getString(R.string.schema_cup_in_box_label) + SPACE + schemasList[position].capAmountInBox + SPACE + res.getText(
+                R.string.pcs_postfix
+            )
         binding.totalCountInBundleTextView.text =
-            context.getString(R.string.schema_cap_in_bundle_label) + SPACE + schemasList[position].capAmountInBundle + SPACE + res.getText(R.string.pcs_postfix)
+            context.getString(R.string.schema_cap_in_bundle_label) + SPACE + schemasList[position].capAmountInBundle + SPACE + res.getText(
+                R.string.pcs_postfix
+            )
 
-        if (isSamPleCreated){
-            binding.listNumberLabel.text = ((position+1).toString() + "/" + schemasList.count().toString())
+        if (isSamPleCreated) {
+            binding.listNumberLabel.text =
+                ((position + 1).toString() + "/" + schemasList.count().toString())
         }
 
         binding.schemaImage.setSchema(
             schemasList[position].firstLineCount,
             schemasList[position].secondLineCount,
-            schemasList[position].isStraightLaying
+            schemasList[position].isStraightLaying,
+            schemasList[position].layerCount
         )
 
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     fun setUIMode() {
-        when (res.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> {
-                binding.schemaDataLayout.background = res.getDrawable(R.drawable.card_bg)
-                binding.menuButton.background = res.getDrawable(R.drawable.card_bg)
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            binding.schemaDataLayout.background =
+                res.getDrawable(R.drawable.card_bg_night)
+            binding.menuButton.background = res.getDrawable(R.drawable.card_bg_night)
+            binding.schemaNameTextView.setTextColor(res.getColor(R.color.text_mode_night))
+            binding.boxTypeTextView.setTextColor(res.getColor(R.color.text_mode_night))
+            binding.totalCountInBoxTextView.setTextColor(res.getColor(R.color.text_mode_night))
+            binding.totalCountInBundleTextView.setTextColor(res.getColor(R.color.text_mode_night))
+        } else {
+            binding.schemaDataLayout.background = res.getDrawable(R.drawable.card_bg)
+            binding.menuButton.background = res.getDrawable(R.drawable.card_bg)
 
-
-            }
-            Configuration.UI_MODE_NIGHT_YES -> {
-                binding.schemaDataLayout.background =
-                    res.getDrawable(R.drawable.card_bg_night)
-                binding.menuButton.background = res.getDrawable(R.drawable.card_bg_night)
-                binding.schemaNameTextView.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.boxTypeTextView.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.schemaSignsTextView.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.totalCountInBoxTextView.setTextColor(res.getColor(R.color.text_mode_night))
-                binding.totalCountInBundleTextView.setTextColor(res.getColor(R.color.text_mode_night))
-            }
+            binding.schemaNameTextView.setTextColor(res.getColor(R.color.black))
+            binding.boxTypeTextView.setTextColor(res.getColor(R.color.black))
+            binding.totalCountInBoxTextView.setTextColor(res.getColor(R.color.black))
+            binding.totalCountInBundleTextView.setTextColor(res.getColor(R.color.black))
         }
     }
+
 
     override fun getItemViewType(position: Int): Int {
         return position
@@ -91,7 +92,7 @@ class PackageSchemaAdapter(
         return position.toLong()
 
     }
-    
+
     override fun getItemCount(): Int = schemasList.count()
 
     companion object {
@@ -105,7 +106,7 @@ class PackageSchemaAdapter(
 
         init {
 
-            if (isSamPleCreated){
+            if (isSamPleCreated) {
                 binding.menuButton.visibility = Button.GONE
                 binding.listNumberLabel.visibility = TextView.VISIBLE
             }

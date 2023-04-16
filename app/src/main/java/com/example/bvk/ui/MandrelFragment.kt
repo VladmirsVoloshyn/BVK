@@ -9,13 +9,13 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bvk.BVKApplication
-import com.example.bvk.R
+import com.example.bvk.*
 import com.example.bvk.databinding.FragmentMandrelBinding
 import com.example.bvk.model.Mandrel
 import com.example.bvk.model.databaseimportexport.ExportListManager
@@ -24,14 +24,15 @@ import com.example.bvk.model.sample.SampleCapParameters
 import com.example.bvk.ui.dialogs.*
 import com.example.bvk.ui.packageschema.PackageSchemaAdapter
 
-class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelListener,
+class MandrelFragment() : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelListener,
     MandrelAdapter.OnMandrelListButtonClickListener,
     SampleCreateDialogFragment.OnSampleCreatedListener,
     EnterPasswordDialogFragment.OnPasswordEnterListener,
     ConfirmationDialogFragment.OnConfirmationListener,
-    MainActivity.IfUpdateButtonClickedListener,
     AddPackageSchemaDialogFragment.OnAddOrEditPackageSchemaListener,
-    PackageSchemaAdapter.OnSchemaListButtonClickListener {
+    PackageSchemaAdapter.OnSchemaListButtonClickListener,
+    MainActivity.OnUpdateModeListener
+{
 
     private var _binding: FragmentMandrelBinding? = null
     private val binding get() = _binding!!
@@ -129,7 +130,13 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
     //ui modes
     private fun setMandrelDataView() {
-        binding.changeDataListFab.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_backpack_24))
+        binding.changeDataListFab.setImageDrawable(
+            ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.ic_baseline_backpack_24,
+                null
+            )
+        )
         binding.mandrelsList.visibility = RecyclerView.VISIBLE
         binding.schemasList.visibility = RecyclerView.INVISIBLE
         binding.textViewLabel.text =
@@ -140,7 +147,13 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
 
     private fun setPackageSchemaDataView() {
         inflateSchemasList()
-        binding.changeDataListFab.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_sample_recycler_image))
+        binding.changeDataListFab.setImageDrawable(
+            ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.ic_baseline_sample_recycler_image,
+                null
+            )
+        )
         binding.mandrelsList.visibility = RecyclerView.INVISIBLE
         binding.schemasList.visibility = RecyclerView.VISIBLE
         binding.textViewLabel.text = getString(R.string.package_schemas_list_label)
@@ -171,22 +184,6 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
             activity?.resources?.getString(R.string.action_bar_subtitle_operator_mode)
         inflateMandrelsList()
     }
-
-    override fun onUpdateModeClicked() {
-        if (!viewModel.isAdministratorMode) {
-            val enterPasswordDialogFragment = EnterPasswordDialogFragment(
-                preferences?.getString(
-                    PREFERENCE_KEY_PASSWORD,
-                    DEFAULT_PASSWORD
-                ), this
-            )
-            enterPasswordDialogFragment.show(activity?.supportFragmentManager!!, "PASSWORD")
-        } else {
-            setOperatorMode()
-            setMandrelDataView()
-        }
-    }
-
 
     fun clearSample() {
         viewModel.isSampleCreated = false
@@ -398,27 +395,27 @@ class MandrelFragment : Fragment(), AddMandrelDialogFragment.OnAddOrEditMandrelL
         setAdministratorMode()
     }
 
-    override fun onRestoreDefaultConfirm() {
-    }
-
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
 
-    companion object {
-        const val APP_PREFERENCES = "settings"
-        const val PREFERENCE_KEY_PASSWORD = "pass"
-        const val DEFAULT_PASSWORD = "123"
-
-        const val CALL_KEY_NEW = "new"
-        const val CALL_KEY_EDIT = "edit"
-        const val ADD_FRAGMENT_TAG = "add"
-        const val SAMPLE_CREATE_FRAGMENT_TAG = "sample"
-        const val DELETE_DIALOG_TAG = "delete"
-        const val RESTORE_DEFAULT_CONFIRMATION_CALL_KEY = "RESTORE"
-        const val DELETE_MANDREL_CONFIRMATION_CALL_KEY = "DELETE_MANDREL"
-        const val DELETE_PACKAGE_SCHEMA_CONFIRMATION_CALL_KEY = "DELETE_PACKAGE_SCHEMA"
+    override fun onUpdate() {
+        if (!viewModel.isAdministratorMode) {
+            val enterPasswordDialogFragment = EnterPasswordDialogFragment(
+                preferences?.getString(
+                    PREFERENCE_KEY_PASSWORD,
+                    DEFAULT_PASSWORD
+                ), this
+            )
+            enterPasswordDialogFragment.show(
+                requireActivity().supportFragmentManager,
+                "PASSWORD"
+            )
+        } else {
+            setOperatorMode()
+            setMandrelDataView()
+        }
     }
 
 }

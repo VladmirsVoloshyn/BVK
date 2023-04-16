@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -12,30 +11,36 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.fragment.app.FragmentTransaction
-import com.example.bvk.R
+import androidx.appcompat.app.AppCompatDelegate
+import com.example.bvk.*
 import com.example.bvk.databinding.ActivityMainBinding
 import com.example.bvk.ui.settings.SettingsActivity
+import com.example.bvk.ui.settings.Theme
 
 class MainActivity : AppCompatActivity(), FragmentCommutator {
 
     private lateinit var binding: ActivityMainBinding
     private var mandrelFragment = MandrelFragment()
-    private var fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+
     private var saveIsSampleCreated: Boolean = false
-    private var onUpdateModeListener: MandrelFragment? = null
+    private var onUpdateModeListener: OnUpdateModeListener? = null
 
     private var preferences: SharedPreferences? = null
     private lateinit var editor: SharedPreferences.Editor
     private var launchCounter = 0
 
-
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        initBinding()
+        configurePreference()
+        checkPermissions()
+        registerNewLaunch()
+        configureMainFragment()
+        setUpTheme()
+    }
 
+    private fun checkPermissions() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M &&
             checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
         ) {
@@ -43,21 +48,17 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
                 Array(1) { android.Manifest.permission.WRITE_EXTERNAL_STORAGE }
             requestPermissions(writePerm, 1000)
         }
+    }
 
-        preferences =
-            application.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
-        editor = preferences!!.edit()
-        registerNewLaunch()
-
-        setDefaultPreferences()
-
-        if (savedInstanceState == null) {
+    private fun configureMainFragment() {
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
             fragmentTransaction.replace(binding.container.id, mandrelFragment).commit()
-        }
-        onUpdateModeListener = mandrelFragment
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            onUpdateModeListener = mandrelFragment
+    }
 
-
+    private fun initBinding() {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     private fun registerNewLaunch() {
@@ -67,7 +68,13 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
         editor.apply()
     }
 
-    private fun setDefaultPreferences() {
+    private fun configurePreference() {
+        preferences =
+            application.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
+        editor = preferences!!.edit()
+        if (preferences?.getString(THEME_KEY, null) == null) {
+            editor.putString(THEME_KEY, DEFAULT_THEME)
+        }
         if (launchCounter == 1) {
             Toast.makeText(this, launchCounter.toString(), Toast.LENGTH_SHORT).show()
             editor.putString(PREFERENCE_KEY_PASSWORD, DEFAULT_PASSWORD).apply()
@@ -94,17 +101,13 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.updateModeItem) {
-            onUpdateModeListener?.onUpdateModeClicked()
+            onUpdateModeListener?.onUpdate()
         } else if (item.itemId == R.id.openSettingsItem) {
             finish()
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    interface IfUpdateButtonClickedListener {
-        fun onUpdateModeClicked()
     }
 
     override fun onRequestPermissionsResult(
@@ -116,21 +119,47 @@ class MainActivity : AppCompatActivity(), FragmentCommutator {
         when (requestCode) {
             1000 -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "доступ разрешен", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        resources.getText(R.string.access_denied),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
-                    Toast.makeText(this, "доступ запрещен", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        resources.getText(R.string.access_denied),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
     }
 
     companion object {
-        const val IS_SAMPLE_CREATE_TAG = "is_sample_create"
-        const val APP_PREFERENCES = "settings"
-        const val PREFERENCE_KEY_PASSWORD = "pass"
-        const val PREFERENCE_KEY_LAUNCH_COUNTER = "launch_counter"
-        const val PREFERENCE_KEY_ADHESIVE_LINE = "kal"
-        const val PREFERENCE_KEY_MEMBRANE_WEIGHT = "kmw"
-        const val DEFAULT_PASSWORD = "123"
+        const val DEFAULT_THEME = "light"
+    }
+
+    private fun setUpTheme() {
+        when (preferences?.getString(THEME_KEY, DEFAULT_THEME)) {
+            Theme.LIGHT.desc -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            Theme.DARK.desc -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            Theme.GREEN.desc -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                setTheme(R.style.Theme_BVK_Green)
+                changeStatusBarColor(this, R.color.greenThemeStatusBarColor)
+                supportActionBar?.setBackgroundDrawable(resources.getDrawable(R.drawable.card_bg_green))
+            }
+            Theme.BROWN.desc -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                setTheme(R.style.Theme_BVK_Brown)
+                changeStatusBarColor(this, R.color.brownThemeStatusBarColor)
+                supportActionBar?.setBackgroundDrawable(resources.getDrawable(R.drawable.card_bg_brown))
+            }
+        }
+    }
+
+    interface OnUpdateModeListener {
+        fun onUpdate()
     }
 }
+
